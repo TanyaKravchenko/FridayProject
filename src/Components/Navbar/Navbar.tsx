@@ -1,7 +1,7 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
 import s from './Navbar.module.css';
-import {path} from '../../App';
+import {path} from '../Routes';
 
 type NavbarPropsType = {}
 
