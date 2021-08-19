@@ -1,9 +1,14 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+<<<<<<< HEAD
 .idea
+=======
+
+>>>>>>> dc59d8868fb4004bbc324e4830c3950d30597a50
 # dependencies
 /node_modules
 /.pnp
 .pnp.js
+/.idea
 
 # testing
 /coverage
