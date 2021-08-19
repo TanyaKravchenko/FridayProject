@@ -1,0 +1,24 @@
+.input {
+    padding: 10px;
+    margin: 15px 15px 0px 15px;
+    outline: none;
+    font-size: 18px;
+    border-radius: 3px;
+}
+
+.superInput {
+    border: 3px solid PaleTurquoise;
+    box-shadow: 5px 5px 15px MidnightBlue;
+}
+
+.errorInput {
+    border: 3px solid darkred;
+    background: pink;
+}
+
+.error {
+    display: flex;
+    flex-direction: column;
+    color: red;
+    margin-left: 15px;
+}
