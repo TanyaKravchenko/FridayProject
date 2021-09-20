@@ -1,7 +1,7 @@
 .navLinkItems {
     grid-area: nav;
     display: grid;
-    background-color: cadetblue;
+    background-color: #9890c7;
     grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     margin-bottom: 30px;
 }
@@ -16,7 +16,7 @@
 
 .item:hover {
     opacity: 0.5;
-    background: darkcyan;
+    background: #9890c7;
     border: 1px solid azure;
 }
 

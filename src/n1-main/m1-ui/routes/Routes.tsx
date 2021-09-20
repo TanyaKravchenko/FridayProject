@@ -1,12 +1,12 @@
 import React from 'react';
 import {Redirect, Route, Switch} from 'react-router-dom';
-import Profile from './Profile/Profile';
-import AllSuperComponents from './SuperComponents/AllSuperComponents';
-import Login from './Login/Login';
-import Registration from './Registration/Registration';
-import PasswordRecovery from './Password/PasswordRecovery';
-import NewPassword from './Password/NewPassword';
-import NotFound from './NotFound/NotFound';
+import Profile from '../Components/Profile/Profile';
+import AllSuperComponents from '../Components/SuperComponents/AllSuperComponents';
+import Login from '../Components/Login/Login';
+import Registration from '../Components/Registration/Registration';
+import PasswordRecovery from '../Components/Password/PasswordRecovery';
+import NewPassword from '../Components/Password/NewPassword';
+import NotFound from '../Components/NotFound/NotFound';
 
 export const path = {
     ALL_COMPONENTS: '/allSuperComponents',
