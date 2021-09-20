@@ -1,6 +1,6 @@
 import React from 'react';
 import s from './NotFound.module.css';
-import img from './../../images/oops.png';
+import img from '../../../../assets/images/oops.png';
 
 type NotFoundPropsType = {}
 
