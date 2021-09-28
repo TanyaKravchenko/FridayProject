@@ -1,14 +1,19 @@
 import React from 'react';
 import s from './Login.module.css';
 
-type LoginPropsType = {}
+type LoginPropsType = {
+    // formik: FormikProps<InitialValuesType>
+    cancelHandler?: Function
+}
 
-const Login: React.FC<LoginPropsType> = React.memo(() => {
+export const Login: React.FC<LoginPropsType> = () => {
+
+
     return (
-        <div className={s.loginContainer}>
-            Login
+        <div className={s.loginBlock}>
+           Login
         </div>
-    );
-});
+    )
+}
 
 export default Login;

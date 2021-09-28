@@ -10,7 +10,7 @@ const Navbar: React.FC<NavbarPropsType> = () => {
         <div className={s.navLinkItems}>
             <div className={s.item}>
                 <NavLink to={path.ALL_COMPONENTS} className={s.navLink}
-                         activeClassName={s.active}> AllComponents </NavLink>
+                         activeClassName={s.active}> Main </NavLink>
             </div>
             <div className={s.item}>
                 <NavLink to={path.PROFILE} className={s.navLink}
