@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
-import Navbar from './n1-main/m1-ui/header/Navbar/Navbar';
-import Routes from './n1-main/m1-ui/routes/Routes';
+import Navbar from '../header/Navbar/Navbar';
+import Routes from '../routes/Routes';
 
 const App = () => {
     return (

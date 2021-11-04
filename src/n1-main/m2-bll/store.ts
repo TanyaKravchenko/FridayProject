@@ -1,9 +1,9 @@
 import {applyMiddleware, combineReducers, createStore} from 'redux';
 import thunk, { ThunkAction } from 'redux-thunk';
-import {appReducer} from './Reducers/app-reducer';
-import {loginReducer} from './Reducers/login-reducer';
-import {profileReducer} from './Reducers/profile-reducer';
-import {registrationReducer} from './Reducers/registration-reducer';
+import {appReducer} from './reducers/app-reducer';
+import {loginReducer} from './reducers/login-reducer';
+import {profileReducer} from './reducers/profile-reducer';
+import {registrationReducer} from './reducers/registration-reducer';
 
 const rootReducer = combineReducers({
     app: appReducer,
