@@ -1,8 +1,3 @@
-type InitialStateType = {
-}
-
-type ActionsType = {}
-
 const initialState = {
 
 }
@@ -19,6 +14,11 @@ export const loginReducer = (state: InitialStateType = initialState, action: Act
     }
 }
 
+//type
+
+type InitialStateType = {}
+
+type ActionsType = {}
 
 
 
