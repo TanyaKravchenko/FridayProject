@@ -1,7 +1,10 @@
 import React from 'react';
 import s from './Login.module.css';
 
-export const Login = () => {
+type LoginPropsType = {
+}
+
+export const Login: React.FC<LoginPropsType> = () => {
     return (
         <div className={s.loginBlock}>
             Login
