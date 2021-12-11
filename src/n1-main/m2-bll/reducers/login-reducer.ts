@@ -46,6 +46,17 @@ export const loginTC = (data:LoginDataType) => (dispatch:Dispatch<ActionsType>)=
         }).catch(e => e.response ? e.response.data.error : (e.message + ', more details in the console'))
 }
 
+export const logoutTC = () => (dispatch:Dispatch<ActionsType>)=> {
+    dispatch(setAppStatusAC("loading"))
+    authApi.logOut()
+        .then(res => {
+            console.log(res)
+            dispatch(setIsLoggedInAC(false))
+            dispatch(setAppStatusAC("succeeded"))
+
+        }).catch(e => e.response ? e.response.data.error : (e.message + ', more details in the console'))
+}
+
 
 
 
