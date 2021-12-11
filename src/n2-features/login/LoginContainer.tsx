@@ -6,6 +6,7 @@ import {Redirect} from "react-router-dom";
 import {path} from "../../n1-main/m1-ui/routes/Routes";
 import {useFormik} from "formik";
 import {loginTC} from "../../n1-main/m2-bll/reducers/login-reducer";
+import {RequestStatusType} from "../../n1-main/m2-bll/reducers/app-reducer";
 
 type FormikErrorType = {
     email?: string
@@ -16,6 +17,7 @@ type FormikErrorType = {
 
 export const LoginContainer: React.FC = () => {
     const loginIn = useSelector<RootStateType, boolean>(state=> state.login.isLoggedIn)
+    const status = useSelector<RootStateType, RequestStatusType>(state => state.app.status)
 
     const dispatch = useDispatch()
 
@@ -50,6 +52,7 @@ export const LoginContainer: React.FC = () => {
     return (
 
         <div>
+            {status==='loading' && <div style={{padding:'20px', fontSize:'25px', textAlign:'left'}}>Loading...</div>}
             <Login formik={formik}/>
         </div>
     )
