@@ -1,4 +1,4 @@
-import {authApi, LoginDataType} from "../../m3-dall/app-api";
+import {authApi, LoginDataType} from "../../m3-dal/app-api";
 import {Dispatch} from "react";
 
 const initialState = {
