@@ -44,7 +44,7 @@ const InputText: React.FC<InputTextPropsType> = (
                 onChange={onChangeCallback}
                 onKeyPress={onKeyPressCallback}
                 className={finalInputClassName}
-                placeholder={'Введи текст'}
+                placeholder={'Enter you email'}
                 {...restProps}
             />
             <span className={finalSpanClassName}>{error}</span>

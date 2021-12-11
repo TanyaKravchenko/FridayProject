@@ -1,5 +1,5 @@
 import React from 'react';
-import s from './Password.module.css';
+import s from './Password.module.scss';
 
 type PasswordRecoveryPropsType = {}
 
