@@ -52,7 +52,6 @@ export const Login: React.FC<LoginPropsType> = (props) => {
                 <span className={s.redirectSpan}>Don’t have an account?</span>
                 <button className={s.signBtn}>Sign Up</button>
             </div>
-
         </div>
     )
 }
