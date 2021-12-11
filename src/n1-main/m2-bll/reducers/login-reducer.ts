@@ -1,3 +1,6 @@
+import {authApi, LoginDataType} from "../../m3-dall/app-api";
+import {Dispatch} from "react";
+
 const initialState = {
     isLoggedIn: false
 }
@@ -21,6 +24,17 @@ type InitialStateType = typeof initialState
 
 type ActionsType = ReturnType<typeof setIsLoggedInAC>
 
+
+//thunks
+
+
+export const loginTC = (data:LoginDataType) => (dispatch:Dispatch<ActionsType>)=> {
+    authApi.login(data)
+        .then(res => {
+            console.log(res)
+            dispatch(setIsLoggedInAC(true))
+        }).catch(e => e.response ? e.response.data.error : (e.message + ', more details in the console'))
+}
 
 
 
