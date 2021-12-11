@@ -7,11 +7,12 @@ const initialState = {
 export const appReducer = (state: AppInitialStateType = initialState, action: AppActionsType): AppInitialStateType => {
     switch (action.type) {
         case 'APP/SET-STATUS':
+            return {...state, status:action.status}
 
-        case 'APP/SET-ERROR':
-
-
-        case 'APP/SET-IS-INITIALIZED':
+        // case 'APP/SET-ERROR':
+        //
+        //
+        // case 'APP/SET-IS-INITIALIZED':
 
         default:
             return state

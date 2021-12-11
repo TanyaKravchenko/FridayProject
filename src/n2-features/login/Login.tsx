@@ -42,6 +42,14 @@ export const Login: React.FC<LoginPropsType> = (props) => {
                     ) : null}
                 </div>
                 <a href="#" className={s.link}>Forgot password</a>
+                <div className={s.checkboxBlock}>
+                    <input
+                        type={'checkbox'}
+                        className={s.inputPassword}
+                        {...props.formik.getFieldProps('rememberMe')}
+                    />
+                    <span>Remember me</span>
+                </div>
                 <button
                     className={s.loginBtn}
                     type="submit"
