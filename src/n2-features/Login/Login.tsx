@@ -1,9 +1,6 @@
 import React from 'react';
 import s from './Login.module.scss';
 import InputText from "../super components/InputText/InputText";
-import Button from "../super components/Button/Button";
-import {useSelector} from "react-redux";
-import {RootStateType} from "../../n1-main/m2-bll/store";
 
 type LoginPropsType = {}
 

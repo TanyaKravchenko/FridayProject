@@ -6,7 +6,7 @@ type RegistrationPropsType = {}
 const Registration: React.FC<RegistrationPropsType> = () => {
     return (
         <div className={s.registrationContainer}>
-            Registration/hello
+            Registration/hello/hello
         </div>
     );
 }
