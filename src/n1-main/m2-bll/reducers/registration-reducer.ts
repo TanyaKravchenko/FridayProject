@@ -1,7 +1,4 @@
-type InitialStateType = {
-}
 
-type ActionsType = {}
 
 const initialState = {
 
@@ -19,6 +16,17 @@ export const registrationReducer = (state: InitialStateType = initialState, acti
     }
 }
 
+//actions
+
+
+//thunk
+
+
+//type
+type InitialStateType = {
+}
+
+type ActionsType = {}
 
 
 
