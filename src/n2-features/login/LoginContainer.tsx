@@ -53,7 +53,7 @@ export const LoginContainer: React.FC = () => {
 
         <div>
             {status==='loading' && <div style={{padding:'20px', fontSize:'25px', textAlign:'left'}}>Loading...</div>}
-            <Login formik={formik}/>
+            <Login formik={formik} status={status}/>
         </div>
     )
 }
