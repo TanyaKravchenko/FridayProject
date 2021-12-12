@@ -28,10 +28,11 @@ export const registrationTC = (data: RegisterParamsType) => async (dispatch: Dis
         await authApi.register(data)
         dispatch(registrationAC(true))
     } catch (e) {
-        const error = e.response
-            ? e.response.data.error
-            : (e.message)
         dispatch(setErrorAC(e.response.data.error))
+        // const error = e.response
+        //     ? e.response.data.error
+        //     : (e.message)
+        // dispatch(setErrorAC(error))
     } finally {
         dispatch(setAppStatusAC('succeeded'))
     }

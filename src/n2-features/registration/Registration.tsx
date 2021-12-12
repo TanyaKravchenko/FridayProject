@@ -129,7 +129,6 @@ const Registration: React.FC<RegistrationPropsType> = () => {
                     </div>
                 </div>
             </div>
-
         </div>
     );
 }
