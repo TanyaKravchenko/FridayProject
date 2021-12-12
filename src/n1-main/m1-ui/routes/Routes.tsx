@@ -3,10 +3,10 @@ import {Redirect, Route, Switch} from 'react-router-dom';
 import Profile from '../../../n2-features/profile/Profile';
 import AllSuperComponents from '../../../n2-features/super components/AllSuperComponents';
 import Registration from '../../../n2-features/registration/Registration';
-import PasswordRecovery from '../../../n2-features/password/PasswordRecovery';
 import NewPassword from '../../../n2-features/password/NewPassword';
 import NotFound from '../../../n2-features/notFound/NotFound';
 import {LoginContainer} from '../../../n2-features/login/LoginContainer';
+import {PasswordRecoveryContainer} from "../../../n2-features/password/PasswordRecoveryContainer";
 
 export const path = {
     ALL_COMPONENTS: '/allSuperComponents',
@@ -26,7 +26,7 @@ const Routes = () => {
                 <Route path={path.PROFILE} exact render={() => <Profile/>}/>
                 <Route path={path.LOGIN} exact render={() => <LoginContainer/>}/>
                 <Route path={path.REG} exact render={() => <Registration/>}/>
-                <Route path={path.PASSWORD} exact render={() => <PasswordRecovery/>}/>
+                <Route path={path.PASSWORD} exact render={() => <PasswordRecoveryContainer/>}/>
                 <Route path={path.PASS_REC} exact render={() => <NewPassword/>}/>
                 <Route path={'/404'} render={() => <NotFound/>}/>
                 <Redirect from={'*'} to={'/404'}/>
