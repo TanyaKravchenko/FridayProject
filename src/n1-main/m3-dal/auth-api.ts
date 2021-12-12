@@ -2,40 +2,36 @@ import axios, {AxiosResponse} from 'axios';
 
 export const instance = axios.create({
     withCredentials: true,
-    // baseURL: 'https://neko-back.herokuapp.com/2.0/',
-    baseURL: "http://localhost:7542/2.0/",
+    baseURL: 'https://neko-back.herokuapp.com/2.0/',
+    //baseURL: 'http://localhost:7542/2.0/',
 })
 
 export const authApi = {
-    me() {},
-    login(data:LoginDataType){
+    me() {
+        return instance.post('auth/me', {}).then(res => res.data)
+    },
+    register(data: RegisterParamsType) {
+        return instance.post('/auth/register', data).then(res => res.data)
+    },
+    login(data: LoginDataType) {
         return instance.post<LoginDataType, AxiosResponse<ResponseType>>('auth/login', data)
-
     },
-    logOut(){
+    logOut() {
         return instance.delete<LogOutResponseType>(`auth/me`);
-
     },
-
 }
 
 //types
-// export type RegisterParamsType = {
-//     email:string
-//     password:string
-// }
-//
+export type RegisterParamsType = {
+    email: string
+    password: string
+}
+
 export type LoginDataType = {
-    email:string
-    password:string
+    email: string
+    password: string
     rememberMe: boolean
 }
-//
-// export type ForgotDataType = {
-//     email: string
-//     from: string
-//     message: string
-// }
 
 export type ResponseType = {
     _id: string
@@ -51,10 +47,18 @@ export type ResponseType = {
     error?: string
 }
 
-export type LogOutResponseType ={
-    info:string,
-    error:string
+export type LogOutResponseType = {
+    info: string,
+    error: string
 }
+
+
+//
+// export type ForgotDataType = {
+//     email: string
+//     from: string
+//     message: string
+// }
 // {
 //     _id: string;
 //     email: string;

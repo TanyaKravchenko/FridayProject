@@ -1,4 +1,4 @@
-import {authApi, LoginDataType} from "../../m3-dal/app-api";
+import {authApi, LoginDataType} from "../../m3-dal/auth-api";
 import {Dispatch} from "react";
 import {setAppStatusAC, SetAppStatusActionType} from "./app-reducer";
 import {ProfileDataType, setProfileDataAC, SetProfileDataActionType} from "./profile-reducer";
