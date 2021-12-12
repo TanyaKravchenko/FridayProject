@@ -1,9 +1,11 @@
 import React from 'react';
 import s from './Login.module.scss';
 import InputText from "../super components/InputText/InputText";
+import {RequestStatusType} from "../../n1-main/m2-bll/reducers/app-reducer";
 
 type LoginPropsType = {
-    formik: any
+    formik: any,
+    status:RequestStatusType
 }
 type FormikErrorType = {
     email?: string
@@ -15,7 +17,7 @@ type FormikErrorType = {
 export const Login: React.FC<LoginPropsType> = (props) => {
 
     return (
-        <div className={s.loginBlock}>
+        <div className={s.loginBlock} >
             <h2 className={s.logo}>It-incubator</h2>
             <h3 className={s.title}>Sign in</h3>
             <form onSubmit={props.formik.handleSubmit}>
@@ -51,6 +53,7 @@ export const Login: React.FC<LoginPropsType> = (props) => {
                     <span>Remember me</span>
                 </div>
                 <button
+                    disabled={props.status==='loading'}
                     className={s.loginBtn}
                     type="submit"
                 > Login
