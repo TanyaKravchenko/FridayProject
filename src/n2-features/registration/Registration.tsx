@@ -20,6 +20,8 @@ const Registration: React.FC<RegistrationPropsType> = () => {
     const [errorEmailMessage, setErrorEmailMessage] = useState<string>('')
     const [errorPasswordMessage, setErrorPasswordMessage] = useState<string>('')
 
+    //const disabledBtnSubmit = !email || !password || !checkPassword
+
     const dispatch = useDispatch()
     const appStatus = useSelector<RootStateType, RequestStatusType>(state => state.app.status)
     const isRegistration = useSelector<RootStateType, boolean>(state => state.registration.isRegistration)
@@ -120,6 +122,7 @@ const Registration: React.FC<RegistrationPropsType> = () => {
                             className={s.register}
                             onClick={onRegistrationHandler}
                             disabled={appStatus === 'loading'}
+                            // disabled={disabledBtnSubmit}
                         >
                             Register
                         </button>
