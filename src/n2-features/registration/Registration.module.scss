@@ -14,6 +14,7 @@
     .formBlock {
       width: 350px;
 
+
       .inputItem {
         display: flex;
         flex-direction: column;
@@ -21,6 +22,7 @@
         border: none;
         border-bottom: #F9F9FE;
         font-size: small;
+        position: relative;
 
         label {
           text-align: left;

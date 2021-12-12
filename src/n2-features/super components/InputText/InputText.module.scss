@@ -1,6 +1,26 @@
+.passwordIcon{
+    position: absolute;
+    margin-top: -30px;
+    right: 0;
+    z-index: 10;
+    cursor: pointer;
+}
+
+.checkbox {
+    cursor: pointer;
+    width: 25px;
+}
+
+.error {
+    display: flex;
+    color: red;
+}
+
+
+
+
 .input {
     padding: 10px;
-    margin: 15px 15px 0px 15px;
     outline: none;
     font-size: 18px;
     border-radius: 3px;
@@ -16,9 +36,4 @@
     background: pink;
 }
 
-.error {
-    display: flex;
-    flex-direction: column;
-    color: red;
-    margin-left: 15px;
-}
+
