@@ -1,0 +1,46 @@
+.profile{
+  box-sizing: border-box;
+  padding: 25px 33px;
+
+  width: 413px;
+  height: 600px;
+
+  background-color: #F9F9FE;
+
+  position: absolute;
+  left: 50%;
+  top: 54%;
+
+  transform: translate(-50%, -50%);
+
+  .verify{
+    color:green;
+
+    font-size: 20px;
+  }
+
+  .title{
+    margin-bottom: 20px;
+    margin-top: 10px;
+
+    font-weight: 600;
+    font-size: 26px;
+
+    line-height: 30px;
+
+  }
+  & img{
+    margin: 0 auto;
+
+    display: block;
+
+    width: 230px;
+    height: 230px;
+
+
+    object-fit: cover;
+  }
+  .userName{
+    font-size: 20px;
+  }
+}

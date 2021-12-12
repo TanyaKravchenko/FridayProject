@@ -12,6 +12,10 @@ export const authApi = {
         return instance.post<LoginDataType, AxiosResponse<ResponseType>>('auth/login', data)
 
     },
+    logOut(){
+        return instance.delete<LogOutResponseType>(`auth/me`);
+
+    },
 
 }
 
@@ -45,6 +49,11 @@ export type ResponseType = {
     verified: boolean
     rememberMe: boolean
     error?: string
+}
+
+export type LogOutResponseType ={
+    info:string,
+    error:string
 }
 // {
 //     _id: string;

@@ -1,6 +1,7 @@
 import {authApi, LoginDataType} from "../../m3-dal/app-api";
 import {Dispatch} from "react";
 import {setAppStatusAC, SetAppStatusActionType} from "./app-reducer";
+import {ProfileDataType, setProfileDataAC, SetProfileDataActionType} from "./profile-reducer";
 
 const initialState = {
     isLoggedIn: false
@@ -23,7 +24,7 @@ export const setIsLoggedInAC = (value: boolean) =>
 //type
 type InitialStateType = typeof initialState
 
-type ActionsType = ReturnType<typeof setIsLoggedInAC> | SetAppStatusActionType
+type ActionsType = ReturnType<typeof setIsLoggedInAC> | SetAppStatusActionType | SetProfileDataActionType
 
 
 //thunks
@@ -36,6 +37,23 @@ export const loginTC = (data:LoginDataType) => (dispatch:Dispatch<ActionsType>)=
             console.log(res)
             dispatch(setIsLoggedInAC(true))
             dispatch(setAppStatusAC("succeeded"))
+            const profileData= {
+                name:res.data.name,
+                avatar:res.data.avatar,
+                verified:res.data.verified
+            } as ProfileDataType
+            dispatch(setProfileDataAC(profileData))
+        }).catch(e => e.response ? e.response.data.error : (e.message + ', more details in the console'))
+}
+
+export const logoutTC = () => (dispatch:Dispatch<ActionsType>)=> {
+    dispatch(setAppStatusAC("loading"))
+    authApi.logOut()
+        .then(res => {
+            console.log(res)
+            dispatch(setIsLoggedInAC(false))
+            dispatch(setAppStatusAC("succeeded"))
+
         }).catch(e => e.response ? e.response.data.error : (e.message + ', more details in the console'))
 }
 
