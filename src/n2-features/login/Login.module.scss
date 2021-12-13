@@ -1,17 +1,24 @@
+@import "../../common/styles/mixins";
+@import "../../common/styles/variables";
+
+
+
+
 .loginBlock {
-  box-sizing: border-box;
-  padding: 25px 33px;
-
-  width: 413px;
-  height: 600px;
-
-  background-color: #F9F9FE;
-
+  //box-sizing: border-box;
+  //padding: 25px 33px;
+  //
+  //width: 413px;
+  //height: 600px;
+  //
+  //background-color: #F9F9FE;
+  //
   position: absolute;
   left: 50%;
   top: 54%;
 
   transform: translate(-50%, -50%);
+  @include commonCardStyles(100%, 413px, 540px, $backgroundColorCard);
 
   .logo{
     margin-bottom: 32px;
@@ -63,37 +70,83 @@
       font-size: 16px;
     }
   }
-  .passwordBlock{
-    margin-bottom: 20px;
+  //.passwordBlock{
+  //  //margin-bottom: 20px;
+  //  //
+  //  //text-align: left;
+  //
+  //  display: flex;
+  //  flex-direction: column;
+  //  margin-top: 24px;
+  //  border: none;
+  //  border-bottom: #F9F9FE;
+  //  font-size: small;
+  //  position: relative;
+  //
+  //
+  //
+  //  & span{
+  //    font-size: 13px;
+  //    line-height: 20px;
+  //
+  //    opacity: 0.7;
+  //  }
+  //  .inputPassword{
+  //    width: 320px;
+  //
+  //    margin: 0;
+  //
+  //    padding: 10px 0 5px 0;
+  //
+  //    background-color: inherit;
+  //
+  //    border-top:0;
+  //    border-left: 0;
+  //    border-right: 0;
+  //    border-bottom: 2px solid #24254A;
+  //
+  //    box-shadow: none;
+  //
+  //    color:black;
+  //    font-size: 16px;
+  //
+  //    outline: none;
+  //
+  //    position: relative;
+  //  }
+  //}
 
-    text-align: left;
+  .inputItem {
+    display: flex;
+    flex-direction: column;
+    margin-top: 24px;
+    border: none;
+    border-bottom: #F9F9FE;
+    font-size: small;
 
-    & span{
-      font-size: 13px;
-      line-height: 20px;
 
-      opacity: 0.7;
+    position: relative;
+
+
+
+    label {
+      text-align: left;
+      color: #C0C0C0;
     }
-    .inputPassword{
-      width: 320px;
 
-      margin: 0;
+    input {
+      margin-top: 7px;
 
-      padding: 10px 0 5px 0;
+      background-color: white;
 
-      background-color: inherit;
+      &::placeholder {
+        color: #9890c7;
+      }
+    }
 
-      border-top:0;
-      border-left: 0;
-      border-right: 0;
-      border-bottom: 2px solid #24254A;
-
-      box-shadow: none;
-
-      color:black;
-      font-size: 16px;
-
-      outline: none;
+    input[type="text"],
+    input[type="password"] {
+      @include commonInputStyles();
     }
   }
   .link{
