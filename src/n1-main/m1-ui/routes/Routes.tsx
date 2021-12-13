@@ -3,10 +3,10 @@ import {Redirect, Route, Switch} from 'react-router-dom';
 import Profile from '../../../n2-features/profile/Profile';
 import AllSuperComponents from '../../../n2-features/super components/AllSuperComponents';
 import Registration from '../../../n2-features/registration/Registration';
-import NewPassword from '../../../n2-features/password/NewPassword';
 import NotFound from '../../../n2-features/notFound/NotFound';
 import {LoginContainer} from '../../../n2-features/login/LoginContainer';
 import {PasswordRecoveryContainer} from "../../../n2-features/password/PasswordRecoveryContainer";
+import {NewPassword} from "../../../n2-features/password/NewPassword";
 
 export const path = {
     ALL_COMPONENTS: '/allSuperComponents',

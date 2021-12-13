@@ -24,7 +24,6 @@ export const PasswordRecoveryContainer: React.FC = () => {
             } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
                 errors.email = 'Invalid email address';
             }
-
             return errors;
         },
         onSubmit: values => {
@@ -37,6 +36,7 @@ export const PasswordRecoveryContainer: React.FC = () => {
         <div>
             {status==='loading' && <div style={{padding:'20px', fontSize:'25px', textAlign:'left'}}>Loading...</div>}
             <PasswordRecovery formik={formik}/>
+
         </div>
     )
 }
