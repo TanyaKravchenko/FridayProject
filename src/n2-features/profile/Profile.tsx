@@ -8,6 +8,7 @@ import {Redirect} from "react-router-dom";
 import {path} from "../../n1-main/m1-ui/routes/Routes";
 import {logoutTC} from "../../n1-main/m2-bll/reducers/login-reducer";
 import {RequestStatusType} from "../../n1-main/m2-bll/reducers/app-reducer";
+import {Preloader} from "../../common/preloader/Preloader";
 
 type ProfilePropsType = {}
 
@@ -24,7 +25,7 @@ const Profile: React.FC<ProfilePropsType> = () => {
     }
     return (
         <>
-            {status==='loading' && <div style={{padding:'20px', fontSize:'25px', textAlign:'left'}}>Loading...</div>}
+            {status==='loading' && <Preloader/>}
             <div className={s.profile}>
                 <span className={s.verify}>{profileData.verified}</span>
                 <h2 className={s.title}>Profile</h2>

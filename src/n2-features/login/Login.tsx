@@ -2,6 +2,7 @@ import React from 'react';
 import s from './Login.module.scss';
 import InputText from "../super components/InputText/InputText";
 import {RequestStatusType} from "../../n1-main/m2-bll/reducers/app-reducer";
+import {Input} from "../super components/InputText/Input";
 
 type LoginPropsType = {
     formik: any,
@@ -21,9 +22,9 @@ export const Login: React.FC<LoginPropsType> = (props) => {
             <h2 className={s.logo}>It-incubator</h2>
             <h3 className={s.title}>Sign in</h3>
             <form onSubmit={props.formik.handleSubmit}>
-                <div className={s.emailBlock}>
-                    <span>Email</span>
-                    <InputText
+                <div className={s.inputItem}>
+                    <label htmlFor="'login/email'">Email</label>
+                    <Input
                         type={'text'}
                         className={s.inputText}
                         {...props.formik.getFieldProps('email')}
@@ -32,9 +33,9 @@ export const Login: React.FC<LoginPropsType> = (props) => {
                         <div style={{color: 'red'}}>{props.formik.errors.email}</div>
                     ) : null}
                 </div>
-                <div className={s.passwordBlock}>
-                    <span>Password</span>
-                    <input
+                <div className={s.inputItem}>
+                    <label htmlFor="login/password">Password</label>
+                    <Input
                         type={'password'}
                         className={s.inputPassword}
                         {...props.formik.getFieldProps('password')}
