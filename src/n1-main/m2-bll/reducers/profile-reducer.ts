@@ -1,53 +1,30 @@
-import {Dispatch} from "react";
-import {authApi} from "../../m3-dal/auth-api";
-import {AppActionsType, setAppStatusAC} from "./app-reducer";
+import {ProfileType} from "../../m3-dal/auth-api";
+import {SetAppStatusActionType} from "./app-reducer";
 
 
 const initialState = {
-    profileData: null as ProfileDataType | null,
+    // profileData: null as ProfileDataType| null,
+    user:null as ProfileType | null,
+    profileError:''
 
 }
 
 export const profileReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
-        case 'PROFILE/SET-PROFILE-DATA':
-            return {...state, profileData: action.data}
+        case 'PROFILE/SET-USER-DATA':
+            return {...state, user: action.userData}
+        case 'PROFILE/SET-ERROR':
+            return {...state, profileError: action.errorValue}
         default:
             return state
     }
 }
 
 //actionCreators
-export const setProfileDataAC = (data:ProfileDataType)=>{
-    return({type:'PROFILE/SET-PROFILE-DATA', data} as const)
+export const setUserDataAC = (userData:ProfileType)=>{
+    return({type:'PROFILE/SET-USER-DATA', userData} as const)
 }
-
-
-//thunks
-
-export const authMeTC = () => async (dispatch: Dispatch<AppActionsType>) => {
-    dispatch(setAppStatusAC("loading"))
-
-    try {
-        let res = await authApi.me()
-        console.log(res)
-
-    }catch (e) {
-
-    }finally {
-
-    }
-}
-
-
-
-
-
-
-
-
-
-
+ const setErrorAc = (errorValue: string) => ({type: 'PROFILE/SET-ERROR', errorValue} as const)
 
 //types
 export type ProfileDataType = {
@@ -55,9 +32,9 @@ export type ProfileDataType = {
     avatar: string
     verified:boolean
 }
-export type SetProfileDataActionType= ReturnType<typeof setProfileDataAC>
+export type SetUserDataActionType= ReturnType<typeof setUserDataAC>
 
-type ActionsType = SetProfileDataActionType
+type ActionsType = SetUserDataActionType  | SetAppStatusActionType | ReturnType<typeof setErrorAc>
 
 type InitialStateType = typeof initialState
 

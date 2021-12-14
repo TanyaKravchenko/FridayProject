@@ -1,5 +1,7 @@
 import {Dispatch} from "react";
 import {authApi} from "../../m3-dal/auth-api";
+import {setUserDataAC, SetUserDataActionType} from "./profile-reducer";
+import {setIsLoggedInAC, setLoggedInActionType} from "./login-reducer";
 
 const initialState = {
     status: 'succeeded' as RequestStatusType,
@@ -10,12 +12,12 @@ const initialState = {
 export const appReducer = (state: AppInitialStateType = initialState, action: AppActionsType): AppInitialStateType => {
     switch (action.type) {
         case 'APP/SET-STATUS':
-            return {...state, status:action.status}
+            return {...state, status: action.status}
 
-        // case 'APP/SET-ERROR':
-        //
-        //
-        // case 'APP/SET-IS-INITIALIZED':
+        case 'APP/SET-ERROR':
+            return {...state, error: action.error}
+        case "APP/SET-IS-INITIALIZED":
+            return {...state,isInitialized: action.isInitialized }
 
         default:
             return state
@@ -32,9 +34,25 @@ export const setIsInitializedAC = (isInitialized: boolean) => ({type: 'APP/SET-I
 
 //thunks
 
+export const initializedTC = () => async (dispatch: Dispatch<AppActionsType>) => {
+    dispatch(setAppStatusAC("loading"))
+    try {
+        const res = await authApi.me()
+        dispatch(setUserDataAC(res))
+        dispatch(setIsInitializedAC(true))
+        dispatch(setIsLoggedInAC(true))
+        dispatch(setAppStatusAC("succeeded"))
 
-
-
+    } catch (e) {
+        const error = e.response
+            ? e.response.data.error
+            : (e.message)
+        dispatch(setAppErrorAC(error))
+        dispatch(setAppStatusAC("failed"))
+    } finally {
+        dispatch(setAppStatusAC("succeeded"))
+    }
+}
 
 
 //type
@@ -43,7 +61,12 @@ export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 export type SetAppStatusActionType = ReturnType<typeof setAppStatusAC>
 export type SetAppErrorActionType = ReturnType<typeof setAppErrorAC>
 export type SetIsInitializedAC = ReturnType<typeof setIsInitializedAC>
-export type AppActionsType = SetAppStatusActionType | SetAppErrorActionType | SetIsInitializedAC
+export type AppActionsType =
+    SetAppStatusActionType
+    | SetAppErrorActionType
+    | SetIsInitializedAC
+    | SetUserDataActionType
+    | setLoggedInActionType
 
 
 
