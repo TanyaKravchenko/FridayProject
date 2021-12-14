@@ -1,16 +1,17 @@
-import React, {useEffect, useState} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import s from './Registration.module.scss';
-import {ChangeEvent} from 'react';
-import {Redirect} from 'react-router-dom';
-import {path} from '../../n1-main/m1-ui/routes/Routes';
-import {useDispatch, useSelector} from 'react-redux';
-import {RootStateType} from '../../n1-main/m2-bll/store';
-import {RequestStatusType} from '../../n1-main/m2-bll/reducers/app-reducer';
-import {registrationAC, registrationTC, setErrorAC} from '../../n1-main/m2-bll/reducers/registration-reducer';
 import {emailValidation, PasswordValidation} from '../../utils/validation';
 import {Input} from '../super components/InputText/Input';
+import {RequestStatusType} from '../../n1-main/m2-bll/reducers/app-reducer';
+import {useDispatch, useSelector} from 'react-redux';
+import {RootStateType} from '../../n1-main/m2-bll/store';
+import {registrationAC, registrationTC, setErrorAC} from '../../n1-main/m2-bll/reducers/registration-reducer';
+import {Redirect} from 'react-router-dom';
+import {path} from '../../n1-main/m1-ui/routes/Routes';
+import {Preloader} from '../../common/preloader/Preloaders';
 
-type RegistrationPropsType = {}
+type RegistrationPropsType = {
+}
 
 const Registration: React.FC<RegistrationPropsType> = () => {
     const [email, setEmail] = useState<string>('')
@@ -19,6 +20,8 @@ const Registration: React.FC<RegistrationPropsType> = () => {
 
     const [errorEmailMessage, setErrorEmailMessage] = useState<string>('')
     const [errorPasswordMessage, setErrorPasswordMessage] = useState<string>('')
+
+    //const disabledBtnSubmit = !email || !password || !checkPassword
 
     const dispatch = useDispatch()
     const appStatus = useSelector<RootStateType, RequestStatusType>(state => state.app.status)
@@ -69,9 +72,9 @@ const Registration: React.FC<RegistrationPropsType> = () => {
     const goBack = () => {
         window.history.go(-1);
     }
-
     return (
         <div className={s.registerBlock}>
+            {appStatus==='loading' && <Preloader/>}
             <div className={s.registerCard}>
                 <h1 className={s.title}>It-incubator</h1>
                 <h2>Sign Up</h2>
@@ -120,13 +123,13 @@ const Registration: React.FC<RegistrationPropsType> = () => {
                             className={s.register}
                             onClick={onRegistrationHandler}
                             disabled={appStatus === 'loading'}
+                            // disabled={disabledBtnSubmit}
                         >
                             Register
                         </button>
                     </div>
                 </div>
             </div>
-
         </div>
     );
 }

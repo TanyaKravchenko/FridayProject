@@ -8,7 +8,7 @@ import {Redirect} from "react-router-dom";
 import {path} from "../../n1-main/m1-ui/routes/Routes";
 import {logoutTC} from "../../n1-main/m2-bll/reducers/login-reducer";
 import {RequestStatusType} from "../../n1-main/m2-bll/reducers/app-reducer";
-import {Preloader} from "../../common/preloader/Preloader";
+import {Preloader} from "../../common/preloader/Preloaders";
 
 type ProfilePropsType = {}
 
