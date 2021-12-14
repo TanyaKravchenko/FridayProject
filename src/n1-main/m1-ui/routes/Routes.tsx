@@ -37,7 +37,6 @@ const Routes = () => {
 
 export default Routes;
 
-
 export const routes = {
     mainPacks: '/main/packs',
     mainCards: '/main/cards/:id/:name',
