@@ -4,10 +4,9 @@ import {RootStateType} from "../../n1-main/m2-bll/store";
 import {useFormik} from "formik";
 import {RequestStatusType} from "../../n1-main/m2-bll/reducers/app-reducer";
 import {FormikErrorType, PasswordRecovery} from "./PasswordRecovery";
-import {passwordRecoveryTC} from "../../n1-main/m2-bll/reducers/password-recovery-reducer";
+import {passwordRecoveryTC, setIsSentEmailAC} from '../../n1-main/m2-bll/reducers/password-recovery-reducer';
 import {Redirect} from 'react-router-dom';
 import {path} from "../../n1-main/m1-ui/routes/Routes";
-
 
 export const PasswordRecoveryContainer: React.FC = () => {
     const isSentEmail = useSelector<RootStateType, boolean>(state => state.passwordRecovery.isSentEmail)
@@ -32,20 +31,17 @@ export const PasswordRecoveryContainer: React.FC = () => {
             return errors;
         },
         onSubmit: values => {
-
             const email = values.email
             dispatch(passwordRecoveryTC({email, message, from } ))
+            dispatch(setIsSentEmailAC(true))
             formik.resetForm()
         },
     })
 
-
     if(isSentEmail) {
-debugger
       return <Redirect to={path.PASSWORD}/>
     }
-
-  console.log(isSentEmail)
+    
     return (
         <div>
             {status === 'loading' &&

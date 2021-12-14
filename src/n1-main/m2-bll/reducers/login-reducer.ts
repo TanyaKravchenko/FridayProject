@@ -7,7 +7,6 @@ const initialState = {
     isLoggedIn: false
 }
 
-
 export const loginReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
         case 'login/SET-IS-LOGGED-IN':
@@ -26,10 +25,7 @@ type InitialStateType = typeof initialState
 
 type ActionsType = ReturnType<typeof setIsLoggedInAC> | SetAppStatusActionType | SetProfileDataActionType
 
-
 //thunks
-
-
 export const loginTC = (data:LoginDataType) => (dispatch:Dispatch<ActionsType>)=> {
     dispatch(setAppStatusAC("loading"))
     authApi.login(data)
