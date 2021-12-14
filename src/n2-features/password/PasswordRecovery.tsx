@@ -1,6 +1,6 @@
 import React from 'react';
 import s from './Password.module.scss';
-import InputText from "../super components/InputText/InputText";
+import InputText from '../super components/InputText/InputText';
 
 type PasswordRecoveryPropsType = {
     formik: any
@@ -11,7 +11,6 @@ export type FormikErrorType = {
 }
 
 export const PasswordRecovery: React.FC<PasswordRecoveryPropsType> = (props) => {
-    debugger
     return (
         <div className={s.passwordRecoveryBlock}>
             <h2 className={s.logo}>It-incubator</h2>
