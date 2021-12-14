@@ -1,12 +1,10 @@
-
+import {Dispatch} from "react";
+import {authApi} from "../../m3-dal/auth-api";
+import {AppActionsType, setAppStatusAC} from "./app-reducer";
 
 
 const initialState = {
-    profileData: {
-        name: 'Crazy Kid',
-        avatar: 'http://www.dumpaday.com/wp-content/uploads/2013/08/Barbie-Bootcamp.jpg',
-        verified: false,
-    }
+    profileData: null as ProfileDataType | null,
 
 }
 
@@ -23,6 +21,33 @@ export const profileReducer = (state: InitialStateType = initialState, action: A
 export const setProfileDataAC = (data:ProfileDataType)=>{
     return({type:'PROFILE/SET-PROFILE-DATA', data} as const)
 }
+
+
+//thunks
+
+export const authMeTC = () => async (dispatch: Dispatch<AppActionsType>) => {
+    dispatch(setAppStatusAC("loading"))
+
+    try {
+        let res = await authApi.me()
+        console.log(res)
+
+    }catch (e) {
+
+    }finally {
+
+    }
+}
+
+
+
+
+
+
+
+
+
+
 
 //types
 export type ProfileDataType = {
