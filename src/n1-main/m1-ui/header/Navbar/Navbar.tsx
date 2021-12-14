@@ -24,12 +24,12 @@ const Navbar: React.FC<NavbarPropsType> = () => {
                          activeClassName={s.active}> Registration </NavLink>
             </div>
             <div className={s.item}>
-                <NavLink to={path.PASSWORD} className={s.navLink}
+                <NavLink to={path.PASS_REC} className={s.navLink}
                          activeClassName={s.active}> PasswordRecovery </NavLink>
             </div>
             <div className={s.item}>
-                <NavLink to={path.PASS_REC} className={s.navLink}
-                         activeClassName={s.active}> NewPassword </NavLink>
+                <NavLink to={path.PASSWORD} className={s.navLink}
+                         activeClassName={s.active}>  NewPassword </NavLink>
             </div>
         </div>
     );

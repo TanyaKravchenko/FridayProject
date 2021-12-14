@@ -8,11 +8,10 @@ type PasswordRecoveryPropsType = {
 
 export type FormikErrorType = {
     email?: string
-    password?: string
-    rememberMe?: boolean
 }
 
 export const PasswordRecovery: React.FC<PasswordRecoveryPropsType> = (props) => {
+    debugger
     return (
         <div className={s.passwordRecoveryBlock}>
             <h2 className={s.logo}>It-incubator</h2>

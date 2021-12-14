@@ -2,20 +2,25 @@ import React from 'react'
 import {useDispatch, useSelector} from "react-redux";
 import {RootStateType} from "../../n1-main/m2-bll/store";
 import {useFormik} from "formik";
-import {loginTC} from "../../n1-main/m2-bll/reducers/login-reducer";
 import {RequestStatusType} from "../../n1-main/m2-bll/reducers/app-reducer";
 import {FormikErrorType, PasswordRecovery} from "./PasswordRecovery";
+import {passwordRecoveryTC} from "../../n1-main/m2-bll/reducers/password-recovery-reducer";
+import {Redirect} from 'react-router-dom';
+import {path} from "../../n1-main/m1-ui/routes/Routes";
 
 
 export const PasswordRecoveryContainer: React.FC = () => {
+    const isSentEmail = useSelector<RootStateType, boolean>(state => state.passwordRecovery.isSentEmail)
     const status = useSelector<RootStateType, RequestStatusType>(state => state.app.status)
     const dispatch = useDispatch()
+    const from = `test-front-admin <ai73a@yandex.by>`
+    const message = `<div style="background-color: lime; padding: 15px">password recovery link:
+                     <a href='http://localhost:3000/#/set-new-password/$token$'>link</a></div>`
 
     const formik = useFormik({
         initialValues: {
             email: '',
-            password: '',
-            rememberMe: false
+
         },
         validate: (values) => {
             const errors: FormikErrorType = {};
@@ -27,16 +32,28 @@ export const PasswordRecoveryContainer: React.FC = () => {
             return errors;
         },
         onSubmit: values => {
-            dispatch(loginTC(values))
+
+            const email = values.email
+            dispatch(passwordRecoveryTC({email, message, from } ))
             formik.resetForm()
         },
     })
 
+
+    if(isSentEmail) {
+debugger
+      return <Redirect to={path.PASSWORD}/>
+    }
+
+  console.log(isSentEmail)
     return (
         <div>
-            {status==='loading' && <div style={{padding:'20px', fontSize:'25px', textAlign:'left'}}>Loading...</div>}
+            {status === 'loading' &&
+            <div style={{padding: '20px', fontSize: '25px', textAlign: 'left'}}>Loading...</div>}
             <PasswordRecovery formik={formik}/>
 
         </div>
+
+
     )
 }
