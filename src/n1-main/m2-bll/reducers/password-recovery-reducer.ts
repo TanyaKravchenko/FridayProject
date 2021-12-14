@@ -1,4 +1,4 @@
-import {authApi, ForgotDataType} from "../../m3-dal/app-api";
+import {authApi, ForgotDataType} from "../../m3-dal/auth-api";
 import {Dispatch} from "react";
 import {setAppStatusAC, SetAppStatusActionType} from "./app-reducer";
 

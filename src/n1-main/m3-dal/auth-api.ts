@@ -2,8 +2,8 @@ import axios, {AxiosResponse} from 'axios';
 
 export const instance = axios.create({
     withCredentials: true,
-    // baseURL: 'https://neko-back.herokuapp.com/2.0/',
-    baseURL: 'http://localhost:7542/2.0/',
+    baseURL: 'https://neko-back.herokuapp.com/2.0/',
+    // baseURL: 'http://localhost:7542/2.0/',
 })
 
 export const authApi = {
@@ -18,6 +18,9 @@ export const authApi = {
     },
     logOut() {
         return instance.delete<LogOutResponseType>(`auth/me`);
+    },
+    forgot(data:ForgotDataType){
+        return instance.post<ForgotDataType, AxiosResponse<ForgotResponseType>>('auth/forgot', data)
     },
 }
 
@@ -52,13 +55,17 @@ export type LogOutResponseType = {
     error: string
 }
 
+export type ForgotDataType = {
+    email: string
+    from: string
+    message: string
+}
 
-//
-// export type ForgotDataType = {
-//     email: string
-//     from: string
-//     message: string
-// }
+export type ForgotResponseType ={
+    info: string
+    error: string
+}
+
 // {
 //     _id: string;
 //     email: string;
