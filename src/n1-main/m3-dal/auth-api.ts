@@ -28,6 +28,7 @@ export const authApi = {
 export type RegisterParamsType = {
     email: string
     password: string
+    error?: string
 }
 
 export type LoginDataType = {
