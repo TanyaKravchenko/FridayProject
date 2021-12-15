@@ -17,6 +17,7 @@ type FormikErrorType = {
 
 
 export const LoginContainer: React.FC = () => {
+    const loginError = useSelector<RootStateType, string>(state=> state.login.loginError)
     const loginIn = useSelector<RootStateType, boolean>(state=> state.login.isLoggedIn)
     const status = useSelector<RootStateType, RequestStatusType>(state => state.app.status)
 
@@ -54,7 +55,8 @@ export const LoginContainer: React.FC = () => {
 
         <div>
             {status==='loading' && <Preloader/>}
-            <Login formik={formik} status={status}/>
+            {/*{loginError && <div style={{color:'red', fontSize:'20px', width:'400px', height:'200px', border:'2px solid'}}>{loginError}</div>}*/}
+            <Login formik={formik} status={status} error={loginError}/>
         </div>
     )
 }

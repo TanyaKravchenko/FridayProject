@@ -3,10 +3,13 @@ import s from './Login.module.scss';
 import InputText from "../super components/InputText/InputText";
 import {RequestStatusType} from "../../n1-main/m2-bll/reducers/app-reducer";
 import {Input} from "../super components/InputText/Input";
+import { NavLink } from 'react-router-dom';
+import {path} from "../../n1-main/m1-ui/routes/Routes";
 
 type LoginPropsType = {
     formik: any,
-    status:RequestStatusType
+    status:RequestStatusType,
+    error:string
 }
 type FormikErrorType = {
     email?: string
@@ -16,9 +19,9 @@ type FormikErrorType = {
 
 
 export const Login: React.FC<LoginPropsType> = (props) => {
-
     return (
         <div className={s.loginBlock} >
+            {props.error && <div style={{color:'red', fontSize:'20px'}}>{props.error}</div>}
             <h2 className={s.logo}>It-incubator</h2>
             <h3 className={s.title}>Sign in</h3>
             <form onSubmit={props.formik.handleSubmit}>
@@ -44,7 +47,7 @@ export const Login: React.FC<LoginPropsType> = (props) => {
                         <div style={{color: 'red'}}>{props.formik.errors.password}</div>
                     ) : null}
                 </div>
-                <a href="#" className={s.link}>Forgot password</a>
+                <NavLink to={path.PASS_REC} className={s.link}>Forgot password</NavLink>
                 <div className={s.checkboxBlock}>
                     <input
                         type={'checkbox'}
@@ -62,7 +65,7 @@ export const Login: React.FC<LoginPropsType> = (props) => {
             </form>
             <div className={s.redirectBlock}>
                 <span className={s.redirectSpan}>Don’t have an account?</span>
-                <button className={s.signBtn}>Sign Up</button>
+                <NavLink to={path.REG} className={s.signBtn}>Sign Up</NavLink>
             </div>
         </div>
     )

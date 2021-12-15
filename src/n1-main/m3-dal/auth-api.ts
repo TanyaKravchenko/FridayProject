@@ -8,13 +8,13 @@ export const instance = axios.create({
 
 export const authApi = {
     me() {
-        return instance.post<ResponseType>('auth/me', {}).then(res => res.data)
+        return instance.post<ProfileType>('auth/me', {}).then(res => res.data)
     },
     register(data: RegisterParamsType) {
         return instance.post('/auth/register', data).then(res => res.data)
     },
     login(data: LoginDataType) {
-        return instance.post<LoginDataType, AxiosResponse<ResponseType>>('auth/login', data)
+        return instance.post<LoginDataType, AxiosResponse<ProfileType>>('auth/login', data)
     },
     logOut() {
         return instance.delete<LogOutResponseType>(`auth/me`);
@@ -36,7 +36,7 @@ export type LoginDataType = {
     rememberMe: boolean
 }
 
-export type ResponseType = {
+export type ProfileType = {
     _id: string
     email: string
     name: string
@@ -65,26 +65,3 @@ export type ForgotResponseType ={
     info: string
     error: string
 }
-
-// {
-//     _id: string;
-//     email: string;
-//     name: string;
-//     avatar?: string;
-//     publicCardPacksCount: number; // количество колод
-//
-//     created: Date;
-//     updated: Date;
-//     isAdmin: boolean;
-//     verified: boolean; // подтвердил ли почту
-//     rememberMe: boolean;
-//
-//     error?: string;
-// }
-
-// export type ResponseType<D = {}> = {
-//     resultCode: number
-//     messages: Array<string>
-//     fieldsErrors: Array<string>
-//     data: D
-// }

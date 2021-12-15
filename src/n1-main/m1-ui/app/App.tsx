@@ -8,6 +8,7 @@ import {RequestStatusType} from '../../m2-bll/reducers/app-reducer';
 import {useSelector} from 'react-redux';
 
 const App = () => {
+    //hooks
     const status = useSelector<RootStateType, RequestStatusType>(state => state.app.status)
     return (
         <div className="App">
