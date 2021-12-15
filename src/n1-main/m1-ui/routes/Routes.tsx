@@ -13,8 +13,9 @@ export const path = {
     PROFILE: '/profile',
     LOGIN: '/login',
     REG: '/registration',
-    PASSWORD: '/newPassword',
+    PASSWORD: '/newPassword/:token?',
     PASS_REC: '/passwordRecovery',
+
 }
 
 const Routes = () => {
@@ -26,7 +27,7 @@ const Routes = () => {
                 <Route path={path.PROFILE} exact render={() => <Profile/>}/>
                 <Route path={path.LOGIN} exact render={() => <LoginContainer/>}/>
                 <Route path={path.REG} exact render={() => <Registration/>}/>
-                <Route path={path.PASSWORD} exact render={() =><NewPassword/> }/>
+                <Route path={path.PASSWORD}  render={() =><NewPassword/> }/>
                 <Route path={path.PASS_REC} exact render={() => <PasswordRecoveryContainer/>}/>
                 <Route path={'/404'} render={() => <NotFound/>}/>
                 <Redirect from={'*'} to={'/404'}/>

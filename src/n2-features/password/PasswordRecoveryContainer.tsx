@@ -4,9 +4,8 @@ import {RootStateType} from "../../n1-main/m2-bll/store";
 import {useFormik} from "formik";
 import {RequestStatusType} from "../../n1-main/m2-bll/reducers/app-reducer";
 import {FormikErrorType, PasswordRecovery} from "./PasswordRecovery";
-import {passwordRecoveryTC} from "../../n1-main/m2-bll/reducers/password-recovery-reducer";
-import {Redirect} from 'react-router-dom';
-import {path} from "../../n1-main/m1-ui/routes/Routes";
+import {passwordRecoveryTC, setIsSentEmailAC} from "../../n1-main/m2-bll/reducers/password-recovery-reducer";
+import {CheckEmail} from "./CheckEmail/CheckEmail";
 
 
 export const PasswordRecoveryContainer: React.FC = () => {
@@ -14,8 +13,9 @@ export const PasswordRecoveryContainer: React.FC = () => {
     const status = useSelector<RootStateType, RequestStatusType>(state => state.app.status)
     const dispatch = useDispatch()
     const from = `test-front-admin <ai73a@yandex.by>`
-    const message = `<div style="background-color: lime; padding: 15px">password recovery link:
-                     <a href='http://localhost:3000/#/set-new-password/$token$'>link</a></div>`
+    const message = `<div style="background-color: lime; padding: 20px">password recovery link:
+                     <a href='http://localhost:3000/#/newPassword/$token$'>Follow the link to change your password</a></div>`
+
 
     const formik = useFormik({
         initialValues: {
@@ -34,18 +34,20 @@ export const PasswordRecoveryContainer: React.FC = () => {
         onSubmit: values => {
 
             const email = values.email
-            dispatch(passwordRecoveryTC({email, message, from } ))
+            dispatch(passwordRecoveryTC({email, message, from}))
+            dispatch(setIsSentEmailAC(true))
             formik.resetForm()
         },
     })
 
 
-    if(isSentEmail) {
-debugger
-      return <Redirect to={path.PASSWORD}/>
+    if (isSentEmail) {
+        const email = formik.values.email
+        return <CheckEmail email={email}/>
+        //<Redirect to={path.CHECK_EMAIL}/>
     }
 
-  console.log(isSentEmail)
+    console.log(isSentEmail)
     return (
         <div>
             {status === 'loading' &&
