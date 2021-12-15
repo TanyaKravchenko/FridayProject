@@ -11,17 +11,17 @@ import {Redirect} from "react-router-dom";
 const App = () => {
     //hooks
     const status = useSelector<RootStateType, RequestStatusType>(state => state.app.status)
-    const loginIn = useSelector<RootStateType, boolean>(state=> state.login.isLoggedIn)
     const isInitialized = useSelector<RootStateType, boolean>(state=> state.app.isInitialized)
+    const loginIn = useSelector<RootStateType, boolean>(state => state.login.isLoggedIn)
 
     const dispatch = useDispatch();
     useEffect(()=>{
         dispatch(initializedTC())
     },[])
-    // if(!isInitialized){
-    //     return <Preloader/>
-    // }
- 
+
+    if(!isInitialized ){
+        return <Preloader/>
+    }
 
     return (
         <div className="App">
