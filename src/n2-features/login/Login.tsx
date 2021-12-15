@@ -5,6 +5,8 @@ import {RequestStatusType} from "../../n1-main/m2-bll/reducers/app-reducer";
 import {Input} from "../super components/InputText/Input";
 import { NavLink } from 'react-router-dom';
 import {path} from "../../n1-main/m1-ui/routes/Routes";
+import {useSelector} from "react-redux";
+import {RootStateType} from "../../n1-main/m2-bll/store";
 
 type LoginPropsType = {
     formik: any,

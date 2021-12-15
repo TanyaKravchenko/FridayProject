@@ -13,27 +13,27 @@ import {ProfileType} from '../../n1-main/m3-dal/auth-api';
 type ProfilePropsType = {}
 
 const Profile: React.FC<ProfilePropsType> = () => {
-
-
+    //hooks
     const status = useSelector<RootStateType, RequestStatusType>(state => state.app.status)
-    const user = useSelector<RootStateType, ProfileType | null>(state=> state.profile.user)
-    const loginIn = useSelector<RootStateType, boolean>(state=> state.login.isLoggedIn)
+    const user = useSelector<RootStateType, ProfileType | null>(state => state.profile.user)
+    const loginIn = useSelector<RootStateType, boolean>(state => state.login.isLoggedIn)
+
     const dispatch = useDispatch();
-    useEffect(()=>{
-        if (user === null) {
-            dispatch(initializedTC())
-        }
-    },[dispatch, user])
-    if(!loginIn){
-       return <Redirect to={path.LOGIN}/>
+
+    if (!loginIn) {
+        return <Redirect to={path.LOGIN}/>
     }
-    const onClickLogOut = ()=>{
+
+
+    //handlers
+    const onClickLogOut = () => {
         dispatch(logoutTC())
     }
 
+
     return (
         <>
-            {status==='loading' && <Preloader/>}
+            {status === 'loading' && <Preloader/>}
             <div className={s.profile}>
                 <span className={s.verify}>{user && user.verified}</span>
                 <h2 className={s.title}>Profile</h2>
@@ -42,8 +42,7 @@ const Profile: React.FC<ProfilePropsType> = () => {
                 <h3 className={s.userName}>{user && user.name}</h3>
                 <Button onClick={onClickLogOut}>Log Out</Button>
             </div>
-    </>
-
+        </>
     );
 }
 
