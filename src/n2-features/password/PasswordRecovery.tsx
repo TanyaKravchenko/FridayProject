@@ -1,49 +1,61 @@
 import React from 'react';
-import s from './Password.module.scss';
-import InputText from '../super components/InputText/InputText';
+import s from './PasswordRecovery.module.scss';
+import {Preloader} from "../../common/preloader/Preloaders";
+import {RequestStatusType} from "../../n1-main/m2-bll/reducers/app-reducer";
 
-type PasswordRecoveryPropsType = {
+export type PasswordRecoveryPropsType = {
     formik: any
+    status: RequestStatusType
 }
 
 export type FormikErrorType = {
     email?: string
+    password?: string
+    rememberMe?: boolean
 }
 
 export const PasswordRecovery: React.FC<PasswordRecoveryPropsType> = (props) => {
+
     return (
+
         <div className={s.passwordRecoveryBlock}>
-            <h2 className={s.logo}>It-incubator</h2>
-            <h3 className={s.title}>Forgot your password?</h3>
-            <form onSubmit={props.formik.handleSubmit}>
-                <div className={s.emailBlock}>
-                    <span>Email</span>
-                    <InputText
-                        type={'text'}
-                        className={s.inputText}
-                        {...props.formik.getFieldProps('email')}
-                    />
-                    {props.formik.touched.email && props.formik.errors.email ? (
-                        <div style={{color: 'red'}}>{props.formik.errors.email}</div>
-                    ) : null}
-                </div>
-                <div className={s.redirectBlock}>
-                    <span className={s.redirectSpan}>
-                         Enter your email address and we will send you further instructions
+            {props.status === 'loading' && <Preloader/>}
+            <div className={s.passwordRecovery}>
+                <h1 className={s.title}>It-incubator</h1>
+                <h2 className={s.title}>Forgot your password?</h2>
+                <form className={s.formBlock} onSubmit={props.formik.handleSubmit}>
+                    <div className={s.inputItem}>
+                        <label htmlFor="'registration/email'">Email</label>
+                        <input
+                            placeholder="Enter email ..."
+                            type="text"
+                            className={s.inputPassword}
+                            {...props.formik.getFieldProps('email')}
+                        />
+                        {props.formik.touched.email && props.formik.errors.email &&
+                        <div style={{color: 'red'}}>{props.formik.errors.email}</div>}
+
+                        <span className={s.redirectSpan}>
+                          Enter your email address and we will send you further instructions
                     </span>
+                    </div>
 
-                </div>
 
-                <button
-                    className={s.sendBtn}
-                    type="submit"
-                > Send Instructions
-                </button>
-            </form>
-            <div className={s.redirectBlock}>
-                <span className={s.redirectSpan}>Did you remember your password?</span>
-                <button className={s.signBtn}>Try logging in</button>
+                    <div className={s.buttonsBlock}>
+                        <button
+                            className={s.sendBtn}
+                            type="submit"
+                            disabled={props.status === 'loading'}
+                        > Send Instructions
+                        </button>
+                    </div>
+                    <div className={s.inputText}>
+                        <div className={s.redirectSpan}>Did you remember your password?</div>
+                        <button className={s.signBtn}>Try logging in</button>
+                    </div>
+                </form>
             </div>
         </div>
+
     );
 }
