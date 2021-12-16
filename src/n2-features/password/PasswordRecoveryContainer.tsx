@@ -43,12 +43,10 @@ export const PasswordRecoveryContainer: React.FC = () => {
 
     if (isSentEmail) {
         const email = formik.values.email
-        debugger
         return <CheckEmail email={email}/>
         //<Redirect to={path.CHECK_EMAIL}/>
     }
 
-    console.log(isSentEmail)
     return (
         <div>
             {status === 'loading' &&
