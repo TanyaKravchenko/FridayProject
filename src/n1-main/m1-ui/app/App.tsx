@@ -19,9 +19,9 @@ const App = () => {
         dispatch(initializedTC())
     },[])
 
-    if(!isInitialized ){
-        return <Preloader/>
-    }
+    // if(!isInitialized ){
+    //     return <Preloader/>
+    // }
 
     return (
         <div className="App">
