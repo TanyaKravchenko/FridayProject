@@ -43,6 +43,7 @@ export const PasswordRecoveryContainer: React.FC = () => {
 
     if (isSentEmail) {
         const email = formik.values.email
+        debugger
         return <CheckEmail email={email}/>
         //<Redirect to={path.CHECK_EMAIL}/>
     }
@@ -52,7 +53,7 @@ export const PasswordRecoveryContainer: React.FC = () => {
         <div>
             {status === 'loading' &&
             <div style={{padding: '20px', fontSize: '25px', textAlign: 'left'}}>Loading...</div>}
-            <PasswordRecovery formik={formik}/>
+            <PasswordRecovery formik={formik} status={status}/>
 
         </div>
 

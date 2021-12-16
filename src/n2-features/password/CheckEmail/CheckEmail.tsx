@@ -1,5 +1,5 @@
 import React from 'react';
-import s from './CheckEmail.module.scss';
+import s from '../PasswordRecovery.module.scss';
 
 
 export type CheckEmailPropsType = {
@@ -9,27 +9,23 @@ export type CheckEmailPropsType = {
 
 export const CheckEmail = (props: CheckEmailPropsType) => {
     const email = props.email
-
+    debugger
     const img = 'https://aravia-prof.ru/bitrix/templates/aravia_mobile/components/bitrix/news.detail/vacancies/img/email.svg'
     return (
-        <div className={s.checkEmailBlock}>{email}
-            <h2 className={s.logo}>It-incubator</h2>
-            <h3 className={s.title}>Check Email</h3>
-            <img src={img} alt=''/>
-            <div className={s.redirectBlock}>
-                <span className={s.redirectSpan}>
-                    We’ve sent an Email with instructions
-                </span>
-                <span className={s.redirectSpan}>
-                    to email: {email}
-                </span>
-                <span className={s.redirectSpan}>
-                   <h4>Close this tab</h4>
-                </span>
+        <div className={s.passwordRecoveryBlock}>
+            <div className={s.passwordRecovery}>
+                <h1 className={s.title}>It-incubator</h1>
+                <h2 className={s.title}>Check Email</h2>
+                <div className={s.formBlock}>
+                    <img src={img} alt=''/>
 
+                    <div className={s.inputText}>
+                        <div className={s.redirectSpan}> We’ve sent an Email with instructions to email {email} </div>
+                        <h4>Close the tab</h4>
+                    </div>
+                </div>
             </div>
         </div>
-
     );
 };
 
