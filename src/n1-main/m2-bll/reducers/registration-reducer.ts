@@ -29,6 +29,7 @@ export const registrationTC = (data: RegisterParamsType) => async (dispatch: Dis
         dispatch(registrationAC(true))
     } catch (e) {
         dispatch(setErrorAC(e.response.data.error))
+        console.log(data)
         // const error = e.response
         //     ? e.response.data.error
         //     : (e.message)
