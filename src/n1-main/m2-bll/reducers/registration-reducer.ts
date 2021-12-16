@@ -2,7 +2,10 @@ import { Dispatch } from 'redux';
 import {authApi, RegisterParamsType} from '../../m3-dal/auth-api';
 import {setAppStatusAC} from './app-reducer';
 
-const initialStateRegistration = {} as RegistrationType
+const initialStateRegistration = {
+    isRegistration: false,
+    error: ''
+} as RegistrationType
 
 export const registrationReducer = (state: InitialStateRegistrationType = initialStateRegistration, action: ActionsType): InitialStateRegistrationType => {
     switch (action.type) {
