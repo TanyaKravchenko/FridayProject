@@ -33,7 +33,7 @@ export const initializedTC = () => async (dispatch: Dispatch<AppActionsType>) =>
     try {
         const res = await authApi.me()
         dispatch(setUserDataAC(res))
-        dispatch(setIsInitializedAC(true))
+
         dispatch(setIsLoggedInAC(true))
         dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
@@ -44,6 +44,7 @@ export const initializedTC = () => async (dispatch: Dispatch<AppActionsType>) =>
         dispatch(setAppStatusAC('failed'))
     } finally {
         dispatch(setAppStatusAC('succeeded'))
+        dispatch(setIsInitializedAC(true))
     }
 }
 

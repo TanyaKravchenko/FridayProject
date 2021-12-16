@@ -63,6 +63,11 @@ const Registration: React.FC<RegistrationPropsType> = () => {
         return <Redirect to={path.LOGIN}/>
     }
 
+    if (serverErrorMessage) {
+        alert(serverErrorMessage)
+        dispatch(setErrorAC(''))
+    }
+
     const goBack = () => {
         window.history.go(-1);
     }

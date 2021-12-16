@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {useFormik} from 'formik';
 import {FormikErrorType} from './PasswordRecovery';
 import {useParams} from 'react-router';
-import {newPasswordTC} from '../../n1-main/m2-bll/reducers/password-recovery-reducer';
+import {newPasswordTC, setPasswordAC} from '../../n1-main/m2-bll/reducers/password-recovery-reducer';
 import {RootStateType} from '../../n1-main/m2-bll/store';
 import {RequestStatusType} from '../../n1-main/m2-bll/reducers/app-reducer';
 import {path} from '../../n1-main/m1-ui/routes/Routes';
@@ -15,7 +15,7 @@ type NewPasswordPropsType = {}
 
 export const NewPassword: React.FC<NewPasswordPropsType> = () => {
     const isSetPassword = useSelector<RootStateType, boolean>(state => state.passwordRecovery.isSetPassword)
-    const status = useSelector<RootStateType, RequestStatusType>(state => state.app.status)
+    const appStatus = useSelector<RootStateType, RequestStatusType>(state => state.app.status)
     const {token} = useParams<{ token: string }>();
     const resetPasswordToken = token
     const dispatch = useDispatch()
@@ -37,7 +37,7 @@ export const NewPassword: React.FC<NewPasswordPropsType> = () => {
             const password = values.password
             dispatch(newPasswordTC({password, resetPasswordToken}))
             formik.resetForm()
-
+            dispatch(setPasswordAC(true))
         },
     })
 
@@ -46,7 +46,7 @@ export const NewPassword: React.FC<NewPasswordPropsType> = () => {
     }
     return (
         <div className={s.passwordRecoveryBlock}>
-            {status === 'loading' && <Preloader/>}
+            {appStatus === 'loading' && <Preloader/>}
             <div className={s.passwordRecovery}>
                 <h1 className={s.title}>It-incubator</h1>
                 <h2 className={s.title}>Create new password</h2>
@@ -69,7 +69,7 @@ export const NewPassword: React.FC<NewPasswordPropsType> = () => {
                         <button
                             className={s.sendBtn}
                             type="submit"
-                            disabled={status === 'loading'}
+                            disabled={appStatus === 'loading'}
                         > Create new password
                         </button>
                     </div>
