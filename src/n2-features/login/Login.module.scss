@@ -1,9 +1,6 @@
 @import "../../common/styles/mixins";
 @import "../../common/styles/variables";
 
-
-
-
 .loginBlock {
   //box-sizing: border-box;
   //padding: 25px 33px;
@@ -16,60 +13,48 @@
   position: absolute;
   left: 50%;
   top: 54%;
-
   transform: translate(-50%, -50%);
   @include commonCardStyles(100%, 413px, 540px, $backgroundColorCard);
 
-  .logo{
+  .logo {
     margin-bottom: 32px;
-
     font-weight: 600;
     font-size: 26px;
     line-height: 39px;
-
-
   }
-  .title{
-    margin-bottom: 40px;
 
+  .title {
+    margin-bottom: 40px;
     font-weight: 600;
     font-size: 22px;
     line-height: 33px;
   }
-  .emailBlock{
-    margin-bottom: 30px;
 
+  .emailBlock {
+    margin-bottom: 30px;
     text-align: left;
 
-    & span{
+    & span {
       font-size: 13px;
       line-height: 20px;
-
       opacity: 0.7;
     }
 
-
-    .inputText{
+    .inputText {
       width: 320px;
-
       margin: 0;
-
       padding: 10px 0 5px 0;
-
       background-color: inherit;
-
-      border-top:0;
+      border-top: 0;
       border-left: 0;
       border-right: 0;
       border-bottom: 2px solid #24254A;
-
       box-shadow: none;
-
-      color:black;
-
+      color: black;
       font-size: 16px;
     }
   }
+
   //.passwordBlock{
   //  //margin-bottom: 20px;
   //  //
@@ -123,11 +108,7 @@
     border: none;
     border-bottom: #F9F9FE;
     font-size: small;
-
-
     position: relative;
-
-
 
     label {
       text-align: left;
@@ -136,7 +117,6 @@
 
     input {
       margin-top: 7px;
-
       background-color: white;
 
       &::placeholder {
@@ -149,27 +129,23 @@
       @include commonInputStyles();
     }
   }
-  .link{
+
+  .link {
     margin-bottom: 30px;
-
     display: block;
-
     font-size: 14px;
     line-height: 17px;
-
     transform: translateX(27%);
-
-    color:black;
-
+    color: black;
     text-decoration: none;
-
     transition: all .2s ease-in-out;
 
-    &:active{
-      color:goldenrod;
+    &:active {
+      color: goldenrod;
     }
   }
-  .checkboxBlock{
+
+  .checkboxBlock {
     margin-bottom: 30px;
     text-align: left;
 
@@ -177,51 +153,43 @@
       margin-right: 10px;
     }
 
-
   }
 
-  .loginBtn{
+  .loginBtn {
     margin-bottom: 20px;
     width: 266px;
     height: 36px;
-
     background-color: #9890c7;
-
     border-radius: 20px;
-
-    color:white;
+    color: white;
     font-size: 14px;
-
     border-style: none;
-
     transition: all .2s ease-in-out;
 
-    &:active{
+    &:active {
       background-color: goldenrod;
     }
   }
-  .redirectBlock{
-    margin-top: 20px;
 
+  .redirectBlock {
+    margin-top: 20px;
     display: flex;
     flex-direction: column;
     gap: 10px;
-    & span{
+
+    & span {
       font-size: 13px;
       line-height: 20px;
-
       opacity: 0.7;
     }
-    .signBtn{
 
-
+    .signBtn {
       background-color: inherit;
       border-style: none;
-
       transition: all .2s ease-in-out;
 
-      &:active{
-        color:goldenrod;
+      &:active {
+        color: goldenrod;
       }
     }
   }

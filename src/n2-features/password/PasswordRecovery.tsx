@@ -1,7 +1,7 @@
 import React from 'react';
 import s from './PasswordRecovery.module.scss';
-import {Preloader} from "../../common/preloader/Preloaders";
-import {RequestStatusType} from "../../n1-main/m2-bll/reducers/app-reducer";
+import {Preloader} from '../../common/preloader/Preloaders';
+import {RequestStatusType} from '../../n1-main/m2-bll/reducers/app-reducer';
 
 export type PasswordRecoveryPropsType = {
     formik: any
@@ -17,7 +17,6 @@ export type FormikErrorType = {
 export const PasswordRecovery: React.FC<PasswordRecoveryPropsType> = (props) => {
 
     return (
-
         <div className={s.passwordRecoveryBlock}>
             {props.status === 'loading' && <Preloader/>}
             <div className={s.passwordRecovery}>
@@ -39,8 +38,6 @@ export const PasswordRecovery: React.FC<PasswordRecoveryPropsType> = (props) => 
                           Enter your email address and we will send you further instructions
                     </span>
                     </div>
-
-
                     <div className={s.buttonsBlock}>
                         <button
                             className={s.sendBtn}
@@ -56,6 +53,5 @@ export const PasswordRecovery: React.FC<PasswordRecoveryPropsType> = (props) => 
                 </form>
             </div>
         </div>
-
     );
 }

@@ -15,7 +15,7 @@ export const registrationReducer = (state: InitialStateRegistrationType = initia
     }
 }
 
-//actions
+//actionCreators
 export const registrationAC = (isRegistration: boolean) =>
     ({type: 'REGISTRATION/NEW-USER-CREATED', isRegistration} as const)
 export const setErrorAC = (value: string) =>

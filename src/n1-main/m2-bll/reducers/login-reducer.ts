@@ -1,13 +1,12 @@
-import {authApi, LoginDataType} from "../../m3-dal/auth-api";
-import {Dispatch} from "react";
-import {setAppStatusAC, SetAppStatusActionType} from "./app-reducer";
-import {setUserDataAC, SetUserDataActionType} from "./profile-reducer";
+import {authApi, LoginDataType} from '../../m3-dal/auth-api';
+import {Dispatch} from 'react';
+import {setAppStatusAC, SetAppStatusActionType} from './app-reducer';
+import {setUserDataAC, SetUserDataActionType} from './profile-reducer';
 
 const initialState = {
     isLoggedIn: false,
     loginError: ''
 }
-
 
 export const loginReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
@@ -20,51 +19,47 @@ export const loginReducer = (state: InitialStateType = initialState, action: Act
     }
 }
 
-// actionCreators
+//actionCreators
 export const setIsLoggedInAC = (value: boolean) =>
     ({type: 'login/SET-IS-LOGGED-IN', value} as const)
- const setErrorAc = (errorValue: string) => ({type: 'login/SET-ERROR', errorValue} as const)
+const setErrorAc = (errorValue: string) => ({type: 'login/SET-ERROR', errorValue} as const)
 
 //thunks
-
 export const loginTC = (data: LoginDataType) => async (dispatch: Dispatch<ActionsType>) => {
-    dispatch(setAppStatusAC("loading"))
+    dispatch(setAppStatusAC('loading'))
     try {
         let res = await authApi.login(data)
         dispatch(setIsLoggedInAC(true))
-        dispatch(setAppStatusAC("succeeded"))
+        dispatch(setAppStatusAC('succeeded'))
         dispatch(setUserDataAC(res.data))
     } catch (e) {
         const error = e.response
             ? e.response.data.error
             : (e.message + ', more details in the console');
         dispatch(setErrorAc(error))
-        dispatch(setAppStatusAC("failed"))
+        dispatch(setAppStatusAC('failed'))
     } finally {
-        dispatch(setAppStatusAC("succeeded"))
+        dispatch(setAppStatusAC('succeeded'))
     }
 }
 
 export const logoutTC = () => async (dispatch: Dispatch<ActionsType>) => {
-    dispatch(setAppStatusAC("loading"))
+    dispatch(setAppStatusAC('loading'))
     try {
         let res = await authApi.logOut()
         console.log(res)
         dispatch(setIsLoggedInAC(false))
-        dispatch(setAppStatusAC("succeeded"))
+        dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
         dispatch(setErrorAc(e.response.error))
-        dispatch(setAppStatusAC("failed"))
+        dispatch(setAppStatusAC('failed'))
     } finally {
-        dispatch(setAppStatusAC("succeeded"))
-
+        dispatch(setAppStatusAC('succeeded'))
     }
-
 }
 
 //type
 type InitialStateType = typeof initialState
-
 type SetErrorActionType = ReturnType<typeof setErrorAc>
 export type setLoggedInActionType = ReturnType<typeof setIsLoggedInAC>
 type ActionsType =

@@ -1,13 +1,13 @@
 import React from 'react'
 import {Login} from './Login';
-import {Redirect} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
-import {RootStateType} from "../../n1-main/m2-bll/store";
-import {useFormik} from "formik";
-import {loginTC} from "../../n1-main/m2-bll/reducers/login-reducer";
-import {RequestStatusType} from "../../n1-main/m2-bll/reducers/app-reducer";
-import {Preloader} from "../../common/preloader/Preloaders";
-import {path} from "../../n1-main/m1-ui/routes/Routes";
+import {Redirect} from 'react-router-dom';
+import {useDispatch, useSelector} from 'react-redux';
+import {RootStateType} from '../../n1-main/m2-bll/store';
+import {useFormik} from 'formik';
+import {loginTC} from '../../n1-main/m2-bll/reducers/login-reducer';
+import {RequestStatusType} from '../../n1-main/m2-bll/reducers/app-reducer';
+import {Preloader} from '../../common/preloader/Preloaders';
+import {path} from '../../n1-main/m1-ui/routes/Routes';
 
 type FormikErrorType = {
     email?: string

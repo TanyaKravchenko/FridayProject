@@ -1,12 +1,10 @@
 import {ProfileType} from "../../m3-dal/auth-api";
 import {SetAppStatusActionType} from "./app-reducer";
 
-
 const initialState = {
     // profileData: null as ProfileDataType| null,
     user:null as ProfileType | null,
     profileError:''
-
 }
 
 export const profileReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {

@@ -1,15 +1,15 @@
 import React from 'react';
 import s from './PasswordRecovery.module.scss';
 import {Redirect} from 'react-router-dom';
-import {useDispatch, useSelector} from "react-redux";
-import {useFormik} from "formik";
-import {FormikErrorType} from "./PasswordRecovery";
-import {useParams} from "react-router";
-import {newPasswordTC, setPasswordAC} from "../../n1-main/m2-bll/reducers/password-recovery-reducer";
-import {RootStateType} from "../../n1-main/m2-bll/store";
-import {RequestStatusType} from "../../n1-main/m2-bll/reducers/app-reducer";
-import {path} from "../../n1-main/m1-ui/routes/Routes";
-import {Preloader} from "../../common/preloader/Preloaders";
+import {useDispatch, useSelector} from 'react-redux';
+import {useFormik} from 'formik';
+import {FormikErrorType} from './PasswordRecovery';
+import {useParams} from 'react-router';
+import {newPasswordTC, setPasswordAC} from '../../n1-main/m2-bll/reducers/password-recovery-reducer';
+import {RootStateType} from '../../n1-main/m2-bll/store';
+import {RequestStatusType} from '../../n1-main/m2-bll/reducers/app-reducer';
+import {path} from '../../n1-main/m1-ui/routes/Routes';
+import {Preloader} from '../../common/preloader/Preloaders';
 
 type NewPasswordPropsType = {}
 
@@ -76,7 +76,6 @@ export const NewPassword: React.FC<NewPasswordPropsType> = () => {
                 </form>
             </div>
         </div>
-
     );
 }
 
