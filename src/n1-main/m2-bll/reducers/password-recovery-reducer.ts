@@ -28,6 +28,7 @@ export const setIsSentEmailAC = (value: boolean) =>
 export const setPasswordAC = (value: boolean) =>
     ({type: 'set-new-password/SET-PASSWORD', value} as const)
 
+//thunks
 export const passwordRecoveryTC = (data: ForgotDataType) => (dispatch: Dispatch<ActionsType>) => {
     dispatch(setAppStatusAC('loading'))
     authApi.forgot(data)
@@ -39,7 +40,6 @@ export const passwordRecoveryTC = (data: ForgotDataType) => (dispatch: Dispatch<
         })
 }
 
-//thunks
 export const newPasswordTC = (data: SetNewPasswordDataType) => (dispatch: Dispatch<ActionsType>) => {
     dispatch(setAppStatusAC('loading'))
     authApi.setNewPassword(data)
