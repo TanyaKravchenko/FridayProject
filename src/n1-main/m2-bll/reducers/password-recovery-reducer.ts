@@ -33,6 +33,7 @@ export const passwordRecoveryTC = (data: ForgotDataType) => (dispatch: Dispatch<
     dispatch(setAppStatusAC('loading'))
     authApi.forgot(data)
         .then(res => {
+            console.log(res)
         })
         .catch(e => e.response ? e.response.data.error : (e.message + ', more details in the console'))
         .finally(() => {

@@ -9,7 +9,6 @@ export type CheckEmailPropsType = {
 
 export const CheckEmail = (props: CheckEmailPropsType) => {
     const email = props.email
-    debugger
     const img = 'https://aravia-prof.ru/bitrix/templates/aravia_mobile/components/bitrix/news.detail/vacancies/img/email.svg'
     return (
         <div className={s.passwordRecoveryBlock}>
