@@ -5,11 +5,6 @@ import Checkbox from './Checkbox/Checkbox';
 import InputText from './InputText/InputText';
 import Radio from './Radio/Radio';
 import Select from './Select/Select';
-import {useSelector} from "react-redux";
-import {RootStateType} from "../../n1-main/m2-bll/store";
-import {Redirect} from "react-router-dom";
-import {path} from "../../n1-main/m1-ui/routes/Routes";
-
 
 const AllSuperComponents = () => {
     const arr = ['x', 'y', 'z'];
@@ -26,11 +21,11 @@ const AllSuperComponents = () => {
         }
         setText('')
     }
-    const isInitialized = useSelector<RootStateType, boolean>(state => state.app.isInitialized)
 
-    if(!isInitialized){
-       return <Redirect to={path.LOGIN}/>
-    }
+    // if(!isInitialized){
+    //    return <Redirect to={path.LOGIN}/>
+    // }
+
     return (
         <div className={s.column}>
             <InputText

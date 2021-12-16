@@ -51,16 +51,6 @@ export const LoginContainer: React.FC = () => {
     return (
         <div>
             {status === 'loading' && <Preloader/>}
-            {loginError && <div
-                style={{
-                    color: 'red',
-                    fontSize: '20px',
-                    width: '400px',
-                    height: '200px',
-                    border: '2px solid'
-                }}
-            >{loginError}
-            </div>}
             <Login formik={formik} status={status} error={loginError}/>
         </div>
     )

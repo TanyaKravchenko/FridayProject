@@ -11,15 +11,9 @@ type LoginPropsType = {
     error: string
 }
 
-// type FormikErrorType = {
-//     email?: string
-//     password?: string
-//     rememberMe?: boolean
-// }
-
 export const Login: React.FC<LoginPropsType> = (props) => {
     return (
-        <div className={s.loginBlock}>
+        <div className={s.loginBlock} >
             {props.error && <div style={{color: 'red', fontSize: '20px'}}>{props.error}</div>}
             <h2 className={s.logo}>It-incubator</h2>
             <h3 className={s.title}>Sign in</h3>
