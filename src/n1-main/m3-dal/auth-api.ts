@@ -2,27 +2,27 @@ import axios, {AxiosResponse} from 'axios';
 
 export const instance = axios.create({
     withCredentials: true,
-     baseURL: 'https://neko-back.herokuapp.com/2.0/',
-      //baseURL: 'http://localhost:7542/2.0/',
+    baseURL: 'https://neko-back.herokuapp.com/2.0/',
+    // baseURL: 'http://localhost:7542/2.0/',
 })
 
 export const authApi = {
     me() {
-        return instance.post('auth/me', {}).then(res => res.data)
+        return instance.post<ProfileType>('auth/me', {}).then(res => res.data)
     },
     register(data: RegisterParamsType) {
         return instance.post('/auth/register', data).then(res => res.data)
     },
     login(data: LoginDataType) {
-        return instance.post<LoginDataType, AxiosResponse<ResponseType>>('auth/login', data)
+        return instance.post<LoginDataType, AxiosResponse<ProfileType>>('auth/login', data)
     },
     logOut() {
         return instance.delete<LogOutResponseType>(`auth/me`);
     },
-    forgot(data:ForgotDataType){
+    forgot(data: ForgotDataType) {
         return instance.post<ForgotDataType, AxiosResponse<ForgotResponseType>>('auth/forgot', data)
     },
-    setNewPassword(data:SetNewPasswordDataType){
+    setNewPassword(data: SetNewPasswordDataType) {
         return instance.post<ForgotDataType, AxiosResponse<SetNewPasswordDataType>>('auth/set-new-password', data)
     },
 }
@@ -31,6 +31,7 @@ export const authApi = {
 export type RegisterParamsType = {
     email: string
     password: string
+    error?: string
 }
 
 export type LoginDataType = {
@@ -39,7 +40,7 @@ export type LoginDataType = {
     rememberMe: boolean
 }
 
-export type ResponseType = {
+export type ProfileType = {
     _id: string
     email: string
     name: string
@@ -70,30 +71,7 @@ export type SetNewPasswordDataType = {
 
 }
 
-export type ForgotResponseType ={
+export type ForgotResponseType = {
     info: string
     error: string
 }
-
-// {
-//     _id: string;
-//     email: string;
-//     name: string;
-//     avatar?: string;
-//     publicCardPacksCount: number; // количество колод
-//
-//     created: Date;
-//     updated: Date;
-//     isAdmin: boolean;
-//     verified: boolean; // подтвердил ли почту
-//     rememberMe: boolean;
-//
-//     error?: string;
-// }
-
-// export type ResponseType<D = {}> = {
-//     resultCode: number
-//     messages: Array<string>
-//     fieldsErrors: Array<string>
-//     data: D
-// }

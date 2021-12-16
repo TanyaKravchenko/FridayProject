@@ -1,6 +1,6 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import s from './Registration.module.scss';
-import {emailValidation, PasswordValidation} from '../../utils/validation';
+import {emailValidation, passwordValidation} from '../../utils/validation';
 import {Input} from '../super components/InputText/Input';
 import {RequestStatusType} from '../../n1-main/m2-bll/reducers/app-reducer';
 import {useDispatch, useSelector} from 'react-redux';
@@ -10,8 +10,7 @@ import {Redirect} from 'react-router-dom';
 import {path} from '../../n1-main/m1-ui/routes/Routes';
 import {Preloader} from '../../common/preloader/Preloaders';
 
-type RegistrationPropsType = {
-}
+type RegistrationPropsType = {}
 
 const Registration: React.FC<RegistrationPropsType> = () => {
     const [email, setEmail] = useState<string>('')
@@ -21,8 +20,6 @@ const Registration: React.FC<RegistrationPropsType> = () => {
     const [errorEmailMessage, setErrorEmailMessage] = useState<string>('')
     const [errorPasswordMessage, setErrorPasswordMessage] = useState<string>('')
 
-    //const disabledBtnSubmit = !email || !password || !checkPassword
-
     const dispatch = useDispatch()
     const appStatus = useSelector<RootStateType, RequestStatusType>(state => state.app.status)
     const isRegistration = useSelector<RootStateType, boolean>(state => state.registration.isRegistration)
@@ -31,23 +28,20 @@ const Registration: React.FC<RegistrationPropsType> = () => {
     const onChangeEmailHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setErrorEmailMessage('')
         setEmail(e.currentTarget.value)
-        serverErrorMessage && dispatch(setErrorAC(''))
     }
     const onChangePasswordHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setErrorPasswordMessage('')
         setPassword(e.currentTarget.value)
-        serverErrorMessage && dispatch(setErrorAC(''))
     }
     const onChangePasswordCheckHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setErrorPasswordMessage('')
         setCheckPassword(e.currentTarget.value)
-        serverErrorMessage && dispatch(setErrorAC(''))
     }
 
     const onRegistrationHandler = () => {
         if (!emailValidation(email)) {
             setErrorEmailMessage('Incorrect email')
-        } else if (!PasswordValidation(password)) {
+        } else if (!passwordValidation(password)) {
             setErrorPasswordMessage('Minimum 8 characters')
         } else if (password !== checkPassword) {
             setErrorPasswordMessage('Enter the same password')
@@ -74,7 +68,7 @@ const Registration: React.FC<RegistrationPropsType> = () => {
     }
     return (
         <div className={s.registerBlock}>
-            {appStatus==='loading' && <Preloader/>}
+            {appStatus === 'loading' && <Preloader/>}
             <div className={s.registerCard}>
                 <h1 className={s.title}>It-incubator</h1>
                 <h2>Sign Up</h2>

@@ -1,9 +1,9 @@
 import React from 'react';
 import s from './PasswordRecovery.module.scss';
-import {Preloader} from "../../common/preloader/Preloaders";
-import {RequestStatusType} from "../../n1-main/m2-bll/reducers/app-reducer";
+import {Preloader} from '../../common/preloader/Preloaders';
+import {RequestStatusType} from '../../n1-main/m2-bll/reducers/app-reducer';
 import {path} from "../../n1-main/m1-ui/routes/Routes";
-import { Redirect } from 'react-router-dom';
+import {NavLink} from "react-router-dom";
 
 export type PasswordRecoveryPropsType = {
     formik: any
@@ -17,10 +17,6 @@ export type FormikErrorType = {
 }
 
 export const PasswordRecovery: React.FC<PasswordRecoveryPropsType> = (props) => {
-
-    const lgoInRedirectHandler = () => {
-              return <Redirect to={path.LOGIN}/>
-    }
 
     return (
         <div className={s.passwordRecoveryBlock}>
@@ -44,8 +40,6 @@ export const PasswordRecovery: React.FC<PasswordRecoveryPropsType> = (props) => 
                           Enter your email address and we will send you further instructions
                     </span>
                     </div>
-
-
                     <div className={s.buttonsBlock}>
                         <button
                             className={s.sendBtn}
@@ -56,11 +50,10 @@ export const PasswordRecovery: React.FC<PasswordRecoveryPropsType> = (props) => 
                     </div>
                     <div className={s.inputText}>
                         <div className={s.redirectSpan}>Did you remember your password?</div>
-                        <button type="button" className={s.signBtn} onClick={lgoInRedirectHandler}>Try logging in</button>
+                        <NavLink to={path.LOGIN} className={s.signBtn}>Try logging in</NavLink>
                     </div>
                 </form>
             </div>
         </div>
-
     );
 }

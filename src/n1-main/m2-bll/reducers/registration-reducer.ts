@@ -15,7 +15,7 @@ export const registrationReducer = (state: InitialStateRegistrationType = initia
     }
 }
 
-//actions
+//actionCreators
 export const registrationAC = (isRegistration: boolean) =>
     ({type: 'REGISTRATION/NEW-USER-CREATED', isRegistration} as const)
 export const setErrorAC = (value: string) =>
@@ -29,6 +29,7 @@ export const registrationTC = (data: RegisterParamsType) => async (dispatch: Dis
         dispatch(registrationAC(true))
     } catch (e) {
         dispatch(setErrorAC(e.response.data.error))
+        console.log(data)
         // const error = e.response
         //     ? e.response.data.error
         //     : (e.message)
