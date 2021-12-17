@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {useFormik} from 'formik';
 import {FormikErrorType} from './PasswordRecovery';
 import {useParams} from 'react-router';
-import {newPasswordTC, setPasswordAC} from '../../n1-main/m2-bll/reducers/password-recovery-reducer';
+import {newPasswordTC} from '../../n1-main/m2-bll/reducers/password-recovery-reducer';
 import {RootStateType} from '../../n1-main/m2-bll/store';
 import {RequestStatusType} from '../../n1-main/m2-bll/reducers/app-reducer';
 import {path} from '../../n1-main/m1-ui/routes/Routes';
@@ -37,7 +37,7 @@ export const NewPassword: React.FC<NewPasswordPropsType> = () => {
             const password = values.password
             dispatch(newPasswordTC({password, resetPasswordToken}))
             formik.resetForm()
-            dispatch(setPasswordAC(true))
+
         },
     })
 

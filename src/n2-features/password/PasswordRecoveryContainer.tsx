@@ -4,7 +4,7 @@ import {RootStateType} from '../../n1-main/m2-bll/store';
 import {useFormik} from 'formik';
 import {RequestStatusType} from '../../n1-main/m2-bll/reducers/app-reducer';
 import {FormikErrorType, PasswordRecovery} from './PasswordRecovery';
-import {passwordRecoveryTC, setIsSentEmailAC} from '../../n1-main/m2-bll/reducers/password-recovery-reducer';
+import {passwordRecoveryTC} from '../../n1-main/m2-bll/reducers/password-recovery-reducer';
 import {CheckEmail} from './CheckEmail/CheckEmail';
 
 export const PasswordRecoveryContainer: React.FC = () => {
@@ -30,7 +30,6 @@ export const PasswordRecoveryContainer: React.FC = () => {
         onSubmit: values => {
             const email = values.email
             dispatch(passwordRecoveryTC({email, message, from}))
-            dispatch(setIsSentEmailAC(true))
             formik.resetForm()
         },
     })
@@ -43,8 +42,6 @@ export const PasswordRecoveryContainer: React.FC = () => {
 
     return (
         <div>
-            {status === 'loading' &&
-            <div style={{padding: '20px', fontSize: '25px', textAlign: 'left'}}>Loading...</div>}
             <PasswordRecovery formik={formik} status={status}/>
         </div>
     )
