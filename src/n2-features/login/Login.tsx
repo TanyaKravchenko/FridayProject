@@ -11,9 +11,9 @@ type LoginPropsType = {
     error: string
 }
 
-export const Login: React.FC<LoginPropsType> = (props) => {
+export const Login: React.FC<LoginPropsType> = React.memo((props) => {
     return (
-        <div className={s.loginBlock} >
+        <div className={s.loginBlock}>
             {props.error && <div style={{color: 'red', fontSize: '20px'}}>{props.error}</div>}
             <h2 className={s.logo}>It-incubator</h2>
             <h3 className={s.title}>Sign in</h3>
@@ -62,4 +62,4 @@ export const Login: React.FC<LoginPropsType> = (props) => {
             </div>
         </div>
     )
-}
+})

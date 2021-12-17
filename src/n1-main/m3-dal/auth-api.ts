@@ -6,6 +6,8 @@ export const instance = axios.create({
     // baseURL: 'http://localhost:7542/2.0/',
 })
 
+let defaultAvatar = 'https://image.shutterstock.com/image-photo/indy-musician-guitarist-pug-dogfunny-260nw-688080844.jpg';
+
 export const authApi = {
     me() {
         return instance.post<ProfileType>('auth/me', {}).then(res => res.data)
@@ -25,6 +27,9 @@ export const authApi = {
     setNewPassword(data: SetNewPasswordDataType) {
         return instance.post<ForgotDataType, AxiosResponse<SetNewPasswordDataType>>('auth/set-new-password', data)
     },
+    updateUser(name:string | null , avatar:string = 'https://image.shutterstock.com/image-photo/indy-musician-guitarist-pug-dogfunny-260nw-688080844.jpg'){
+        return instance.put<{name:string, avatar:string },AxiosResponse<ProfileType>>('auth/me', {name, avatar})
+    }
 }
 
 //types
