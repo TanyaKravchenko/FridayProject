@@ -15,7 +15,7 @@ type FormikErrorType = {
     password?: string
     rememberMe?: boolean
 }
-export const LoginContainer: React.FC = () => {
+export const LoginContainer: React.FC =React.memo( () => {
     const loginIn = useSelector<RootStateType, boolean>(state => state.login.isLoggedIn)
     const status = useSelector<RootStateType, RequestStatusType>(state => state.app.status)
     const loginError = useSelector<RootStateType, string>(state => state.login.loginError)
@@ -55,4 +55,4 @@ export const LoginContainer: React.FC = () => {
             <Login formik={formik} status={status} error={loginError}/>
         </div>
     )
-}
+})
