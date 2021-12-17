@@ -8,6 +8,7 @@ import {loginTC} from '../../n1-main/m2-bll/reducers/login-reducer';
 import {RequestStatusType} from '../../n1-main/m2-bll/reducers/app-reducer';
 import {Preloader} from '../../common/preloader/Preloaders';
 import {path} from '../../n1-main/m1-ui/routes/Routes';
+import s from './Login.module.scss';
 
 type FormikErrorType = {
     email?: string
@@ -49,7 +50,7 @@ export const LoginContainer: React.FC = () => {
         return <Redirect to={path.PROFILE}/>
     }
     return (
-        <div>
+        <div className={s.loginContainer}>
             {status === 'loading' && <Preloader/>}
             <Login formik={formik} status={status} error={loginError}/>
         </div>

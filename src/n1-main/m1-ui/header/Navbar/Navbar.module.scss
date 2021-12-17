@@ -13,6 +13,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-wrap: wrap;
 
     &:hover {
       opacity: 0.5;
@@ -28,6 +29,12 @@
     a.active {
       color: goldenrod;
     }
+  }
+}
+
+@media (max-width: 1024px) {
+  .navLinkItems {
+    grid-template-columns: auto;
   }
 }
 

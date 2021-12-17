@@ -30,7 +30,7 @@ const Profile: React.FC<ProfilePropsType> = () => {
     }
 
     return (
-        <>
+        <div className={s.profileContainer}>
             {status === 'loading' && <Preloader/>}
             <div className={s.profile}>
                 <span className={s.verify}>{user && user.verified}</span>
@@ -40,7 +40,7 @@ const Profile: React.FC<ProfilePropsType> = () => {
                 <h3 className={s.userName}>{user && user.name}</h3>
                 <Button onClick={onClickLogOut}>Log Out</Button>
             </div>
-        </>
+        </div>
     );
 }
 

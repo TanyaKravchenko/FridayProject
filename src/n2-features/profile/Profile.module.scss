@@ -1,46 +1,47 @@
-.profile{
-  box-sizing: border-box;
-  padding: 25px 33px;
+@import "../../common/styles/mixins";
+@import "../../common/styles/variables";
 
-  width: 413px;
-  height: 600px;
+.profileContainer {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  min-height: 98vh;
+  color: $darkTextColor;
+  margin-top: 120px;
 
-  background-color: #F9F9FE;
+  //box-sizing: border-box;
+  //padding: 25px 33px;
+  //width: 413px;
+  //height: 600px;
+  //background-color: #F9F9FE;
+  //position: absolute;
+  //left: 50%;
+  //top: 54%;
+  //transform: translate(-50%, -50%);
 
-  position: absolute;
-  left: 50%;
-  top: 54%;
-
-  transform: translate(-50%, -50%);
-
-  .verify{
-    color:green;
-
+  .verify {
+    color: green;
     font-size: 20px;
   }
 
-  .title{
+  .title {
     margin-bottom: 20px;
     margin-top: 10px;
-
     font-weight: 600;
     font-size: 26px;
-
     line-height: 30px;
 
   }
-  & img{
+
+  & img {
     margin: 0 auto;
-
     display: block;
-
     width: 230px;
     height: 230px;
-
-
     object-fit: cover;
   }
-  .userName{
+
+  .userName {
     font-size: 20px;
   }
 }
