@@ -9,8 +9,8 @@ import {logoutTC} from '../../n1-main/m2-bll/reducers/login-reducer';
 import {RequestStatusType} from '../../n1-main/m2-bll/reducers/app-reducer';
 import {Preloader} from '../../common/preloader/Preloaders';
 import {ProfileType} from '../../n1-main/m3-dal/auth-api';
-import {EditableSpan} from "../../common/editableSpan/EditableSpan";
-import {updateUser} from "../../n1-main/m2-bll/reducers/profile-reducer";
+import {EditableSpan} from '../../common/editableSpan/EditableSpan';
+import {updateUser} from '../../n1-main/m2-bll/reducers/profile-reducer';
 
 type ProfilePropsType = {}
 
@@ -31,10 +31,11 @@ const Profile: React.FC<ProfilePropsType> = React.memo(() => {
     const onClickLogOut = () => {
         dispatch(logoutTC())
     }
-     const updateUserName = (value:string) => {
+    const updateUserName = (value: string) => {
         dispatch(updateUser(value))
     }
     console.log(user)
+
     return (
         <div className={s.profileContainer}>
             {status === 'loading' && <Preloader/>}
