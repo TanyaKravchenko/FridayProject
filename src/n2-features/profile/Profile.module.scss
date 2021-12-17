@@ -7,7 +7,7 @@
   justify-content: center;
   min-height: 98vh;
   color: $darkTextColor;
-  margin-top: 120px;
+  margin-top: 60px;
 
   //box-sizing: border-box;
   //padding: 25px 33px;
@@ -43,5 +43,11 @@
 
   .userName {
     font-size: 20px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .profileContainer {
+    margin-top: 0;
   }
 }
