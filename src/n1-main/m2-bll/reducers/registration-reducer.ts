@@ -36,9 +36,9 @@ export const registrationTC = (data: RegisterParamsType) => async (dispatch: Dis
             : (e.message)
         dispatch(setErrorAC(error))
     } finally {
-        dispatch(setAppStatusAC('succeeded'))
+        dispatch(setAppStatusAC('succeeded')) //уточнить
         setTimeout(() => {
-            dispatch(setAppStatusAC('idle'))
+            dispatch(setAppStatusAC('idle')) //уточнить
         }, 3000)
     }
 }
