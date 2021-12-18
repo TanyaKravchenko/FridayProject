@@ -9,6 +9,7 @@ type LoginPropsType = {
     formik: any,
     status: RequestStatusType,
     error: string
+    resetError: () => void
 }
 
 export const Login: React.FC<LoginPropsType> = React.memo((props) => {
@@ -23,6 +24,7 @@ export const Login: React.FC<LoginPropsType> = React.memo((props) => {
                     <Input
                         type={'text'}
                         className={s.inputText}
+                        onClick={props.resetError}
                         {...props.formik.getFieldProps('email')}
                     />
                     {props.formik.touched.email && props.formik.errors.email ? (

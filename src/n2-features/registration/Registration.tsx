@@ -8,11 +8,10 @@ import {RootStateType} from '../../n1-main/m2-bll/store';
 import {registrationAC, registrationTC, setErrorAC} from '../../n1-main/m2-bll/reducers/registration-reducer';
 import {Redirect} from 'react-router-dom';
 import {path} from '../../n1-main/m1-ui/routes/Routes';
-import {Preloader} from '../../common/preloader/Preloaders';
 
 type RegistrationPropsType = {}
 
-const Registration: React.FC<RegistrationPropsType> = () => {
+const Registration: React.FC<RegistrationPropsType> = React.memo(() => {
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
     const [checkPassword, setCheckPassword] = useState<string>('')
@@ -63,8 +62,7 @@ const Registration: React.FC<RegistrationPropsType> = () => {
         return <Redirect to={path.LOGIN}/>
     }
 
-    if (serverErrorMessage) {
-        alert(serverErrorMessage)
+    const resetError = () => {
         dispatch(setErrorAC(''))
     }
 
@@ -73,7 +71,6 @@ const Registration: React.FC<RegistrationPropsType> = () => {
     }
     return (
         <div className={s.registerBlock}>
-            {appStatus === 'loading' && <Preloader/>}
             <div className={s.registerCard}>
                 <h1 className={s.title}>It-incubator</h1>
                 <h2>Sign Up</h2>
@@ -87,6 +84,7 @@ const Registration: React.FC<RegistrationPropsType> = () => {
                                errorMessage={errorEmailMessage}
                                id={'registration/email'}
                                view="submit"
+                               onClick={resetError}
                         />
                     </div>
                     <div className={s.inputItem}>
@@ -114,7 +112,8 @@ const Registration: React.FC<RegistrationPropsType> = () => {
                                errorMessage={errorPasswordMessage}
                         />
                     </div>
-                    {!emailValidation(email) && <div style={{color: 'red'}}>{serverErrorMessage}</div>}
+                    {!emailValidation(email) &&
+                    <div style={{color: 'red'}}>{serverErrorMessage} </div>}
                     <div className={s.buttonsBlock}>
                         <button className={s.cancel} onClick={goBack}>Cancel</button>
                         <button
@@ -131,6 +130,6 @@ const Registration: React.FC<RegistrationPropsType> = () => {
             </div>
         </div>
     );
-}
+})
 
 export default Registration;

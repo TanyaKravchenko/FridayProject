@@ -9,7 +9,7 @@ const initialState = {
 
 export const passwordRecoveryReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
-        case 'set-new-password/SET-PASSWORD':
+        case 'forgot/SET-PASSWORD':
             return {
                 ...state, isSetPassword: action.value
             }
@@ -26,31 +26,46 @@ export const passwordRecoveryReducer = (state: InitialStateType = initialState, 
 export const setIsSentEmailAC = (value: boolean) =>
     ({type: 'forgot/SET-IS-SENT-EMAIL', value} as const)
 export const setPasswordAC = (value: boolean) =>
-    ({type: 'set-new-password/SET-PASSWORD', value} as const)
+    ({type: 'forgot/SET-PASSWORD', value} as const)
+//добавить экшн error
 
 //thunks
 export const passwordRecoveryTC = (data: ForgotDataType) => (dispatch: Dispatch<ActionsType>) => {
     dispatch(setAppStatusAC('loading'))
     authApi.forgot(data)
-        .then(res => {
-             dispatch(setIsSentEmailAC(true))
-        })
-        .catch(e => e.response ? e.response.data.error : (e.message + ', more details in the console'))
-        .finally(() => {
+        .then(() => {
+            dispatch(setIsSentEmailAC(true))
             dispatch(setAppStatusAC('succeeded'))
         })
+        .catch(e => {
+            const error = e.response
+                ? e.response.data.error
+                : (e.message + ', more details in the console');
+            //добавить dispatch экшн error
+            // dispatch(setErrorAc(error)) - этим здесь не пользуемся
+            dispatch(setAppStatusAC('failed'))
+        })
+    // finally(() => {
+    //     dispatch(setAppStatusAC('succeeded')) - не нужно, тк в catch есть dispatch(setAppStatusAC('failed'))
 }
 
 export const newPasswordTC = (data: SetNewPasswordDataType) => (dispatch: Dispatch<ActionsType>) => {
     dispatch(setAppStatusAC('loading'))
     authApi.setNewPassword(data)
-        .then(res => {
+        .then(() => {
             dispatch(setPasswordAC(true))
-        })
-        .catch(e => e.response ? e.response.data.error : (e.message + ', more details in the console'))
-        .finally(() => {
             dispatch(setAppStatusAC('succeeded'))
         })
+        .catch(e => {
+            const error = e.response
+                ? e.response.data.error
+                : (e.message + ', more details in the console');
+            //добавить dispatch экшн error
+            // dispatch(setErrorAc(error)) - этим здесь не пользуемся
+            dispatch(setAppStatusAC('failed'))
+        })
+    // finally(() => {
+    //     dispatch(setAppStatusAC('succeeded')) - не нужно, тк в catch есть dispatch(setAppStatusAC('failed'))
 }
 
 //type
