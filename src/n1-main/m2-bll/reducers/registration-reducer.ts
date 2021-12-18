@@ -1,16 +1,16 @@
-import { Dispatch } from 'redux';
+import {Dispatch} from 'redux';
 import {authApi, RegisterParamsType} from '../../m3-dal/auth-api';
 import {setAppStatusAC} from './app-reducer';
 
-const initialStateRegistration = {
+const initialStateRegistration: RegistrationType = {
     isRegistration: false,
     error: ''
-} as RegistrationType
+}
 
-export const registrationReducer = (state: InitialStateRegistrationType = initialStateRegistration, action: ActionsType): InitialStateRegistrationType => {
+export const registrationReducer = (state: RegistrationType = initialStateRegistration, action: ActionsType): RegistrationType => {
     switch (action.type) {
         case 'REGISTRATION/NEW-USER-CREATED':
-            return {...state, isRegistration: action.isRegistration}
+            return {...state, isRegistration: action.isRegistration, error: ''}
         case 'REGISTRATION/SET-ERROR':
             return {...state, error: action.value};
         default:
@@ -31,19 +31,19 @@ export const registrationTC = (data: RegisterParamsType) => async (dispatch: Dis
         await authApi.register(data)
         dispatch(registrationAC(true))
     } catch (e) {
-        dispatch(setErrorAC(e.response.data.error))
-        console.log(data)
-        // const error = e.response
-        //     ? e.response.data.error
-        //     : (e.message)
-        // dispatch(setErrorAC(error))
+        const error = e.response
+            ? e.response.data.error
+            : (e.message)
+        dispatch(setErrorAC(error))
     } finally {
-        dispatch(setAppStatusAC('succeeded'))
+        dispatch(setAppStatusAC('succeeded')) //уточнить
+        setTimeout(() => {
+            dispatch(setAppStatusAC('idle')) //уточнить
+        }, 3000)
     }
 }
 
 //type
-type InitialStateRegistrationType = typeof initialStateRegistration
 type RegistrationType = {
     isRegistration: boolean
     error: string

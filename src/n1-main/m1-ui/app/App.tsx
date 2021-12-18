@@ -10,13 +10,13 @@ import {useDispatch, useSelector} from 'react-redux';
 const App = () => {
     //hooks
     const status = useSelector<RootStateType, RequestStatusType>(state => state.app.status)
-    const isInitialized = useSelector<RootStateType, boolean>(state=> state.app.isInitialized)
+    const isInitialized = useSelector<RootStateType, boolean>(state => state.app.isInitialized)
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(initializedTC())
     }, [])
 
-    if(!isInitialized){
+    if (!isInitialized) {
         return <Preloader/>
     }
 

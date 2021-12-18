@@ -22,25 +22,26 @@ export const loginReducer = (state: InitialStateType = initialState, action: Act
 //actionCreators
 export const setIsLoggedInAC = (value: boolean) =>
     ({type: 'login/SET-IS-LOGGED-IN', value} as const)
-const setErrorAc = (errorValue: string) => ({type: 'login/SET-ERROR', errorValue} as const)
+export const setErrorAc = (errorValue: string) => ({type: 'login/SET-ERROR', errorValue} as const)
 
 //thunks
 export const loginTC = (data: LoginDataType) => async (dispatch: Dispatch<ActionsType>) => {
     dispatch(setAppStatusAC('loading'))
     try {
         let res = await authApi.login(data)
+        dispatch(setUserDataAC(res.data))
         dispatch(setIsLoggedInAC(true))
         dispatch(setAppStatusAC('succeeded'))
-        dispatch(setUserDataAC(res.data))
     } catch (e) {
         const error = e.response
             ? e.response.data.error
             : (e.message + ', more details in the console');
         dispatch(setErrorAc(error))
         dispatch(setAppStatusAC('failed'))
-    } finally {
-        dispatch(setAppStatusAC('succeeded'))
     }
+    // } finally {
+    //     dispatch(setAppStatusAC('succeeded'))- не нужно, тк в catch есть dispatch(setAppStatusAC('failed'))
+    // }
 }
 
 export const logoutTC = () => async (dispatch: Dispatch<ActionsType>) => {
@@ -53,9 +54,10 @@ export const logoutTC = () => async (dispatch: Dispatch<ActionsType>) => {
     } catch (e) {
         dispatch(setErrorAc(e.response.error))
         dispatch(setAppStatusAC('failed'))
-    } finally {
-        dispatch(setAppStatusAC('succeeded'))
     }
+    // } finally {
+    //     dispatch(setAppStatusAC('succeeded'))- не нужно, тк в catch есть dispatch(setAppStatusAC('failed'))
+    // }
 }
 
 //type

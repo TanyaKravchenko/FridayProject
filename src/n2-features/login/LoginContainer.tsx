@@ -4,7 +4,7 @@ import {Redirect} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootStateType} from '../../n1-main/m2-bll/store';
 import {useFormik} from 'formik';
-import {loginTC} from '../../n1-main/m2-bll/reducers/login-reducer';
+import {loginTC, setErrorAc} from '../../n1-main/m2-bll/reducers/login-reducer';
 import {RequestStatusType} from '../../n1-main/m2-bll/reducers/app-reducer';
 import {Preloader} from '../../common/preloader/Preloaders';
 import {path} from '../../n1-main/m1-ui/routes/Routes';
@@ -15,7 +15,7 @@ type FormikErrorType = {
     password?: string
     rememberMe?: boolean
 }
-export const LoginContainer: React.FC =React.memo( () => {
+export const LoginContainer: React.FC = React.memo(() => {
     const loginIn = useSelector<RootStateType, boolean>(state => state.login.isLoggedIn)
     const status = useSelector<RootStateType, RequestStatusType>(state => state.app.status)
     const loginError = useSelector<RootStateType, string>(state => state.login.loginError)
@@ -49,10 +49,18 @@ export const LoginContainer: React.FC =React.memo( () => {
     if (loginIn) {
         return <Redirect to={path.PROFILE}/>
     }
+    const resetError = () => {
+        dispatch(setErrorAc(''))
+    }
     return (
         <div className={s.loginContainer}>
             {status === 'loading' && <Preloader/>}
-            <Login formik={formik} status={status} error={loginError}/>
+            <Login
+                formik={formik}
+                status={status}
+                error={loginError}
+                resetError={resetError}
+            />
         </div>
     )
 })
