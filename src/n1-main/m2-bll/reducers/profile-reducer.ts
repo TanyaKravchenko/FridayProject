@@ -1,12 +1,11 @@
-import {authApi, ProfileType} from "../../m3-dal/auth-api";
+import {authApi, ProfileType} from '../../m3-dal/auth-api';
 import {
-    AppActionsType,
     setAppErrorAC,
     SetAppErrorActionType,
     setAppStatusAC,
     SetAppStatusActionType
-} from "./app-reducer";
-import {Dispatch} from "react";
+} from './app-reducer';
+import {Dispatch} from 'react';
 
 const initialState = {
     // profileData: null as ProfileDataType| null,
@@ -32,14 +31,10 @@ export const setUserDataAC = (userData: ProfileType) => {
     return ({type: 'PROFILE/SET-USER-DATA', userData} as const)
 }
 const setErrorAc = (errorValue: string) => ({type: 'PROFILE/SET-ERROR', errorValue} as const)
-
 // export const updateUserDataAc = (updatedData: ProfileType) => ({type: 'PROFILE/UPDATE-USER-NAME', updatedData} as const)
 
-
 //thunks
-
-
-export const updateUser =  (name: string | null, avatar?:string) => async(dispatch: Dispatch<ActionsType>) => {
+export const updateUser = (name: string | null, avatar?: string) => async (dispatch: Dispatch<ActionsType>) => {
     dispatch(setAppStatusAC('loading'))
     try {
         await authApi.updateUser(name, avatar)
@@ -50,11 +45,11 @@ export const updateUser =  (name: string | null, avatar?:string) => async(dispat
             : (e.message)
         dispatch(setAppErrorAC(error))
         dispatch(setAppStatusAC('failed'))
-    } finally {
-        dispatch(setAppStatusAC('succeeded'))
     }
+    // finally {
+    //     dispatch(setAppStatusAC('succeeded'))- не нужно, тк в catch есть dispatch(setAppStatusAC('failed'))
+    // }
 }
-
 
 //types
 export type SetUserDataActionType = ReturnType<typeof setUserDataAC>
@@ -64,7 +59,7 @@ type ActionsType =
     | SetAppErrorActionType
     | SetAppStatusActionType
     | ReturnType<typeof setErrorAc>
-    // | ReturnType<typeof updateUserDataAc>
+// | ReturnType<typeof updateUserDataAc>
 
 type InitialStateType = typeof initialState
 
