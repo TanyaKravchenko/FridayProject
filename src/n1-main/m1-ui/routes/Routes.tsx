@@ -7,6 +7,8 @@ import NotFound from '../../../n2-features/notFound/NotFound';
 import {LoginContainer} from '../../../n2-features/login/LoginContainer';
 import {PasswordRecoveryContainer} from "../../../n2-features/password/PasswordRecoveryContainer";
 import {NewPassword} from "../../../n2-features/password/NewPassword";
+import {Packs} from "../../../n2-features/packs/Pacs";
+import {Cards} from "../../../n2-features/cards/Cards";
 
 export const path = {
     ALL_COMPONENTS: '/allSuperComponents',
@@ -15,6 +17,8 @@ export const path = {
     REG: '/registration',
     PASSWORD: '/newPassword/:token?',
     PASS_REC: '/passwordRecovery',
+    PACKS:'/packs',
+    CARDS:'/cards',
 
 }
 
@@ -28,6 +32,8 @@ const Routes = () => {
                 <Route path={path.LOGIN} exact render={() => <LoginContainer/>}/>
                 <Route path={path.REG} exact render={() => <Registration/>}/>
                 <Route path={path.PASSWORD}  render={() =><NewPassword/> }/>
+                <Route path={path.PACKS}  render={() =><Packs/> }/>
+                <Route path={path.CARDS}  render={() =><Cards/> }/>
                 <Route path={path.PASS_REC} exact render={() => <PasswordRecoveryContainer/>}/>
                 <Route path={'/404'} render={() => <NotFound/>}/>
                 <Redirect from={'*'} to={'/404'}/>
