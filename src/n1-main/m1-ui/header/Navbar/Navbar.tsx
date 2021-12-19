@@ -32,6 +32,14 @@ const Navbar: React.FC<NavbarPropsType> = () => {
                     <NavLink to={path.PASSWORD} className={s.navLink}
                              activeClassName={s.active}> NewPassword </NavLink>
                 </div>
+                <div className={s.item}>
+                    <NavLink to={path.PACKS} className={s.navLink}
+                             activeClassName={s.active}> Packs </NavLink>
+                </div>
+                <div className={s.item}>
+                    <NavLink to={path.CARDS} className={s.navLink}
+                             activeClassName={s.active}> Cards </NavLink>
+                </div>
             </div>
         </div>
     );

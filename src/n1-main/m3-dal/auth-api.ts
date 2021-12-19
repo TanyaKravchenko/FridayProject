@@ -1,4 +1,5 @@
 import axios, {AxiosResponse} from 'axios';
+import {SortValuesType} from "../m2-bll/reducers/packs-reducer";
 
 export const instance = axios.create({
     withCredentials: true,
@@ -27,9 +28,12 @@ export const authApi = {
     setNewPassword(data: SetNewPasswordDataType) {
         return instance.post<ForgotDataType, AxiosResponse<SetNewPasswordDataType>>('auth/set-new-password', data)
     },
-    updateUser(name:string | null , avatar:string = 'https://image.shutterstock.com/image-photo/indy-musician-guitarist-pug-dogfunny-260nw-688080844.jpg'){
-        return instance.put<{name:string, avatar:string },AxiosResponse<ProfileType>>('auth/me', {name, avatar})
-    }
+    updateUser(name: string | null, avatar: string = 'https://image.shutterstock.com/image-photo/indy-musician-guitarist-pug-dogfunny-260nw-688080844.jpg') {
+        return instance.put<{ name: string, avatar: string }, AxiosResponse<ProfileType>>('auth/me', {name, avatar})
+    },
+    getPacks(sortValues?: SortValuesType) {
+        return instance.get<PacksResponseType>('/cards/pack', {params: {...sortValues}})
+    },
 }
 
 //types
@@ -80,3 +84,29 @@ export type ForgotResponseType = {
     info: string
     error: string
 }
+
+
+export type OneCardPacksType = {
+    _id: string,
+    user_id: string,
+    name: string,
+    path: string,
+    cardsCount: number,
+    grade: number,
+    shots: number,
+    rating: number,
+    type: string,
+    created: string,
+    updated: string,
+    __v: number
+}
+
+export type PacksResponseType = {
+    cardPacks: OneCardPacksType[],
+    cardPacksTotalCount: number,
+    maxCardsCount: number,
+    minCardsCount: number,
+    page: number,
+    pageCount: number
+}
+
