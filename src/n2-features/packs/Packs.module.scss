@@ -2,11 +2,11 @@
 @import './../../common/styles/variables';
 
 .packs {
-  height: 1000px;
-
   display: flex;
   justify-content: center;
   align-items: flex-start;
+
+
 
   .wrap {
     margin-top: 2rem;
@@ -87,6 +87,8 @@
       padding: 1.5rem 3rem;
 
       background-color: white;
+
+      overflow: scroll;
 
       .listTitle {
         font-weight: 600;
