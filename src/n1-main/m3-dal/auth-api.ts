@@ -32,10 +32,17 @@ export const authApi = {
         return instance.put<{ name: string, avatar: string }, AxiosResponse<ProfileType>>('auth/me', {name, avatar})
     },
     getPacks(sortValues?: SortValuesType) {
-        return instance.get<PacksResponseType>('/cards/pack', {params: {...sortValues}})
+        return instance.get<PacksResponseType>('/cards/pack', {params: {min:0, max:10, pageCount:10}})
     },
-    addPack(cardsPack:CardsPackType){
-        return instance.post<CardsPackType,AxiosResponse<OneCardPacksType>>('/cards/pack', {cardsPack})
+    addPack(cardsPack?:CardsPackType){
+        return instance.post<CardsPackType,AxiosResponse<OneCardPacksType>>('/cards/pack', {
+            cardsPack:{
+                name:'HardCode user',
+                path:'/def',
+                private:false,
+                type:'pack'
+            }
+        })
     },
 }
 export type CardsPackType = {

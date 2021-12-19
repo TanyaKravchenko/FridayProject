@@ -2,6 +2,7 @@ import {Dispatch} from "redux";
 import {authApi, CardsPackType, OneCardPacksType} from "../../m3-dal/auth-api";
 import {setAppStatusAC, SetAppStatusActionType} from "./app-reducer";
 import {RootStateType} from "../store";
+import { ThunkAction } from "redux-thunk";
 
 
 let initialState = {
@@ -39,21 +40,27 @@ export const getPacksTC = (sortValues?:SortValuesType) => async (dispatch: Dispa
     }
 }
 
-export const addPackTC = (newPackValue:CardsPackType) => async (dispatch: Dispatch) => {
+export const addPackTC = (newPackValue?:CardsPackType):ThunkType => async (dispatch ) => {
     dispatch(setAppStatusAC('loading'))
-    try {
-        await authApi.addPack(newPackValue)
-        dispatch(setAppStatusAC('succeeded'))
-    } catch (e) {
-        dispatch(setAppStatusAC('failed'))
-    }finally {
-        dispatch(setAppStatusAC('succeeded'))
-    }
+        authApi.addPack(newPackValue).then(
+            ()=>{
+                dispatch(getPacksTC())
+                dispatch(setAppStatusAC('succeeded'))
+            }
+        ).catch(()=>{
+            dispatch(setAppStatusAC('failed'))
+        }).finally(()=>[
+            dispatch(setAppStatusAC('succeeded'))
+        ])
+
+
+
 }
 
 
 
 //types
+type ThunkType = ThunkAction<any, RootStateType, {}, ActionsType>
 export type SetPacksActionType = ReturnType<typeof setPacksAc>
 export type AddPacksActionType = ReturnType<typeof addPackAc>
 type ActionsType = SetPacksActionType | SetAppStatusActionType | AddPacksActionType

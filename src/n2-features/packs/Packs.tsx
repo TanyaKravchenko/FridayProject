@@ -13,27 +13,18 @@ export const Packs = () => {
     //hooks
     const dispatch = useDispatch()
     useEffect(() => {
-        dispatch(getPacksTC({min:0, max:10, pageCount:10}))
+        dispatch(getPacksTC())
+        //hardCode values
     }, [dispatch])
 
     const packs = useSelector<RootStateType, OneCardPacksType[]>(state=> state.packs.packs)
     const userId = useSelector<RootStateType, string|undefined>(state=> state.profile.user?._id)
 
-
-
-
     //handlers
     const addNewPackHandler = () => {
-        dispatch(addPackTC(newPack))
+        dispatch(addPackTC())
     }
 
-    //hardCode NewPack
-    const newPack = {
-        name:'HardCode user',
-        path:'/def',
-        private:false,
-        type:'pack'
-    } as CardsPackType
     return (
         <div className={s.packs}>
             <div className={s.wrap}>
