@@ -1,9 +1,9 @@
 import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import s from './Packs.module.scss';
-import {getPacksTC} from "../../n1-main/m2-bll/reducers/packs-reducer";
+import {addPackTC, getPacksTC} from "../../n1-main/m2-bll/reducers/packs-reducer";
 import {RootStateType} from "../../n1-main/m2-bll/store";
-import {OneCardPacksType} from "../../n1-main/m3-dal/auth-api";
+import {CardsPackType, OneCardPacksType} from "../../n1-main/m3-dal/auth-api";
 import { path } from "../../n1-main/m1-ui/routes/Routes";
 import { NavLink } from "react-router-dom";
 
@@ -13,10 +13,27 @@ export const Packs = () => {
     //hooks
     const dispatch = useDispatch()
     useEffect(() => {
-        dispatch(getPacksTC())
+        dispatch(getPacksTC({min:0, max:10, pageCount:10}))
     }, [dispatch])
 
     const packs = useSelector<RootStateType, OneCardPacksType[]>(state=> state.packs.packs)
+    const userId = useSelector<RootStateType, string|undefined>(state=> state.profile.user?._id)
+
+
+
+
+    //handlers
+    const addNewPackHandler = () => {
+        dispatch(addPackTC(newPack))
+    }
+
+    //hardCode NewPack
+    const newPack = {
+        name:'HardCode user',
+        path:'/def',
+        private:false,
+        type:'pack'
+    } as CardsPackType
     return (
         <div className={s.packs}>
             <div className={s.wrap}>
@@ -35,7 +52,7 @@ export const Packs = () => {
                             <div className={s.inputSearchWrap}>
                                 <input className={s.inputSearch} placeholder={'Search...'} type={'text'} />
                             </div>
-                            <button className={s.addBtn} >Add new pack</button>
+                            <button className={s.addBtn} onClick={addNewPackHandler}>Add new pack</button>
 
                         </div>
                         <div className={s.table}>
@@ -63,12 +80,11 @@ export const Packs = () => {
                                             </div>
                                             <div className={s.packRowItem}>
 
-                                                {pack.updated}
+
                                             </div>
                                             <div className={s.packRowItem}>
 
-                                                {pack.created}
-                                                {/*pack.user_name*/}
+                                                {pack.user_name}
                                             </div>
                                             <div className={s.packRowItem}>
                                                 <button className={s.packRowBtn}>Delete</button>

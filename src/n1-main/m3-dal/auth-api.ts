@@ -34,6 +34,19 @@ export const authApi = {
     getPacks(sortValues?: SortValuesType) {
         return instance.get<PacksResponseType>('/cards/pack', {params: {...sortValues}})
     },
+    addPack(cardsPack:CardsPackType){
+        return instance.post<CardsPackType,AxiosResponse<OneCardPacksType>>('/cards/pack', {cardsPack})
+    },
+}
+export type CardsPackType = {
+    name:string,
+    path:string,
+    grade?:number,
+    shots?:number,
+    rating?:number,
+    deckCover?:string,
+    private:boolean,
+    type:string
 }
 
 //types
@@ -87,18 +100,22 @@ export type ForgotResponseType = {
 
 
 export type OneCardPacksType = {
-    _id: string,
-    user_id: string,
+    cardsCount: string,
+    created: string,
+    deckCover:null | string,
+    grade: number,
+    more_id:string,
     name: string,
     path: string,
-    cardsCount: number,
-    grade: number,
-    shots: number,
-    rating: number,
+    private:boolean,
+    rating:number,
+    shots:number,
     type: string,
-    created: string,
     updated: string,
-    __v: number
+    user_id:string,
+    user_name:string,
+      __v: number,
+    _id:string
 }
 
 export type PacksResponseType = {

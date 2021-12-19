@@ -7,7 +7,7 @@ import NotFound from '../../../n2-features/notFound/NotFound';
 import {LoginContainer} from '../../../n2-features/login/LoginContainer';
 import {PasswordRecoveryContainer} from "../../../n2-features/password/PasswordRecoveryContainer";
 import {NewPassword} from "../../../n2-features/password/NewPassword";
-import {Packs} from "../../../n2-features/packs/Pacs";
+import {Packs} from "../../../n2-features/packs/Packs";
 import {Cards} from "../../../n2-features/cards/Cards";
 
 export const path = {

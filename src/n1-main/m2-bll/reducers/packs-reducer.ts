@@ -1,5 +1,5 @@
 import {Dispatch} from "redux";
-import {authApi, OneCardPacksType} from "../../m3-dal/auth-api";
+import {authApi, CardsPackType, OneCardPacksType} from "../../m3-dal/auth-api";
 import {setAppStatusAC, SetAppStatusActionType} from "./app-reducer";
 import {RootStateType} from "../store";
 
@@ -7,12 +7,15 @@ import {RootStateType} from "../store";
 let initialState = {
 
     packs: [] as OneCardPacksType[],
+    sortValues:{} as SortValuesType
 }
 
 export const packsReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
         case "Packs/SET-PACKS":
-            return {...state, packs: action.newPacks}
+            return {...state, packs: action.packs}
+        case "Packs/ADD-PACK":
+            return {...state, packs: [...state.packs, action.newPack]}
         default:
             return state
     }
@@ -20,23 +23,40 @@ export const packsReducer = (state: InitialStateType = initialState, action: Act
 
 //actionCreators
 
-export const setPacksAc = (newPacks: OneCardPacksType[]) => ({type: 'Packs/SET-PACKS', newPacks} as const)
+export const setPacksAc = (packs: OneCardPacksType[]) => ({type: 'Packs/SET-PACKS', packs} as const)
+export const addPackAc = (newPack: OneCardPacksType) => ({type: 'Packs/ADD-PACK', newPack} as const)
 
 
 //thunks
-export const getPacksTC = () => async (dispatch: Dispatch, getState: () => RootStateType) => {
+export const getPacksTC = (sortValues?:SortValuesType) => async (dispatch: Dispatch, getState: () => RootStateType) => {
     dispatch(setAppStatusAC('loading'))
     try {
-       let newPacks =  await authApi.getPacks()
+       let newPacks =  await authApi.getPacks(sortValues)
         dispatch(setPacksAc(newPacks.data.cardPacks))
+        dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
         
     }
 }
 
+export const addPackTC = (newPackValue:CardsPackType) => async (dispatch: Dispatch) => {
+    dispatch(setAppStatusAC('loading'))
+    try {
+        await authApi.addPack(newPackValue)
+        dispatch(setAppStatusAC('succeeded'))
+    } catch (e) {
+        dispatch(setAppStatusAC('failed'))
+    }finally {
+        dispatch(setAppStatusAC('succeeded'))
+    }
+}
+
+
+
 //types
 export type SetPacksActionType = ReturnType<typeof setPacksAc>
-type ActionsType = SetPacksActionType | SetAppStatusActionType
+export type AddPacksActionType = ReturnType<typeof addPackAc>
+type ActionsType = SetPacksActionType | SetAppStatusActionType | AddPacksActionType
 export type SortValuesType = {
     packName?: string,
     min?: number,
@@ -47,6 +67,10 @@ export type SortValuesType = {
     user_id?: string
 }
 type InitialStateType = typeof initialState
+
+
+//other info
+
 
 
 
