@@ -1,12 +1,11 @@
 import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import s from './Packs.module.scss';
-import {addPackTC, getPacksTC} from "../../n1-main/m2-bll/reducers/packs-reducer";
+import {addPackTC, deletePackTC, getPacksTC} from "../../n1-main/m2-bll/reducers/packs-reducer";
 import {RootStateType} from "../../n1-main/m2-bll/store";
 import {CardsPackType, OneCardPacksType} from "../../n1-main/m3-dal/auth-api";
-import { path } from "../../n1-main/m1-ui/routes/Routes";
-import { NavLink } from "react-router-dom";
-
+import {path} from "../../n1-main/m1-ui/routes/Routes";
+import {NavLink} from "react-router-dom";
 
 
 export const Packs = () => {
@@ -16,15 +15,14 @@ export const Packs = () => {
         dispatch(getPacksTC())
         //hardCode values
     }, [dispatch])
-
-    const packs = useSelector<RootStateType, OneCardPacksType[]>(state=> state.packs.packs)
-    const userId = useSelector<RootStateType, string|undefined>(state=> state.profile.user?._id)
-
+    const packs = useSelector<RootStateType, OneCardPacksType[]>(state => state.packs.packs)
     //handlers
     const addNewPackHandler = () => {
         dispatch(addPackTC())
     }
-
+    const deletePackHandler = (packId:string) => {
+        dispatch(deletePackTC(packId))
+    }
     return (
         <div className={s.packs}>
             <div className={s.wrap}>
@@ -37,58 +35,58 @@ export const Packs = () => {
                     <h3 className={s.inputTitle}>Number of cards</h3>
                     <div>Range slider</div>
                 </div>
-                    <div className={s.listBlock}>
-                        <h2 className={s.listTitle}>Packs list</h2>
-                        <div className={s.addPack}>
-                            <div className={s.inputSearchWrap}>
-                                <input className={s.inputSearch} placeholder={'Search...'} type={'text'} />
-                            </div>
-                            <button className={s.addBtn} onClick={addNewPackHandler}>Add new pack</button>
-
+                <div className={s.listBlock}>
+                    <h2 className={s.listTitle}>Packs list</h2>
+                    <div className={s.addPack}>
+                        <div className={s.inputSearchWrap}>
+                            <input className={s.inputSearch} placeholder={'Search...'} type={'text'}/>
                         </div>
-                        <div className={s.table}>
+                        <button className={s.addBtn} onClick={addNewPackHandler}>Add new pack</button>
 
-                            <div className={s.tableHeader}>
-                                <div className={s.tableItem}>Name</div>
-                                <div className={s.tableItem}>Cards</div>
-                                <div className={s.tableItem}>Last Updated</div>
-                                <div className={s.tableItem}>Created by</div>
-                                <div className={s.tableItem}>Actions</div>
-                            </div>
-                            {
-                                packs.map((pack, index) => {
-                                    return (
-                                        <div className={s.packRow} key={index}>
+                    </div>
+                    <div className={s.table}>
 
-                                            <div className={s.packRowItem}>
+                        <div className={s.tableHeader}>
+                            <div className={s.tableItem}>Name</div>
+                            <div className={s.tableItem}>Cards</div>
+                            <div className={s.tableItem}>Last Updated</div>
+                            <div className={s.tableItem}>Created by</div>
+                            <div className={s.tableItem}>Actions</div>
+                        </div>
+                        {
+                            packs.map((pack, index) => {
+                                return (
+                                    <div className={s.packRow} key={index}>
 
-                                                {pack.name}
-                                            </div>
-                                            <div className={s.packRowItem}>
+                                        <div className={s.packRowItem}>
 
-                                                {pack.cardsCount}
+                                            {pack.name}
+                                        </div>
+                                        <div className={s.packRowItem}>
 
-                                            </div>
-                                            <div className={s.packRowItem}>
-
-
-                                            </div>
-                                            <div className={s.packRowItem}>
-
-                                                {pack.user_name}
-                                            </div>
-                                            <div className={s.packRowItem}>
-                                                <button className={s.packRowBtn}>Delete</button>
-                                                <NavLink className={s.packRowLink} to={path.CARDS}>Learn</NavLink>
-                                            </div>
+                                            {pack.cardsCount}
 
                                         </div>
-                                    )
-                                })
-                            }
-                        </div>
-                        <div>Pagination</div>
+                                        <div className={s.packRowItem}>
+                                            {pack.updated}
+
+                                        </div>
+                                        <div className={s.packRowItem}>
+
+                                            {pack.user_name}
+                                        </div>
+                                        <div className={s.packRowItem}>
+                                            <button className={s.packRowBtn} onClick={()=>deletePackHandler(pack._id)}>Delete</button>
+                                            <NavLink className={s.packRowLink} to={path.CARDS}>Learn</NavLink>
+                                        </div>
+
+                                    </div>
+                                )
+                            })
+                        }
                     </div>
+                    <div>Pagination</div>
+                </div>
             </div>
         </div>
     )
