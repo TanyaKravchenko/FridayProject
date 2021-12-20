@@ -45,6 +45,9 @@ export const authApi = {
             }
         })
     },
+    deletePack(packId:string){
+        return instance.delete(`/cards/pack?id=${packId}`)
+    }
 }
 export type CardsPackType = {
     name:string,
