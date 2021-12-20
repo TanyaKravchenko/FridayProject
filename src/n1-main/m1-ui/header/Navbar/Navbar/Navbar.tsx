@@ -1,7 +1,7 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
 import s from './Navbar.module.scss';
-import {path} from '../../routes/Routes';
+import {path} from '../../../routes/Routes';
 
 type NavbarPropsType = {}
 
@@ -9,14 +9,14 @@ const Navbar: React.FC<NavbarPropsType> = () => {
     return (
         <div>
             <div className={s.navLinkItems}>
-                <div className={s.item}>
-                    <NavLink to={path.ALL_COMPONENTS} className={s.navLink}
-                             activeClassName={s.active}> Main </NavLink>
-                </div>
-                <div className={s.item}>
-                    <NavLink to={path.PROFILE} className={s.navLink}
-                             activeClassName={s.active}> Profile </NavLink>
-                </div>
+                {/*<div className={s.item}>*/}
+                {/*    <NavLink to={path.ALL_COMPONENTS} className={s.navLink}*/}
+                {/*             activeClassName={s.active}> Main </NavLink>*/}
+                {/*</div>*/}
+                {/*<div className={s.item}>*/}
+                {/*    <NavLink to={path.PROFILE} className={s.navLink}*/}
+                {/*             activeClassName={s.active}> Profile </NavLink>*/}
+                {/*</div>*/}
                 <div className={s.item}>
                     <NavLink to={path.LOGIN} className={s.navLink} activeClassName={s.active}> Login </NavLink>
                 </div>
@@ -31,14 +31,6 @@ const Navbar: React.FC<NavbarPropsType> = () => {
                 <div className={s.item}>
                     <NavLink to={path.PASSWORD} className={s.navLink}
                              activeClassName={s.active}> NewPassword </NavLink>
-                </div>
-                <div className={s.item}>
-                    <NavLink to={path.PACKS} className={s.navLink}
-                             activeClassName={s.active}> Packs </NavLink>
-                </div>
-                <div className={s.item}>
-                    <NavLink to={path.CARDS} className={s.navLink}
-                             activeClassName={s.active}> Cards </NavLink>
                 </div>
             </div>
         </div>

@@ -1,11 +1,12 @@
-import React, {useEffect} from "react";
-import {useDispatch, useSelector} from "react-redux";
+import React, {useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import s from './Packs.module.scss';
-import {addPackTC, deletePackTC, getPacksTC} from "../../n1-main/m2-bll/reducers/packs-reducer";
-import {RootStateType} from "../../n1-main/m2-bll/store";
-import {CardsPackType, OneCardPacksType} from "../../n1-main/m3-dal/auth-api";
-import {path} from "../../n1-main/m1-ui/routes/Routes";
-import {NavLink} from "react-router-dom";
+import {addPackTC, deletePackTC, getPacksTC} from '../../n1-main/m2-bll/reducers/packs-reducer';
+import {RootStateType} from '../../n1-main/m2-bll/store';
+import {CardsPackType, OneCardPacksType} from '../../n1-main/m3-dal/auth-api';
+import {path} from '../../n1-main/m1-ui/routes/Routes';
+import {NavLink} from 'react-router-dom';
+import {Paginator} from '../paginator/Paginator';
 
 
 export const Packs = () => {
@@ -20,7 +21,7 @@ export const Packs = () => {
     const addNewPackHandler = () => {
         dispatch(addPackTC())
     }
-    const deletePackHandler = (packId:string) => {
+    const deletePackHandler = (packId: string) => {
         dispatch(deletePackTC(packId))
     }
     return (
@@ -76,7 +77,9 @@ export const Packs = () => {
                                             {pack.user_name}
                                         </div>
                                         <div className={s.packRowItem}>
-                                            <button className={s.packRowBtn} onClick={()=>deletePackHandler(pack._id)}>Delete</button>
+                                            <button className={s.packRowBtn}
+                                                    onClick={() => deletePackHandler(pack._id)}>Delete
+                                            </button>
                                             <NavLink className={s.packRowLink} to={path.CARDS}>Learn</NavLink>
                                         </div>
 
@@ -85,7 +88,7 @@ export const Packs = () => {
                             })
                         }
                     </div>
-                    <div>Pagination</div>
+                    <Paginator/>
                 </div>
             </div>
         </div>

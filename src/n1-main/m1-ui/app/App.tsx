@@ -1,11 +1,11 @@
 import React, {useEffect} from 'react';
 import './App.css';
-import Navbar from '../header/Navbar/Navbar';
 import Routes from '../routes/Routes';
 import {Preloader} from '../../../common/preloader/Preloaders';
 import {RootStateType} from '../../m2-bll/store';
 import {initializedTC, RequestStatusType} from '../../m2-bll/reducers/app-reducer';
 import {useDispatch, useSelector} from 'react-redux';
+import Header from '../header/Navbar/Header';
 
 const App = () => {
     //hooks
@@ -22,7 +22,7 @@ const App = () => {
 
     return (
         <div className="App">
-            <Navbar/>
+            <Header/>
             <Routes/>
             {status === 'loading' && <Preloader/>}
         </div>
