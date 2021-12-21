@@ -5,7 +5,6 @@ import {RootStateType} from '../store';
 import {ThunkAction} from 'redux-thunk';
 import {packsApi, RequestParamsType} from '../../m3-dal/packs-api';
 
-
 const initialState = {
     cardPacks: [] as Array<CardsPacksType>,
     cardPacksTotalCount: 0,
@@ -86,11 +85,11 @@ export const setPageCountAC = (pageCount: number) => ({type: 'packs/SET-PAGE-COU
 //     }
 // }
 
-export const getPacksTC = (params: RequestParamsType, sortValues?: SortValuesType) => async (dispatch: Dispatch, getState: () => RootStateType) => {
+export const getPacksTC = (params: RequestParamsType) => async (dispatch: Dispatch, getState: () => RootStateType) => {
     dispatch(setAppStatusAC('loading'))
     try {
         const userId = getState().profile._id
-        const {myPacks, pageCount, search, min, max} = getState().packs
+        const {myPacks, pageCount, search, min, max, page} = getState().packs
 
         if (myPacks) {
             params = {...params, user_id: userId}
@@ -104,6 +103,9 @@ export const getPacksTC = (params: RequestParamsType, sortValues?: SortValuesTyp
         if (!params.pageCount) {
             params = {...params, pageCount}
         }
+        if (!params.page) {
+            params = {...params, page}
+        }
         let data = await packsApi.getPacks(params)
         dispatch(setPacksAc(data))
         dispatch(setAppStatusAC('succeeded'))
@@ -112,7 +114,7 @@ export const getPacksTC = (params: RequestParamsType, sortValues?: SortValuesTyp
     }
 }
 
-export const addPackTC = (newPackValue?: CardsPackType): ThunkType => (dispatch) => {
+export const addPackTC = (): ThunkType => (dispatch) => {
     dispatch(setAppStatusAC('loading'))
     authApi.addPack().then(
         () => {
