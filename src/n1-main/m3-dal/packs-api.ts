@@ -41,5 +41,4 @@ type CreateCardsPackType = {
     deckCover?: string // не обязателен
     private?: boolean // если не отправить будет такой
     type?: string // если не отправить будет таким
-
 }
