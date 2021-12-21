@@ -13,21 +13,19 @@ type ProfilePropsType = {
 const Profile: React.FC<ProfilePropsType> = React.memo((props) => {
 
     return (
-        <div className={s.profileContainer}>
-            <div className={s.profileBlock}>
-                <div className={s.profileInfo}>
-                    <span className={s.verify}>{props.user && props.user.verified}</span>
-                    <h2 className={s.title}>Profile</h2>
-                    <img src={props.user ? props.user.avatar : ''} alt="user-avatar"/>
-                    <EditableSpan title={props.user && props.user.name} className={s.userName}
-                                  updateUserName={props.updateUserName}/>
-                    <Button onClick={props.onClickLogOut}>Log Out</Button>
-                </div>
-                <div className={s.cardsFilter}>
-                    <h3>Number of cards</h3>
-                    <div className={s.range}>
-                        Range slider
-                    </div>
+        <div>
+            <div className={s.profileInfo}>
+                <span className={s.verify}>{props.user && props.user.verified}</span>
+                <h2 className={s.title}>Profile</h2>
+                <img src={props.user ? props.user.avatar : ''} alt="user-avatar"/>
+                <EditableSpan title={props.user && props.user.name} className={s.userName}
+                              updateUserName={props.updateUserName}/>
+                <Button onClick={props.onClickLogOut}>Log Out</Button>
+            </div>
+            <div className={s.cardsFilter}>
+                <h3>Number of cards</h3>
+                <div className={s.range}>
+                    Range slider
                 </div>
             </div>
         </div>

@@ -8,6 +8,7 @@ import {logoutTC} from '../../n1-main/m2-bll/reducers/login-reducer';
 import {InitialStateType, updateUser} from '../../n1-main/m2-bll/reducers/profile-reducer';
 import Profile from './Profile';
 import {Paginator} from '../paginator/Paginator';
+import {PacksTable} from '../packs/table/PacksTable';
 
 const ProfileContainer: React.FC = React.memo(() => {
 
@@ -33,13 +34,15 @@ const ProfileContainer: React.FC = React.memo(() => {
 
     return (
         <div className={s.profileContainer}>
-            <div>
-                <Profile user={user} updateUserName={updateUserName} onClickLogOut={onClickLogOut}/>
-            </div>
-            <div>
-                //search
-                //table
-                <Paginator/>
+            <div className={s.profileBlock}>
+                <div className={s.profileSidebar}>
+                    <Profile user={user} updateUserName={updateUserName} onClickLogOut={onClickLogOut}/>
+                </div>
+                <div className={s.listBlock}>
+                    {/*<Search />*/}
+                    <PacksTable/>
+                    <Paginator/>
+                </div>
             </div>
         </div>
     );
