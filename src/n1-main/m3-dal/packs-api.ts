@@ -3,7 +3,6 @@ import {PacksType} from '../m2-bll/reducers/packs-reducer';
 
 export const packsApi = {
     getPacks(params: RequestParamsType) {
-
         return instance.get<PacksType>('cards/pack', {params}).then(res => res.data)
     },
     addPack(cardsPack: CreateCardsPackType) {
@@ -12,10 +11,9 @@ export const packsApi = {
     updatePack(cardsPack: CreateCardsPackType & { _id: string }) {
         return instance.put('cards/pack', {cardsPack})
     },
-    deletePacks(id: string) {
-        return instance.delete(`cards/pack?id=${id}`)
+    deletePack(userId: string) {
+        return instance.delete(`cards/pack?id=${userId}`)
     },
-
 }
 
 export type RequestParamsType = {
@@ -31,8 +29,7 @@ export type RequestParamsType = {
     _id?: string | undefined
 }
 
-type CreateCardsPackType = {
-
+export type CreateCardsPackType = {
     name?: string // если не отправить будет таким
     path?: string // если не отправить будет такой
     grade?: number // не обязателен

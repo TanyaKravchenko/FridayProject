@@ -54,7 +54,7 @@ export const Packs = () => {
     }
 
     const addNewPackHandler = () => {
-        dispatch(addPackTC())
+        dispatch(addPackTC({}))
     }
     const deletePackHandler = (packId: string) => {
         dispatch(deletePackTC(packId))

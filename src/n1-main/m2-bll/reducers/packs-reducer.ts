@@ -1,9 +1,8 @@
 import {Dispatch} from 'redux';
-import {authApi, CardsPackType} from '../../m3-dal/auth-api';
 import {setAppStatusAC, SetAppStatusActionType} from './app-reducer';
 import {RootStateType} from '../store';
 import {ThunkAction} from 'redux-thunk';
-import {packsApi, RequestParamsType} from '../../m3-dal/packs-api';
+import {CreateCardsPackType, packsApi, RequestParamsType} from '../../m3-dal/packs-api';
 
 const initialState = {
     cardPacks: [] as Array<CardsPacksType>,
@@ -84,17 +83,6 @@ export const sortPacksAC = (value: string) => ({type: 'Packs/SORT-PACKS', value}
 
 //thunks
 
-// export const getPacksTC = (sortValues?: SortValuesType) => async (dispatch: Dispatch, getState: () => RootStateType) => {
-//     dispatch(setAppStatusAC('loading'))
-//     try {
-//         let newPacks = await authApi.getPacks(sortValues)
-//         dispatch(setPacksAc(newPacks.data.cardPacks))
-//         dispatch(setAppStatusAC('succeeded'))
-//     } catch (e) {
-//
-//     }
-// }
-
 export const getPacksTC = (params: RequestParamsType) => async (dispatch: Dispatch, getState: () => RootStateType) => {
     dispatch(setAppStatusAC('loading'))
     try {
@@ -124,9 +112,9 @@ export const getPacksTC = (params: RequestParamsType) => async (dispatch: Dispat
     }
 }
 
-export const addPackTC = (): ThunkType => (dispatch) => {
+export const addPackTC = (cardsPack: CreateCardsPackType): ThunkType => (dispatch) => {
     dispatch(setAppStatusAC('loading'))
-    authApi.addPack().then(
+    packsApi.addPack(cardsPack).then(
         () => {
             dispatch(getPacksTC({}))
             dispatch(setAppStatusAC('succeeded'))
@@ -139,7 +127,7 @@ export const addPackTC = (): ThunkType => (dispatch) => {
 }
 export const deletePackTC = (userId: string): ThunkType => async (dispatch) => {
     dispatch(setAppStatusAC('loading'))
-    authApi.deletePack(userId).then(
+    packsApi.deletePack(userId).then(
         () => {
             dispatch(deletePackAc(userId))
             dispatch(getPacksTC({}))
@@ -151,7 +139,6 @@ export const deletePackTC = (userId: string): ThunkType => async (dispatch) => {
         dispatch(setAppStatusAC('succeeded'))
     ])
 }
-
 
 //types
 export type InitialStateType = typeof initialState
@@ -166,7 +153,6 @@ type ActionsType = ReturnType<typeof setPacksAc>
     | ReturnType<typeof setValueSearchAC>
     | ReturnType<typeof sortPacksAC>
     | SetAppStatusActionType
-
 
 export type SortValuesType = {
     packName?: string,

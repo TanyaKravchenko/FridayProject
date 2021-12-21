@@ -4,7 +4,6 @@ export const instance = axios.create({
     withCredentials: true,
     // baseURL: 'https://neko-back.herokuapp.com/2.0/',
     baseURL: 'http://localhost:7542/2.0/',
-
 })
 
 let defaultAvatar = 'https://image.shutterstock.com/image-photo/indy-musician-guitarist-pug-dogfunny-260nw-688080844.jpg';
@@ -31,32 +30,6 @@ export const authApi = {
     updateUser(name: string | null, avatar: string = 'https://image.shutterstock.com/image-photo/indy-musician-guitarist-pug-dogfunny-260nw-688080844.jpg') {
         return instance.put<{ name: string, avatar: string }, AxiosResponse<ProfileType>>('auth/me', {name, avatar})
     },
-    getPacks(params: RequestParamsType) {
-        return instance.get<PacksResponseType>('/cards/pack', {params}).then(res => res.data)
-    },
-    addPack() {
-        return instance.post<CardsPackType, AxiosResponse<OneCardPacksType>>('/cards/pack', {
-            cardsPack: {
-                name: 'HardCode user',
-                path: '/def',
-                private: false,
-                type: 'pack'
-            }
-        })
-    },
-    deletePack(packId: string) {
-        return instance.delete(`/cards/pack?id=${packId}`)
-    }
-}
-export type CardsPackType = {
-    name: string,
-    path: string,
-    grade?: number,
-    shots?: number,
-    rating?: number,
-    deckCover?: string,
-    private: boolean,
-    type: string
 }
 
 //types
@@ -100,14 +73,12 @@ export type ForgotDataType = {
 export type SetNewPasswordDataType = {
     password: string
     resetPasswordToken: string
-
 }
 
 export type ForgotResponseType = {
     info: string
     error: string
 }
-
 
 export type OneCardPacksType = {
     cardsCount: string,
@@ -135,18 +106,5 @@ export type PacksResponseType = {
     minCardsCount: number,
     page: number,
     pageCount: number
-}
-
-export type RequestParamsType = {
-    packName?: string// не обязательно
-    min?: number // не обязательно
-    max?: number // не обязательно
-    sortPacks?: number// не обязательно
-    page?: number // не обязательно
-    pageCount?: number // не обязательно
-    user_id?: string // чьи колоды
-    // не обязательно, или прийдут все
-    id?: string | undefined
-    _id?: string | undefined
 }
 
