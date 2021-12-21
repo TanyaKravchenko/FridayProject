@@ -42,41 +42,43 @@ export const Paginator = React.memo(() => {
     return (
         <div className={s.paginator}>
             <div className={s.paginatorContainer}>
-                {portionNumber > 1 &&
-                <button
-                    className={s.paginatorBtn}
-                    disabled={!(portionNumber > 1)}
-                    onClick={() => setPortionNumber(portionNumber - 1)}>
-                    {'<<<'}
-                </button>}
-                <div className={s.pageNumbersBlock}>
-                    {
-                        pages
-                            .filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
-                            .map((p, i) => {
-                                return <div className={`${s.pageNumber} ${page === p ? s.selectedPage : ''}`}
-                                            key={i}
-                                            onClick={() => dispatch(getPacksTC({page: p}))}> {p}</div>
-                            })
-                    }
+                <div className={s.pageContainer}>
+                    {portionNumber > 1 &&
+                    <button
+                        className={s.paginatorBtn}
+                        disabled={!(portionNumber > 1)}
+                        onClick={() => setPortionNumber(portionNumber - 1)}>
+                        {'<<<'}
+                    </button>}
+                    <div className={s.pageNumbersBlock}>
+                        {
+                            pages
+                                .filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
+                                .map((p, i) => {
+                                    return <div className={`${s.pageNumber} ${page === p ? s.selectedPage : ''}`}
+                                                key={i}
+                                                onClick={() => dispatch(getPacksTC({page: p}))}> {p}</div>
+                                })
+                        }
+                    </div>
+                    {portionCount > portionNumber &&
+                    <button
+                        className={s.paginatorBtn}
+                        disabled={!(portionCount > portionNumber)}
+                        onClick={() => setPortionNumber(portionNumber + 1)}>
+                        {'>>>'}
+                    </button>}
                 </div>
-                {portionCount > portionNumber &&
-                <button
-                    className={s.paginatorBtn}
-                    disabled={!(portionCount > portionNumber)}
-                    onClick={() => setPortionNumber(portionNumber + 1)}>
-                    {'>>>'}
-                </button>}
-            </div>
-            <div className={s.selectWrapper}>
-                Show
-                <select name="pagesCountSelect"
-                        id="pagesCountSelect"
-                        value={pageCount}
-                        onChange={onPagesCountChangeHandler}>
-                    {pagesOptionsTags}
-                </select>
-                Cards per page
+                <div className={s.selectWrapper}>
+                    Show
+                    <select name="pagesCountSelect"
+                            id="pagesCountSelect"
+                            value={pageCount}
+                            onChange={onPagesCountChangeHandler}>
+                        {pagesOptionsTags}
+                    </select>
+                    Cards per page
+                </div>
             </div>
         </div>
     )
