@@ -1,6 +1,5 @@
 import React from 'react';
 import {Redirect, Route, Switch} from 'react-router-dom';
-import AllSuperComponents from '../../../n2-features/super components/AllSuperComponents';
 import Registration from '../../../n2-features/registration/Registration';
 import NotFound from '../../../n2-features/notFound/NotFound';
 import {LoginContainer} from '../../../n2-features/login/LoginContainer';
@@ -19,21 +18,20 @@ export const path = {
     PASS_REC: '/passwordRecovery',
     PACKS: '/packs',
     CARDS: '/cards',
-
 }
 
 const Routes = () => {
     return (
         <div>
             <Switch>
-                <Route path={'/'} exact render={() => <AllSuperComponents/>}/>
-                <Route path={path.ALL_COMPONENTS} exact render={() => <AllSuperComponents/>}/>
+                <Route path={'/'} exact render={() => <Redirect to={'/login'}/>}/>
+                {/*<Route path={path.ALL_COMPONENTS} exact render={() => <AllSuperComponents/>}/>*/}
                 <Route path={path.PROFILE} exact render={() => <ProfileContainer/>}/>
                 <Route path={path.LOGIN} exact render={() => <LoginContainer/>}/>
                 <Route path={path.REG} exact render={() => <Registration/>}/>
                 <Route path={path.PASSWORD} render={() => <NewPassword/>}/>
-                {/*<Route path={path.PACKS} render={() => <Packs/>}/>*/}
-                {/*<Route path={path.CARDS} render={() => <Cards/>}/>*/}
+                <Route path={path.PACKS} render={() => <Packs/>}/>
+                <Route path={path.CARDS} render={() => <Cards/>}/>
                 <Route path={path.PASS_REC} exact render={() => <PasswordRecoveryContainer/>}/>
                 <Route path={'/404'} render={() => <NotFound/>}/>
                 <Redirect from={'*'} to={'/404'}/>

@@ -1,5 +1,4 @@
 import axios, {AxiosResponse} from 'axios';
-import {SortValuesType} from "../m2-bll/reducers/packs-reducer";
 
 export const instance = axios.create({
     withCredentials: true,
@@ -32,10 +31,10 @@ export const authApi = {
     updateUser(name: string | null, avatar: string = 'https://image.shutterstock.com/image-photo/indy-musician-guitarist-pug-dogfunny-260nw-688080844.jpg') {
         return instance.put<{ name: string, avatar: string }, AxiosResponse<ProfileType>>('auth/me', {name, avatar})
     },
-    getPacks(sortValues?: SortValuesType) {
-        return instance.get<PacksResponseType>('/cards/pack', {params: {min:0, max:10, pageCount:10}})
+    getPacks(params: RequestParamsType) {
+        return instance.get<PacksResponseType>('/cards/pack', {params}).then(res => res.data)
     },
-    addPack(cardsPack?:CardsPackType){
+    addPack(){
         return instance.post<CardsPackType,AxiosResponse<OneCardPacksType>>('/cards/pack', {
             cardsPack:{
                 name:'HardCode user',
@@ -136,5 +135,18 @@ export type PacksResponseType = {
     minCardsCount: number,
     page: number,
     pageCount: number
+}
+
+export type RequestParamsType = {
+    packName?: string// не обязательно
+    min?: number // не обязательно
+    max?: number // не обязательно
+    sortPacks?: number// не обязательно
+    page?: number // не обязательно
+    pageCount?: number // не обязательно
+    user_id?: string // чьи колоды
+    // не обязательно, или прийдут все
+    id?: string | undefined
+    _id?: string | undefined
 }
 

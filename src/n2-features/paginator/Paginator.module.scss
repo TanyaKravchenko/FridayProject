@@ -1,0 +1,51 @@
+.paginator {
+  max-width: 100%;
+  margin: 2vh 0;
+
+  .paginatorContainer {
+    width: 60vw;
+    display: flex;
+    align-items: center;
+
+    .paginatorBtn {
+      width: 3vw;
+      background-color: transparent;
+      border: 1px solid;
+    }
+
+    .paginatorBtn:hover {
+      background-color: lightblue;
+      color: black;
+      font-weight: 700;
+    }
+
+    .pageNumbersBlock {
+      display: flex;
+      margin: 0 1px;
+    }
+
+    .pageNumber {
+      min-width: 1.5vw;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0.5vw;
+      cursor: pointer;
+      padding: 1vw;
+      border: 1px solid grey;
+      border-radius: 50%;
+      color: #21268F;
+    }
+
+    .pageNumber.selectedPage {
+      font-weight: bold;
+      border-color: lightblue;
+      color: lightblue;
+    }
+
+    .pageNumber:hover {
+      background-color: lightblue;
+      color: #21268F;
+    }
+  }
+}
