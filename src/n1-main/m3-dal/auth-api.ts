@@ -32,32 +32,40 @@ export const authApi = {
     updateUser(name: string | null, avatar: string = 'https://image.shutterstock.com/image-photo/indy-musician-guitarist-pug-dogfunny-260nw-688080844.jpg') {
         return instance.put<{ name: string, avatar: string }, AxiosResponse<ProfileType>>('auth/me', {name, avatar})
     },
-    getPacks(sortValues?: SortValuesType) {
-        return instance.get<PacksResponseType>('/cards/pack', {params: {min:0, max:10, pageCount:10}})
-    },
-    addPack(cardsPack?:CardsPackType){
-        return instance.post<CardsPackType,AxiosResponse<OneCardPacksType>>('/cards/pack', {
-            cardsPack:{
-                name:'HardCode user',
-                path:'/def',
-                private:false,
-                type:'pack'
+    getPacks({packName, sortPacks}: SortValuesType) {
+        return instance.get<PacksResponseType>('/cards/pack', {
+            params: {
+                min: 0,
+                max: 20,
+                pageCount: 10,
+                packName,
+                sortPacks
             }
         })
     },
-    deletePack(packId:string){
+    addPack(cardsPack?: CardsPackType) {
+        return instance.post<CardsPackType, AxiosResponse<OneCardPacksType>>('/cards/pack', {
+            cardsPack: {
+                name: 'HardCode user',
+                path: '/def',
+                private: false,
+                type: 'pack'
+            }
+        })
+    },
+    deletePack(packId: string) {
         return instance.delete(`/cards/pack?id=${packId}`)
     }
 }
 export type CardsPackType = {
-    name:string,
-    path:string,
-    grade?:number,
-    shots?:number,
-    rating?:number,
-    deckCover?:string,
-    private:boolean,
-    type:string
+    name: string,
+    path: string,
+    grade?: number,
+    shots?: number,
+    rating?: number,
+    deckCover?: string,
+    private: boolean,
+    type: string
 }
 
 //types
@@ -113,20 +121,20 @@ export type ForgotResponseType = {
 export type OneCardPacksType = {
     cardsCount: string,
     created: string,
-    deckCover:null | string,
+    deckCover: null | string,
     grade: number,
-    more_id:string,
+    more_id: string,
     name: string,
     path: string,
-    private:boolean,
-    rating:number,
-    shots:number,
+    private: boolean,
+    rating: number,
+    shots: number,
     type: string,
     updated: string,
-    user_id:string,
-    user_name:string,
-      __v: number,
-    _id:string
+    user_id: string,
+    user_name: string,
+    __v: number,
+    _id: string
 }
 
 export type PacksResponseType = {

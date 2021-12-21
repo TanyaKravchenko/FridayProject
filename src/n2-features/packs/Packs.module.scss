@@ -148,7 +148,7 @@
           margin-left: 1.5rem;
 
           width: 120px;
-          height: 100%;
+          height: 40px;
 
           font-weight: 500;
           font-size: 1rem;
@@ -183,9 +183,17 @@
 
           .tableItem {
             align-self: center;
-
             font-weight: 600;
             font-size: 1.1rem;
+            cursor: pointer;
+          }
+          .tableItemActions {
+            align-self: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+          }
+          .tableItem:hover {
+            color: #7163bf;
           }
         }
 
