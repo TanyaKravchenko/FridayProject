@@ -57,6 +57,16 @@ export const packsReducer = (state: InitialStateType = initialState, action: Act
                 ...state,
                 pageCount: action.pageCount
             };
+        case "Packs/SET-PACKS":
+            return {...state, packs: action.packs}
+        case "Packs/ADD-PACK":
+            return {...state, packs: [...state.packs, action.newPack]}
+        case "Packs/DELETE-PACK":
+            return {...state, packs: state.packs.filter(p => p.user_id !== action.userId)}
+        case "Packs/SET-VALUE-SEARCH":
+            return {...state, sortValues: {...state.sortValues, packName: action.value}}
+        case "Packs/SORT-PACKS":
+            return {...state, sortValues: {...state.sortValues, sortPacks: action.value}}
         default:
             return state
     }
@@ -70,6 +80,8 @@ export const setMyPacksAC = (myPacks: boolean) => ({type: 'packs/SET-MY-PACKS', 
 export const setUserIdAC = (userId: string) => ({type: 'packs/SET-USER-ID', userId} as const)
 export const setPageAC = (page: number) => ({type: 'packs/SET-PAGE', page} as const)
 export const setPageCountAC = (pageCount: number) => ({type: 'packs/SET-PAGE-COUNT', pageCount} as const)
+export const setValueSearchAC = (value: string) => ({type: 'Packs/SET-VALUE-SEARCH', value} as const)
+export const sortPacksAC = (value: string) => ({type: 'Packs/SORT-PACKS', value} as const)
 
 
 //thunks
@@ -154,6 +166,7 @@ type ActionsType = ReturnType<typeof setPacksAc>
     | ReturnType<typeof setPageAC>
     | ReturnType<typeof setPageCountAC>
     | SetAppStatusActionType
+
 
 export type SortValuesType = {
     packName?: string,

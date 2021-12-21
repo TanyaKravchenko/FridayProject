@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import s from './Packs.module.scss';
 import {
@@ -7,7 +7,15 @@ import {
     getPacksTC,
     InitialStateType
 } from '../../n1-main/m2-bll/reducers/packs-reducer';
+import {
+    addPackTC,
+    deletePackTC,
+    getPacksTC,
+    setValueSearchAC,
+    sortPacksAC
+} from '../../n1-main/m2-bll/reducers/packs-reducer';
 import {RootStateType} from '../../n1-main/m2-bll/store';
+import {OneCardPacksType} from '../../n1-main/m3-dal/auth-api';
 import {path} from '../../n1-main/m1-ui/routes/Routes';
 import {NavLink} from 'react-router-dom';
 import {Paginator} from '../paginator/Paginator';
@@ -15,6 +23,12 @@ import {Preloader} from '../../common/preloader/Preloaders';
 
 
 export const Packs = () => {
+
+    const [searchValue, setSearchValue] = useState('')
+    const packName = useSelector<RootStateType, string | undefined>(state => state.packs.sortValues.packName)
+    let sortPacks = useSelector<RootStateType, string | undefined>(state => state.packs.sortValues.sortPacks)
+    const packs = useSelector<RootStateType, OneCardPacksType[]>(state => state.packs.packs)
+
     //hooks
     const dispatch = useDispatch()
     useEffect(() => {
@@ -23,14 +37,32 @@ export const Packs = () => {
     }, [dispatch])
     const {cardPacks} = useSelector<RootStateType, InitialStateType>(state => state.packs)
     //handlers
+    const searchHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        setSearchValue(e.currentTarget.value)
+    }
+    const setValueSearchHandler = () => {
+        dispatch(setValueSearchAC(searchValue))
+        setSearchValue('')
+    }
+    const sortPacksNameHandler = () => {
+        sortPacks === '0name' ? dispatch(sortPacksAC('1name')) : dispatch(sortPacksAC('0name'))
+    }
+    const sortPacksCountHandler = () => {
+        sortPacks === '0cardsCount' ? dispatch(sortPacksAC('1cardsCount')) : dispatch(sortPacksAC('0cardsCount'))
+    }
+    const sortPacksUpdatedHandler = () => {
+        sortPacks === '0updated' ? dispatch(sortPacksAC('1updated')) : dispatch(sortPacksAC('0updated'))
+    }
+    const sortPacksUserNameHandler = () => {
+        sortPacks === '0user_name' ? dispatch(sortPacksAC('1user_name')) : dispatch(sortPacksAC('0user_name'))
+    }
+
+
     const addNewPackHandler = () => {
         dispatch(addPackTC())
     }
     const deletePackHandler = (packId: string) => {
         dispatch(deletePackTC(packId))
-    }
-    if (!cardPacks) {
-        return <Preloader/>
     }
     return (
         <div className={s.packs}>
@@ -50,18 +82,25 @@ export const Packs = () => {
                     <h2 className={s.listTitle}>Packs list</h2>
                     <div className={s.addPack}>
                         <div className={s.inputSearchWrap}>
-                            <input className={s.inputSearch} placeholder={'Search...'} type={'text'}/>
+                            <input className={s.inputSearch}
+                                   placeholder={'Search...'}
+                                   onChange={searchHandler}
+                                   value={searchValue}
+                                   type={'text'}
+                            />
                         </div>
+
+                        <button className={s.addBtn} onClick={setValueSearchHandler}>Search</button>
                         <button className={s.addBtn} onClick={addNewPackHandler}>Add new pack</button>
                     </div>
 
                     <div className={s.table}>
                         <div className={s.tableHeader}>
-                            <div className={s.tableItem}>Name</div>
-                            <div className={s.tableItem}>Cards</div>
-                            <div className={s.tableItem}>Last Updated</div>
-                            <div className={s.tableItem}>Created by</div>
-                            <div className={s.tableItem}>Actions</div>
+                            <div className={s.tableItem} onClick={sortPacksNameHandler}>Name</div>
+                            <div className={s.tableItem} onClick={sortPacksCountHandler}>Cards</div>
+                            <div className={s.tableItem} onClick={sortPacksUpdatedHandler}>Last Updated</div>
+                            <div className={s.tableItem} onClick={sortPacksUserNameHandler}>Created by</div>
+                            <div className={s.tableItemActions}>Actions</div>
                         </div>
                         {
                             cardPacks.map((pack, index) => {

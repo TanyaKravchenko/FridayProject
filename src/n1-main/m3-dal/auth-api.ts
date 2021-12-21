@@ -34,29 +34,29 @@ export const authApi = {
     getPacks(params: RequestParamsType) {
         return instance.get<PacksResponseType>('/cards/pack', {params}).then(res => res.data)
     },
-    addPack(){
-        return instance.post<CardsPackType,AxiosResponse<OneCardPacksType>>('/cards/pack', {
-            cardsPack:{
-                name:'HardCode user',
-                path:'/def',
-                private:false,
-                type:'pack'
+    addPack() {
+        return instance.post<CardsPackType, AxiosResponse<OneCardPacksType>>('/cards/pack', {
+            cardsPack: {
+                name: 'HardCode user',
+                path: '/def',
+                private: false,
+                type: 'pack'
             }
         })
     },
-    deletePack(packId:string){
+    deletePack(packId: string) {
         return instance.delete(`/cards/pack?id=${packId}`)
     }
 }
 export type CardsPackType = {
-    name:string,
-    path:string,
-    grade?:number,
-    shots?:number,
-    rating?:number,
-    deckCover?:string,
-    private:boolean,
-    type:string
+    name: string,
+    path: string,
+    grade?: number,
+    shots?: number,
+    rating?: number,
+    deckCover?: string,
+    private: boolean,
+    type: string
 }
 
 //types
@@ -112,20 +112,20 @@ export type ForgotResponseType = {
 export type OneCardPacksType = {
     cardsCount: string,
     created: string,
-    deckCover:null | string,
+    deckCover: null | string,
     grade: number,
-    more_id:string,
+    more_id: string,
     name: string,
     path: string,
-    private:boolean,
-    rating:number,
-    shots:number,
+    private: boolean,
+    rating: number,
+    shots: number,
     type: string,
     updated: string,
-    user_id:string,
-    user_name:string,
-      __v: number,
-    _id:string
+    user_id: string,
+    user_name: string,
+    __v: number,
+    _id: string
 }
 
 export type PacksResponseType = {
