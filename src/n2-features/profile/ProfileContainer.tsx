@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import s from './Profile.module.scss';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootStateType} from '../../n1-main/m2-bll/store';
@@ -9,6 +9,7 @@ import {InitialStateType, updateUser} from '../../n1-main/m2-bll/reducers/profil
 import Profile from './Profile';
 import {Paginator} from '../paginator/Paginator';
 import {PacksTable} from '../packs/table/PacksTable';
+import {getPacksTC} from '../../n1-main/m2-bll/reducers/packs-reducer';
 
 const ProfileContainer: React.FC = React.memo(() => {
 
@@ -16,6 +17,13 @@ const ProfileContainer: React.FC = React.memo(() => {
     const user = useSelector<RootStateType, InitialStateType>(state => state.profile)
     const loginIn = useSelector<RootStateType, boolean>(state => state.login.isLoggedIn)
     const dispatch = useDispatch();
+
+    const packName = useSelector<RootStateType, string | undefined>(state => state.packs.sortValues.packName)
+    let sortPacks = useSelector<RootStateType, any>(state => state.packs.sortValues.sortPacks)
+    useEffect(() => {
+        dispatch(getPacksTC({packName, sortPacks}))
+        //hardCode values
+    }, [dispatch, packName, sortPacks])
 
     //terms
     if (!loginIn) {
