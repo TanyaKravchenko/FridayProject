@@ -72,7 +72,7 @@ type ActionsType =
     | ReturnType<typeof setErrorAc>
 // | ReturnType<typeof updateUserDataAc>
 
-type InitialStateType = typeof initialState
+export type InitialStateType = typeof initialState
 
 export type UserProfileType = {
     _id: string

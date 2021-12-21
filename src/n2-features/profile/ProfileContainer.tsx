@@ -5,15 +5,14 @@ import {RootStateType} from '../../n1-main/m2-bll/store';
 import {Redirect} from 'react-router-dom';
 import {path} from '../../n1-main/m1-ui/routes/Routes';
 import {logoutTC} from '../../n1-main/m2-bll/reducers/login-reducer';
-import {ProfileType} from '../../n1-main/m3-dal/auth-api';
-import {updateUser} from '../../n1-main/m2-bll/reducers/profile-reducer';
+import {InitialStateType, updateUser} from '../../n1-main/m2-bll/reducers/profile-reducer';
 import Profile from './Profile';
 import {Paginator} from '../paginator/Paginator';
 
 const ProfileContainer: React.FC = React.memo(() => {
 
     //hooks
-    const user = useSelector<RootStateType, ProfileType | null>(state => state.profile)
+    const user = useSelector<RootStateType, InitialStateType>(state => state.profile)
     const loginIn = useSelector<RootStateType, boolean>(state => state.login.isLoggedIn)
     const dispatch = useDispatch();
 

@@ -28,8 +28,6 @@ export const Paginator = React.memo(() => {
     let leftPortionPageNumber = (portionNumber - 1) * portionSize + 1;
     let rightPortionPageNumber = portionNumber * portionSize;
 
-    const [pagesCountShow, setPagesCount] = useState<number>(pageCount);
-
     const pagesOptions = [4, 10, 15]
     const pagesOptionsTags = pagesOptions.map(item => <option value={item} key={item}>{item}</option>)
 
@@ -38,7 +36,6 @@ export const Paginator = React.memo(() => {
     }
 
     const onPagesCountChangeHandler = (event: ChangeEvent<HTMLSelectElement>) => {
-        setPagesCount(+event.currentTarget.value)
         pagesCountPacksChange(+event.currentTarget.value)
     }
 
@@ -75,7 +72,7 @@ export const Paginator = React.memo(() => {
                 Show
                 <select name="pagesCountSelect"
                         id="pagesCountSelect"
-                        value={pagesCountShow}
+                        value={pageCount}
                         onChange={onPagesCountChangeHandler}>
                     {pagesOptionsTags}
                 </select>
