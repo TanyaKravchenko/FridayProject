@@ -22,9 +22,9 @@ const App = () => {
 
     return (
         <div className="App">
+            {status === 'loading' && <Preloader/>}
             <Header/>
             <Routes/>
-            {status === 'loading' && <Preloader/>}
         </div>
     );
 }

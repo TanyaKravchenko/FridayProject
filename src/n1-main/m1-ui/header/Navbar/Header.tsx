@@ -8,11 +8,11 @@ type NavbarPropsType = {}
 
 const Header: React.FC<NavbarPropsType> = () => {
 
-    const isInitialized = useSelector<RootStateType, boolean>(state => state.app.isInitialized)
+    const isLoggedIn = useSelector<RootStateType, boolean>(state => state.login.isLoggedIn)
 
     return (
         <div>
-            {isInitialized ? <NavbarProfile/> : <Navbar/>}
+            {isLoggedIn ? <NavbarProfile/> : <Navbar/>}
         </div>
     );
 }

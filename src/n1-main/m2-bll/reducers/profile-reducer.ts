@@ -9,16 +9,27 @@ import {Dispatch} from 'react';
 
 const initialState = {
     // profileData: null as ProfileDataType| null,
-    user: null as ProfileType | null,
-    profileError: ''
+    // user: null as ProfileType | null,
+    // profileError: '',
+    _id: "",
+    email: "",
+    name: "",
+    avatar: "",
+    publicCardPacksCount: 0,
+    created: new Date(2013, 2, 1, 0, 70),
+    updated: new Date(2015, 2, 1, 0, 70),
+    isAdmin: false,
+    verified: false ,
+    rememberMe: false,
+    error: "",
 }
 
 export const profileReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
         case 'PROFILE/SET-USER-DATA':
-            return {...state, user: action.userData}
+            return {...state, ...action.userData}
         case 'PROFILE/SET-ERROR':
-            return {...state, profileError: action.errorValue}
+            return {...state, error: action.errorValue}
         // case "PROFILE/UPDATE-USER-NAME":
         //     return {...state, user: action.updatedData}
         default:
@@ -62,6 +73,20 @@ type ActionsType =
 // | ReturnType<typeof updateUserDataAc>
 
 type InitialStateType = typeof initialState
+
+export type UserProfileType = {
+    _id: string
+    email: string
+    name: string
+    avatar?: string
+    publicCardPacksCount: number // количество колод
+    created: Date
+    updated: Date
+    isAdmin: boolean
+    verified: boolean // подтвердил ли почту
+    rememberMe: boolean
+    error?: string
+}
 
 
 
