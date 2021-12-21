@@ -131,7 +131,3 @@ export const Packs = () => {
         </div>
     )
 }
-
-function MouseEventHandler<T>() {
-    throw new Error('Function not implemented.');
-}
