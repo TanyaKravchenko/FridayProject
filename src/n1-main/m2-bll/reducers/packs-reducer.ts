@@ -17,6 +17,10 @@ const initialState = {
     portionSize: 7,
     myPacks: false,
     search: '',
+    sortValues: {
+        packName: '',
+        sortPacks: '0updated',
+    } as SortValuesType
 }
 
 export const packsReducer = (state: InitialStateType = initialState, action: ActionsType) => {
@@ -57,12 +61,6 @@ export const packsReducer = (state: InitialStateType = initialState, action: Act
                 ...state,
                 pageCount: action.pageCount
             };
-        case "Packs/SET-PACKS":
-            return {...state, packs: action.packs}
-        case "Packs/ADD-PACK":
-            return {...state, packs: [...state.packs, action.newPack]}
-        case "Packs/DELETE-PACK":
-            return {...state, packs: state.packs.filter(p => p.user_id !== action.userId)}
         case "Packs/SET-VALUE-SEARCH":
             return {...state, sortValues: {...state.sortValues, packName: action.value}}
         case "Packs/SORT-PACKS":
@@ -165,6 +163,8 @@ type ActionsType = ReturnType<typeof setPacksAc>
     | ReturnType<typeof setUserIdAC>
     | ReturnType<typeof setPageAC>
     | ReturnType<typeof setPageCountAC>
+    | ReturnType<typeof setValueSearchAC>
+    | ReturnType<typeof sortPacksAC>
     | SetAppStatusActionType
 
 

@@ -5,41 +5,37 @@ import {
     addPackTC,
     deletePackTC,
     getPacksTC,
-    InitialStateType
-} from '../../n1-main/m2-bll/reducers/packs-reducer';
-import {
-    addPackTC,
-    deletePackTC,
-    getPacksTC,
-    setValueSearchAC,
-    sortPacksAC
+    InitialStateType,
+    setValueSearchAC, sortPacksAC
 } from '../../n1-main/m2-bll/reducers/packs-reducer';
 import {RootStateType} from '../../n1-main/m2-bll/store';
-import {OneCardPacksType} from '../../n1-main/m3-dal/auth-api';
 import {path} from '../../n1-main/m1-ui/routes/Routes';
 import {NavLink} from 'react-router-dom';
 import {Paginator} from '../paginator/Paginator';
-import {Preloader} from '../../common/preloader/Preloaders';
-
 
 export const Packs = () => {
 
-    const [searchValue, setSearchValue] = useState('')
-    const packName = useSelector<RootStateType, string | undefined>(state => state.packs.sortValues.packName)
-    let sortPacks = useSelector<RootStateType, string | undefined>(state => state.packs.sortValues.sortPacks)
-    const packs = useSelector<RootStateType, OneCardPacksType[]>(state => state.packs.packs)
-
     //hooks
     const dispatch = useDispatch()
-    useEffect(() => {
-        dispatch(getPacksTC({}))
-        //hardCode values
-    }, [dispatch])
+
     const {cardPacks} = useSelector<RootStateType, InitialStateType>(state => state.packs)
+    const packName = useSelector<RootStateType, string | undefined>(state => state.packs.sortValues.packName)
+    let sortPacks = useSelector<RootStateType, any>(state => state.packs.sortValues.sortPacks)
+    // const packs = useSelector<RootStateType, OneCardPacksType[]>(state => state.packs.packs)
+
+    useEffect(() => {
+        dispatch(getPacksTC({packName, sortPacks}))
+        //hardCode values
+    }, [dispatch, packName, sortPacks])
+
+    const [searchValue, setSearchValue] = useState('')
+
     //handlers
+
     const searchHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setSearchValue(e.currentTarget.value)
     }
+
     const setValueSearchHandler = () => {
         dispatch(setValueSearchAC(searchValue))
         setSearchValue('')
@@ -57,13 +53,13 @@ export const Packs = () => {
         sortPacks === '0user_name' ? dispatch(sortPacksAC('1user_name')) : dispatch(sortPacksAC('0user_name'))
     }
 
-
     const addNewPackHandler = () => {
         dispatch(addPackTC())
     }
     const deletePackHandler = (packId: string) => {
         dispatch(deletePackTC(packId))
     }
+
     return (
         <div className={s.packs}>
             <div className={s.wrap}>
@@ -89,7 +85,7 @@ export const Packs = () => {
                                    type={'text'}
                             />
                         </div>
-
+                        {/*<Search />*/}
                         <button className={s.addBtn} onClick={setValueSearchHandler}>Search</button>
                         <button className={s.addBtn} onClick={addNewPackHandler}>Add new pack</button>
                     </div>
@@ -134,4 +130,8 @@ export const Packs = () => {
             </div>
         </div>
     )
+}
+
+function MouseEventHandler<T>() {
+    throw new Error('Function not implemented.');
 }
