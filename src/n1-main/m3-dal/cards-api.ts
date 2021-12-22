@@ -3,10 +3,10 @@ import {AxiosResponse} from "axios";
 
 export const cardsApi = {
     getCards(params: RequestCardsParamsType) {
-        return instance.get<OneCardType[]>('/cards/card', {params}).then(res => res.data)
+        return instance.get('/cards/card', {params}).then(res => res.data)
     },
      addCard(newCardData:addCardType) {
-        return instance.post<addCardType, AxiosResponse<OneCardType>>('/cards/card', {newCardData})
+        return instance.post<addCardType, AxiosResponse<OneCardType>>('/cards/card', {card:newCardData})
     },
 }
 

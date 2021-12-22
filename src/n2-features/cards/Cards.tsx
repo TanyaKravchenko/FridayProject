@@ -7,13 +7,13 @@ import {RootStateType} from "../../n1-main/m2-bll/store";
 import {NavLink} from 'react-router-dom';
 import {path} from "../../n1-main/m1-ui/routes/Routes";
 import {AddCard} from "./addCard/AddCard";
+import {useParams} from "react-router";
 
 export const Cards = () => {
     // HOOKS
     const cards = useSelector<RootStateType, OneCardType[]>(state => state.cards.cards)
     const dispatch = useDispatch()
-
-
+    const packId = useSelector<RootStateType, string>(state=>state.cards.packId)
     // HANDLERS
     const handleDeleteCard = () => {
     }
@@ -67,7 +67,7 @@ export const Cards = () => {
                         })
                     }
                 </div>
-                <AddCard id={'123'}/>
+                <AddCard id={packId}/>
 
             </div>
         </div>

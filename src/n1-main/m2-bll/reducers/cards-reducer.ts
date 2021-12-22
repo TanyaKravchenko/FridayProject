@@ -6,6 +6,7 @@ import {addCardType, cardsApi, OneCardType, RequestCardsParamsType} from "../../
 
 const initialState = {
     cards: [] as Array<OneCardType>,
+    packId:''
 
 }
 
@@ -18,7 +19,8 @@ export const cardsReducer = (state: InitialStateType = initialState, action: Act
             }
         case "cards/ADD-CARD":
             return {...state, cards: [...state.cards, action.newCard]}
-
+        case "cards/SET-PACK-ID":
+            return  {...state, packId: action.packId}
         default:
             return state
     }
@@ -27,6 +29,7 @@ export const cardsReducer = (state: InitialStateType = initialState, action: Act
 //actionCreators
 export const setCardsAc = (cards: OneCardType[]) => ({type: 'cards/SET-CARDS', cards} as const)
 export const addCardAc = (newCard: OneCardType) => ({type: 'cards/ADD-CARD', newCard} as const)
+export const setPackIdAc = (packId: string) => ({type: 'cards/SET-PACK-ID', packId} as const)
 
 
 //thunks
@@ -44,8 +47,8 @@ export const addCardTC = (newCard: addCardType): ThunkType =>(dispatch) => {
     dispatch(setAppStatusAC('loading'))
     cardsApi.addCard(newCard).then(
         (res) => {
-            dispatch(getCardsTC({cardsPack_id:newCard.cardsPack_id}))
             dispatch(addCardAc(res.data))
+            dispatch(getCardsTC({cardsPack_id:newCard.cardsPack_id}))
             dispatch(setAppStatusAC('succeeded'))
         }
     ).catch(() => {
@@ -72,7 +75,7 @@ export const addCardTC = (newCard: addCardType): ThunkType =>(dispatch) => {
 //types
 export type InitialStateType = typeof initialState
 type ThunkType = ThunkAction<any, RootStateType, {}, ActionsType>
-type ActionsType = ReturnType<typeof setCardsAc> | ReturnType<typeof addCardAc> | SetAppStatusActionType
+type ActionsType = ReturnType<typeof setCardsAc> | ReturnType<typeof addCardAc> | SetAppStatusActionType | ReturnType<typeof setPackIdAc>
 
 
 

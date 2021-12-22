@@ -4,7 +4,6 @@ import {useFormik} from "formik";
 import {useDispatch} from "react-redux";
 import {addCardTC} from "../../../n1-main/m2-bll/reducers/cards-reducer";
 
-
 type AddCardType = {
     id:string
 }
@@ -18,9 +17,10 @@ export const AddCard = (props:AddCardType)=> {
         },
         onSubmit: values => {
             dispatch(addCardTC({
-                cardsPack_id:props.id,
                 question:values.question,
-                answer:values.answer
+                answer:values.answer,
+                // cardsPack_id:'61c38047bf41d303d448d008',
+                cardsPack_id:props.id
             }))
             formik.resetForm()
         },
