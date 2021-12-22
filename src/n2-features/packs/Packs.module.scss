@@ -8,11 +8,12 @@
 
   .wrap {
     margin-top: 2rem;
-    //max-width: 1008px;
+    width: 80%;
     min-height: 80vh;
     display: grid;
     grid-template-columns: 25% 75%;
     grid-template-rows: 1fr;
+    border-radius: 50px;
 
     .sidebar {
       background-color: #ECECF9;
