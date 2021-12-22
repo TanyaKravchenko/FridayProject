@@ -1,8 +1,10 @@
 import {Dispatch} from 'redux';
-import {setAppStatusAC} from './app-reducer';
+import {setAppStatusAC, SetAppStatusActionType} from './app-reducer';
 import {RootStateType} from '../store';
 import {ThunkAction} from 'redux-thunk';
-import {cardsApi, OneCardType, RequestCardsParamsType} from "../../m3-dal/cards-api";
+import {addCardType, cardsApi, OneCardType, RequestCardsParamsType} from "../../m3-dal/cards-api";
+import {packsApi} from "../../m3-dal/packs-api";
+import {getPacksTC} from "./packs-reducer";
 
 const initialState = {
     cards: [] as Array<OneCardType>,
@@ -14,8 +16,10 @@ export const cardsReducer = (state: InitialStateType = initialState, action: Act
         case 'cards/SET-CARDS':
             return {
                 ...state,
-                ...action.payload,
+                ...action.cards,
             }
+        case "cards/ADD-CARD":
+            return {...state, cards: [...state.cards, action.newCard]}
 
         default:
             return state
@@ -23,7 +27,8 @@ export const cardsReducer = (state: InitialStateType = initialState, action: Act
 }
 
 //actionCreators
-export const setCardsAc = (payload: OneCardType) => ({type: 'cards/SET-CARDS', payload} as const)
+export const setCardsAc = (cards: OneCardType[]) => ({type: 'cards/SET-CARDS', cards} as const)
+export const addCardAc = (newCard: OneCardType) => ({type: 'cards/ADD-CARD', newCard} as const)
 
 
 //thunks
@@ -37,20 +42,21 @@ export const getCardsTC = (params: RequestCardsParamsType) => async (dispatch: D
         dispatch(setAppStatusAC('failed'))
     }
 }
+export const addCardTC = (newCard: addCardType): ThunkType =>async (dispatch) => {
+    dispatch(setAppStatusAC('loading'))
+    cardsApi.addCard(newCard).then(
+        (res) => {
+            dispatch(getCardsTC({cardsPack_id:newCard.cardsPack_id}))
+            dispatch(addCardAc(res.data))
 
-// export const addPackTC = (cardsPack: CreateCardsPackType): ThunkType => (dispatch) => {
-//     dispatch(setAppStatusAC('loading'))
-//     packsApi.addPack(cardsPack).then(
-//         () => {
-//             dispatch(getPacksTC({}))
-//             dispatch(setAppStatusAC('succeeded'))
-//         }
-//     ).catch(() => {
-//         dispatch(setAppStatusAC('failed'))
-//     }).finally(() => [
-//         dispatch(setAppStatusAC('succeeded'))
-//     ])
-// }
+            dispatch(setAppStatusAC('succeeded'))
+        }
+    ).catch(() => {
+        dispatch(setAppStatusAC('failed'))
+    }).finally(() => [
+        dispatch(setAppStatusAC('succeeded'))
+    ])
+}
 // export const deletePackTC = (userId: string): ThunkType => async (dispatch) => {
 //     dispatch(setAppStatusAC('loading'))
 //     packsApi.deletePack(userId).then(
@@ -69,7 +75,7 @@ export const getCardsTC = (params: RequestCardsParamsType) => async (dispatch: D
 //types
 export type InitialStateType = typeof initialState
 type ThunkType = ThunkAction<any, RootStateType, {}, ActionsType>
-type ActionsType = ReturnType<typeof setCardsAc>
+type ActionsType = ReturnType<typeof setCardsAc> | ReturnType<typeof addCardAc> | SetAppStatusActionType
 
 
 

@@ -1,8 +1,12 @@
-import {instance} from './auth-api';
+import {ForgotDataType, ForgotResponseType, instance} from './auth-api';
+import {AxiosResponse} from "axios";
 
 export const cardsApi = {
     getCards(params: RequestCardsParamsType) {
-        return instance.get<OneCardType>('/cards/card', {params}).then(res => res.data)
+        return instance.get<OneCardType[]>('/cards/card', {params}).then(res => res.data)
+    },
+     addCard(newCardData:addCardType) {
+        return instance.post<addCardType, AxiosResponse<OneCardType>>('/cards/card', {newCardData})
     },
 }
 
@@ -36,4 +40,16 @@ export type RequestCardsParamsType = {
     sortCards?: number // не обязательно
     page?: number // не обязательно
     pageCount?: number // не обязательно
+}
+export type addCardType = {
+    cardsPack_id:string,
+    question:string,
+    answer:string,
+    grade?:number,
+    shots?: number,
+    rating?: number,
+    answerImg?:string,
+    questionImg?:string,
+    answerVideo?:string,
+    type?:string
 }

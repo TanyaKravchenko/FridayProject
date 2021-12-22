@@ -11,7 +11,7 @@
     padding: 1.2rem 1.5rem 0;
 
     width: 1008px;
-    height: 636px;
+    height: 680px;
 
     background-color: white;
 
@@ -50,7 +50,7 @@
     .btnBox {
       margin-top: 1.3rem;
 
-      display: flex;
+      //display: flex;
 
       .inputWrap {
         flex: 1 1 auto;
@@ -75,7 +75,7 @@
       }
 
       .cardsInput {
-        width: 100%;
+        width: 95%;
         height: 36px;
 
         padding-left: 2.5rem;
@@ -165,8 +165,6 @@
       .cardsRowItem {
         align-self: center;
 
-        margin: 0 5px;
-
         font-weight: 500;
         font-size: .8rem;
 
@@ -180,7 +178,7 @@
           background-color: #B0C4DE;
         }
         .deleteBtn, .editBtn{
-          width: 70px;
+          width: 80px;
           height: 40px;
 
           outline: none;

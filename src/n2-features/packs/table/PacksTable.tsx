@@ -41,7 +41,6 @@ export const PacksTable: React.FC<PacksTableProps> = () => {
 
     const {cardPacks} = useSelector<RootStateType, InitialStateType>(state => state.packs)
     console.log(cardPacks)
-    debugger
     return (
         <div className={s.packs}>
             <div className={s.table}>
