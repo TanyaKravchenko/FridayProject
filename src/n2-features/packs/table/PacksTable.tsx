@@ -5,13 +5,23 @@ import {RootStateType} from '../../../n1-main/m2-bll/store';
 import {deletePackTC, InitialStateType, sortPacksAC} from '../../../n1-main/m2-bll/reducers/packs-reducer';
 import {NavLink} from 'react-router-dom';
 import {path} from '../../../n1-main/m1-ui/routes/Routes';
+import {getCardsTC} from "../../../n1-main/m2-bll/reducers/cards-reducer";
+import {RequestCardsParamsType} from "../../../n1-main/m3-dal/cards-api";
+
 
 type PacksTableProps = {}
 
 export const PacksTable: React.FC<PacksTableProps> = () => {
-
+    //hooks
     let sortPacks = useSelector<RootStateType, any>(state => state.packs.sortValues.sortPacks)
     const dispatch = useDispatch()
+
+
+    //handlers
+    const handleOnLearnButton = (id:string)=> {
+        dispatch(getCardsTC({cardsPack_id:id}))
+    }
+
     const sortPacksNameHandler = () => {
         sortPacks === '0name' ? dispatch(sortPacksAC('1name')) : dispatch(sortPacksAC('0name'))
     }
@@ -30,6 +40,7 @@ export const PacksTable: React.FC<PacksTableProps> = () => {
     }
 
     const {cardPacks} = useSelector<RootStateType, InitialStateType>(state => state.packs)
+    console.log(cardPacks)
     return (
         <div className={s.packs}>
 
@@ -58,10 +69,13 @@ export const PacksTable: React.FC<PacksTableProps> = () => {
                                     {pack.user_name}
                                 </div>
                                 <div className={s.packRowItem}>
+
                                     <button className={s.packRowBtn}
                                             onClick={() => deletePackHandler(pack._id)}>Delete
                                     </button>
-                                    <NavLink className={s.packRowLink} to={path.CARDS}>Learn</NavLink>
+                                    <NavLink className={s.packRowLink} to={path.CARDS}
+                                             onClick={() => handleOnLearnButton(pack._id)}
+                                    >Learn</NavLink>
                                 </div>
                             </div>
                         )
