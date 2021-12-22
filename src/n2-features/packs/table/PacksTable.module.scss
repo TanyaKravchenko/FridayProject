@@ -17,7 +17,18 @@
       align-self: center;
       font-weight: 600;
       font-size: 1.1rem;
+      cursor: pointer;
     }
+    .tableItem:hover {
+      color: #564b8e;
+    }
+
+    .tableItemActions {
+      align-self: center;
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+
   }
 
   .packRow {

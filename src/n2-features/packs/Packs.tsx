@@ -1,14 +1,11 @@
-import React, {ChangeEvent, useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import s from './Packs.module.scss';
-import {
-    addPackTC,
-    getPacksTC,
-    setValueSearchAC
-} from '../../n1-main/m2-bll/reducers/packs-reducer';
+import {addPackTC, getPacksTC} from '../../n1-main/m2-bll/reducers/packs-reducer';
 import {RootStateType} from '../../n1-main/m2-bll/store';
 import {Paginator} from '../paginator/Paginator';
 import {PacksTable} from './table/PacksTable';
+import {Search} from "../search/Search";
 
 export const Packs = () => {
 
@@ -22,16 +19,6 @@ export const Packs = () => {
         //hardCode values
     }, [dispatch, packName, sortPacks])
 
-    const [searchValue, setSearchValue] = useState('')
-
-    //handlers
-    const searchHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setSearchValue(e.currentTarget.value)
-    }
-    const setValueSearchHandler = () => {
-        dispatch(setValueSearchAC(searchValue))
-        setSearchValue('')
-    }
     const addNewPackHandler = () => {
         dispatch(addPackTC({}))
     }
@@ -53,16 +40,7 @@ export const Packs = () => {
                 <div className={s.listBlock}>
                     <h2 className={s.listTitle}>Packs list</h2>
                     <div className={s.addPack}>
-                        <div className={s.inputSearchWrap}>
-                            <input className={s.inputSearch}
-                                   placeholder={'Search...'}
-                                   onChange={searchHandler}
-                                   value={searchValue}
-                                   type={'text'}
-                            />
-                        </div>
-                        {/*<Search />*/}
-                        <button className={s.addBtn} onClick={setValueSearchHandler}>Search</button>
+                        <Search/>
                         <button className={s.addBtn} onClick={addNewPackHandler}>Add new pack</button>
                     </div>
                     <PacksTable/>

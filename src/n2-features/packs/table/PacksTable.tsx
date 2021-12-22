@@ -32,6 +32,7 @@ export const PacksTable: React.FC<PacksTableProps> = () => {
     const {cardPacks} = useSelector<RootStateType, InitialStateType>(state => state.packs)
     return (
         <div className={s.packs}>
+
             <div className={s.table}>
                 <div className={s.tableHeader}>
                     <div className={s.tableItem} onClick={sortPacksNameHandler}>Name</div>
