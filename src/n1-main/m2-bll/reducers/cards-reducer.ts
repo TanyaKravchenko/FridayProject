@@ -3,8 +3,6 @@ import {setAppStatusAC, SetAppStatusActionType} from './app-reducer';
 import {RootStateType} from '../store';
 import {ThunkAction} from 'redux-thunk';
 import {addCardType, cardsApi, OneCardType, RequestCardsParamsType} from "../../m3-dal/cards-api";
-import {packsApi} from "../../m3-dal/packs-api";
-import {getPacksTC} from "./packs-reducer";
 
 const initialState = {
     cards: [] as Array<OneCardType>,
@@ -42,20 +40,19 @@ export const getCardsTC = (params: RequestCardsParamsType) => async (dispatch: D
         dispatch(setAppStatusAC('failed'))
     }
 }
-export const addCardTC = (newCard: addCardType): ThunkType =>async (dispatch) => {
+export const addCardTC = (newCard: addCardType): ThunkType =>(dispatch) => {
     dispatch(setAppStatusAC('loading'))
     cardsApi.addCard(newCard).then(
         (res) => {
             dispatch(getCardsTC({cardsPack_id:newCard.cardsPack_id}))
             dispatch(addCardAc(res.data))
-
             dispatch(setAppStatusAC('succeeded'))
         }
     ).catch(() => {
         dispatch(setAppStatusAC('failed'))
-    }).finally(() => [
+    }).finally(() => {
         dispatch(setAppStatusAC('succeeded'))
-    ])
+    })
 }
 // export const deletePackTC = (userId: string): ThunkType => async (dispatch) => {
 //     dispatch(setAppStatusAC('loading'))

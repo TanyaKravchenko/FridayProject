@@ -7,15 +7,13 @@ import {RootStateType} from "../../n1-main/m2-bll/store";
 import {NavLink} from 'react-router-dom';
 import {path} from "../../n1-main/m1-ui/routes/Routes";
 import {AddCard} from "./addCard/AddCard";
-import {InitialStateType} from "../../n1-main/m2-bll/reducers/packs-reducer";
 
 export const Cards = () => {
-
     // HOOKS
     const cards = useSelector<RootStateType, OneCardType[]>(state => state.cards.cards)
-    const {cardPacks} = useSelector<RootStateType, InitialStateType>(state => state.packs)
-    console.log(cards)
     const dispatch = useDispatch()
+
+
     // HANDLERS
     const handleDeleteCard = () => {
     }
@@ -63,16 +61,13 @@ export const Cards = () => {
                                         <button className={s.deleteBtn} onClick={() => handleDeleteCard()}>delete
                                         </button>
                                         <button className={s.editBtn}>edit</button>
-
                                     </div>
                                 </div>
-
                             )
                         })
                     }
-
                 </div>
-                <AddCard id={'61b798437e222e0004b0428d'}/>
+                <AddCard id={'123'}/>
 
             </div>
         </div>

@@ -68,6 +68,7 @@ export const PacksTable: React.FC<PacksTableProps> = () => {
                                     {pack.user_name}
                                 </div>
                                 <div className={s.packRowItem}>
+
                                     <button className={s.packRowBtn}
                                             onClick={() => deletePackHandler(pack._id)}>Delete
                                     </button>
