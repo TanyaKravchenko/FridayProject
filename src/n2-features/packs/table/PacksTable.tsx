@@ -2,12 +2,10 @@ import React from 'react';
 import s from './PacksTable.module.scss';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootStateType} from '../../../n1-main/m2-bll/store';
-import {deletePackTC, InitialStateType, setPacksAc, sortPacksAC} from '../../../n1-main/m2-bll/reducers/packs-reducer';
+import {deletePackTC, InitialStateType, sortPacksAC} from '../../../n1-main/m2-bll/reducers/packs-reducer';
 import {NavLink} from 'react-router-dom';
 import {path} from '../../../n1-main/m1-ui/routes/Routes';
-import {getCardsTC, setPackIdAc} from "../../../n1-main/m2-bll/reducers/cards-reducer";
-import {RequestCardsParamsType} from "../../../n1-main/m3-dal/cards-api";
-
+import {getCardsTC, setPackIdAc} from '../../../n1-main/m2-bll/reducers/cards-reducer';
 
 type PacksTableProps = {}
 
@@ -16,10 +14,9 @@ export const PacksTable: React.FC<PacksTableProps> = () => {
     let sortPacks = useSelector<RootStateType, any>(state => state.packs.sortValues.sortPacks)
     const dispatch = useDispatch()
 
-
     //handlers
-    const handleOnLearnButton = (id:string)=> {
-        dispatch(getCardsTC({cardsPack_id:id}))
+    const handleOnLearnButton = (id: string) => {
+        dispatch(getCardsTC({cardsPack_id: id}))
         dispatch(setPackIdAc(id))
     }
 
@@ -42,9 +39,9 @@ export const PacksTable: React.FC<PacksTableProps> = () => {
 
     const {cardPacks} = useSelector<RootStateType, InitialStateType>(state => state.packs)
     console.log(cardPacks)
+
     return (
         <div className={s.packs}>
-
             <div className={s.table}>
                 <div className={s.tableHeader}>
                     <div className={s.tableItem} onClick={sortPacksNameHandler}>Name</div>

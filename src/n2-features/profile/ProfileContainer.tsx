@@ -10,6 +10,7 @@ import Profile from './Profile';
 import {Paginator} from '../paginator/Paginator';
 import {PacksTable} from '../packs/table/PacksTable';
 import {getPacksTC} from '../../n1-main/m2-bll/reducers/packs-reducer';
+import {Search} from '../search/Search';
 
 const ProfileContainer: React.FC = React.memo(() => {
 
@@ -17,6 +18,7 @@ const ProfileContainer: React.FC = React.memo(() => {
     const user = useSelector<RootStateType, InitialStateType>(state => state.profile)
     const loginIn = useSelector<RootStateType, boolean>(state => state.login.isLoggedIn)
     const dispatch = useDispatch();
+    const name = useSelector<RootStateType, string>(state => state.profile.name)
 
     const packName = useSelector<RootStateType, string | undefined>(state => state.packs.sortValues.packName)
     let sortPacks = useSelector<RootStateType, any>(state => state.packs.sortValues.sortPacks)
@@ -47,11 +49,13 @@ const ProfileContainer: React.FC = React.memo(() => {
                     <Profile user={user} updateUserName={updateUserName} onClickLogOut={onClickLogOut}/>
                 </div>
                 <div className={s.listBlock}>
-                    {/*<Search />*/}
+                    <h3>Packs list {name && name + '\'s'}</h3>
+                    <Search/>
                     <PacksTable/>
                     <Paginator/>
                 </div>
             </div>
+
         </div>
     );
 })

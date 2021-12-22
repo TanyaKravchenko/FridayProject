@@ -42,3 +42,18 @@
     opacity: 0.9;
   }
 }
+
+@mixin commonProfilePacksContainerStyle {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+@mixin commonProfilePacksBlockStyle {
+  margin-top: 2rem;
+  width: 80%;
+  min-height: 80vh;
+  display: grid;
+  grid-template-columns: 25% 75%;
+  grid-template-rows: 1fr;
+}

@@ -2,21 +2,15 @@
 @import './../../common/styles/variables';
 
 .packs {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
+  @include commonProfilePacksContainerStyle();
 
   .wrap {
-    margin-top: 2rem;
-    width: 80%;
-    min-height: 80vh;
-    display: grid;
-    grid-template-columns: 25% 75%;
-    grid-template-rows: 1fr;
-    border-radius: 50px;
+    @include commonProfilePacksBlockStyle();
 
     .sidebar {
       background-color: #ECECF9;
+      border-radius: 9px 0 0 9px;
+      box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 
       .btnTitle {
         margin-top: 2rem;
@@ -61,11 +55,11 @@
       }
     }
 
-
     .listBlock {
       padding: 1.5rem 3rem;
       background-color: white;
-      overflow: scroll;
+      box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+      border-radius: 0 9px 9px 0;
 
       .listTitle {
         font-weight: 600;

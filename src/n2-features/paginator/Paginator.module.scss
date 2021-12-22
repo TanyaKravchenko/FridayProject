@@ -3,13 +3,12 @@
   margin: 2vh 0;
 
   .paginatorContainer {
-    max-width: 60vw;
     display: flex;
     align-items: center;
+    justify-content: space-around;
 
     .pageContainer {
       display: flex;
-      flex-wrap: nowrap;
 
       .paginatorBtn {
         width: 3vw;
@@ -30,15 +29,15 @@
       }
 
       .pageNumber {
-        min-width: 1vw;
+        min-width: 2vw;
         display: flex;
         align-items: center;
         justify-content: center;
-        margin: 0.1vw;
+        margin: 0.2vw;
         cursor: pointer;
-        padding: 1vw;
+        padding: 1px;
         border: 1px solid grey;
-        border-radius: 50%;
+        border-radius: 9px;
         color: #21268F;
       }
 
@@ -53,6 +52,7 @@
         color: #21268F;
       }
     }
+
     .wrapper {
       display: flex;
       font-style: normal;
