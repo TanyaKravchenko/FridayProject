@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import s from './Packs.module.scss';
-import {addPackTC, getPacksTC} from '../../n1-main/m2-bll/reducers/packs-reducer';
+import {addPackTC, getPacksTC, setMyPacksAC} from '../../n1-main/m2-bll/reducers/packs-reducer';
 import {RootStateType} from '../../n1-main/m2-bll/store';
 import {Paginator} from '../paginator/Paginator';
 import {PacksTable} from './table/PacksTable';
@@ -12,15 +12,22 @@ export const Packs = () => {
     //hooks
     const dispatch = useDispatch()
     const packName = useSelector<RootStateType, string | undefined>(state => state.packs.packName)
-    let sortPacks = useSelector<RootStateType, any>(state => state.packs.sortPacks)
+    const sortPacks = useSelector<RootStateType, string| undefined>(state => state.packs.sortPacks)
+    const myPacks = useSelector<RootStateType, boolean>(state => state.packs.myPacks)
 
     useEffect(() => {
-        dispatch(getPacksTC({packName, sortPacks}))
+        dispatch(getPacksTC({}))
         //hardCode values
-    }, [dispatch, packName, sortPacks])
+    }, [dispatch, packName, sortPacks, myPacks ])
 
     const addNewPackHandler = () => {
         dispatch(addPackTC({}))
+    }
+    const showMyPacksHandler = () => {
+        dispatch(setMyPacksAC(true))
+    }
+    const showAllPacksHandler = () => {
+        dispatch(setMyPacksAC(false))
     }
 
     return (
@@ -29,8 +36,8 @@ export const Packs = () => {
                 <div className={s.sidebar}>
                     <h3 className={s.btnTitle}>Show packs cards</h3>
                     <div className={s.btnBox}>
-                        <button className={s.btn}>My</button>
-                        <button className={s.btn}>All</button>
+                        <button className={myPacks ? s.btnActive: s.btn} onClick={showMyPacksHandler} >My</button>
+                        <button className={myPacks ? s.btn: s.btnActive} onClick={showAllPacksHandler}>All</button>
                     </div>
                     <h3 className={s.inputTitle}>Number of cards</h3>
                     <div>
