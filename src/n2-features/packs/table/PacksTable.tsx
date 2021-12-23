@@ -11,7 +11,7 @@ type PacksTableProps = {}
 
 export const PacksTable: React.FC<PacksTableProps> = () => {
     //hooks
-    let sortPacks = useSelector<RootStateType, any>(state => state.packs.sortValues.sortPacks)
+    let sortPacks = useSelector<RootStateType, any>(state => state.packs.sortPacks)
     const dispatch = useDispatch()
 
     //handlers
