@@ -16,10 +16,9 @@ const initialState = {
     portionSize: 7,
     myPacks: false,
     search: '',
-    sortValues: {
-        packName: '',
-        sortPacks: '0updated',
-    } as SortValuesType
+    packName: '',
+    sortPacks: '0updated',
+
 }
 
 export const packsReducer = (state: InitialStateType = initialState, action: ActionsType) => {
@@ -61,9 +60,9 @@ export const packsReducer = (state: InitialStateType = initialState, action: Act
                 pageCount: action.pageCount
             };
         case "Packs/SET-VALUE-SEARCH":
-            return {...state, sortValues: {...state.sortValues, packName: action.value}}
+            return {...state, packName: action.value}
         case "Packs/SORT-PACKS":
-            return {...state, sortValues: {...state.sortValues, sortPacks: action.value}}
+            return {...state, sortPacks: action.value}
         default:
             return state
     }
@@ -87,13 +86,13 @@ export const getPacksTC = (params: RequestParamsType) => async (dispatch: Dispat
     dispatch(setAppStatusAC('loading'))
     try {
         const userId = getState().profile._id
-        const {myPacks, pageCount, search, min, max, page} = getState().packs
+        const {myPacks, pageCount, sortPacks, packName, min, max, page} = getState().packs
 
         if (myPacks) {
             params = {...params, user_id: userId}
         }
         if (params.packName === undefined) {
-            params = {...params, packName: search}
+            params = {...params, packName}
         }
         if (!params.min && !params.max) {
             params = {...params, min, max}
@@ -103,6 +102,9 @@ export const getPacksTC = (params: RequestParamsType) => async (dispatch: Dispat
         }
         if (!params.page) {
             params = {...params, page}
+        }
+        if (!params.sortPacks) {
+            params = {...params, sortPacks}
         }
         let data = await packsApi.getPacks(params)
         dispatch(setPacksAc(data))
