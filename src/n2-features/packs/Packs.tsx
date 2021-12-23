@@ -11,8 +11,8 @@ export const Packs = () => {
 
     //hooks
     const dispatch = useDispatch()
-    const packName = useSelector<RootStateType, string | undefined>(state => state.packs.sortValues.packName)
-    let sortPacks = useSelector<RootStateType, any>(state => state.packs.sortValues.sortPacks)
+    const packName = useSelector<RootStateType, string | undefined>(state => state.packs.packName)
+    let sortPacks = useSelector<RootStateType, any>(state => state.packs.sortPacks)
 
     useEffect(() => {
         dispatch(getPacksTC({packName, sortPacks}))

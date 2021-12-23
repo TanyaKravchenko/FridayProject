@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from 'react';
+ import React, {ChangeEvent, useState} from 'react';
 import s from './Paginator.module.scss'
 import {useDispatch, useSelector} from 'react-redux';
 import {RootStateType} from '../../n1-main/m2-bll/store';
