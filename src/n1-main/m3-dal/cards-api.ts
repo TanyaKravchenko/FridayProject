@@ -2,12 +2,15 @@ import {ForgotDataType, ForgotResponseType, instance} from './auth-api';
 import {AxiosResponse} from "axios";
 
 export const cardsApi = {
-    getCards(params: RequestCardsParamsType) {
-        return instance.get('/cards/card', {params}).then(res => res.data)
+    getCards(packId: string) {
+        return instance.get(`/cards/card?cardsPack_id=${packId}` ).then(res => res.data)
     },
      addCard(newCardData:addCardType) {
         return instance.post<addCardType, AxiosResponse<OneCardType>>('/cards/card', {card:newCardData})
     },
+    deleteCard(cardId:string){
+        return instance.delete(`/cards/card?id=${cardId}`)
+    }
 }
 
 //types

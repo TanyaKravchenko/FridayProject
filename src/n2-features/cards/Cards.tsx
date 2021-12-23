@@ -2,12 +2,13 @@ import React from "react";
 import s from './Cards.module.scss';
 import arrow from './../../assets/images/icons/arrow-icon.png'
 import {useDispatch, useSelector} from "react-redux";
-import {OneCardType} from "../../n1-main/m3-dal/cards-api";
 import {RootStateType} from "../../n1-main/m2-bll/store";
 import {NavLink} from 'react-router-dom';
 import {path} from "../../n1-main/m1-ui/routes/Routes";
 import {AddCard} from "./addCard/AddCard";
 import {useParams} from "react-router";
+import {OneCardType} from "../../n1-main/m3-dal/cards-api";
+import {deleteCardTC} from "../../n1-main/m2-bll/reducers/cards-reducer";
 
 export const Cards = () => {
     // HOOKS
@@ -15,7 +16,8 @@ export const Cards = () => {
     const dispatch = useDispatch()
     const packId = useSelector<RootStateType, string>(state=>state.cards.packId)
     // HANDLERS
-    const handleDeleteCard = () => {
+    const handleDeleteCard = (packID:string, cardID:string) => {
+        dispatch(deleteCardTC(packID, cardID))
     }
     return (
 
@@ -58,7 +60,7 @@ export const Cards = () => {
                                         {card.grade}
                                     </div>
                                     <div className={s.cardsRowItem}>
-                                        <button className={s.deleteBtn} onClick={() => handleDeleteCard()}>delete
+                                        <button className={s.deleteBtn} onClick={() => handleDeleteCard(card.cardsPack_id, card._id)}>delete
                                         </button>
                                         <button className={s.editBtn}>edit</button>
                                     </div>

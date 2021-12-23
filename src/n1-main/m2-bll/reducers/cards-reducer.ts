@@ -2,11 +2,11 @@ import {Dispatch} from 'redux';
 import {setAppStatusAC, SetAppStatusActionType} from './app-reducer';
 import {RootStateType} from '../store';
 import {ThunkAction} from 'redux-thunk';
-import {addCardType, cardsApi, OneCardType, RequestCardsParamsType} from "../../m3-dal/cards-api";
+import {addCardType, cardsApi, OneCardType} from '../../m3-dal/cards-api';
 
 const initialState = {
     cards: [] as Array<OneCardType>,
-    packId:''
+    packId: ''
 
 }
 
@@ -20,7 +20,9 @@ export const cardsReducer = (state: InitialStateType = initialState, action: Act
         case "cards/ADD-CARD":
             return {...state, cards: [...state.cards, action.newCard]}
         case "cards/SET-PACK-ID":
-            return  {...state, packId: action.packId}
+            return {...state, packId: action.packId}
+        case "cards/DELETE-CARD":
+            return {...state, cards: state.cards.filter(c => c._id !== action.cardId)}
         default:
             return state
     }
@@ -30,25 +32,26 @@ export const cardsReducer = (state: InitialStateType = initialState, action: Act
 export const setCardsAc = (cards: OneCardType[]) => ({type: 'cards/SET-CARDS', cards} as const)
 export const addCardAc = (newCard: OneCardType) => ({type: 'cards/ADD-CARD', newCard} as const)
 export const setPackIdAc = (packId: string) => ({type: 'cards/SET-PACK-ID', packId} as const)
+export const deleteCardAc = (cardId: string) => ({type: 'cards/DELETE-CARD', cardId} as const)
 
 
 //thunks
-export const getCardsTC = (params: RequestCardsParamsType) => async (dispatch: Dispatch, getState: () => RootStateType) => {
+export const getCardsTC = (packId: string) => async (dispatch: Dispatch, getState: () => RootStateType) => {
     dispatch(setAppStatusAC('loading'))
     try {
-        let data = await cardsApi.getCards(params)
+        let data = await cardsApi.getCards(packId)
         dispatch(setCardsAc(data))
         dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
         dispatch(setAppStatusAC('failed'))
     }
 }
-export const addCardTC = (newCard: addCardType): ThunkType =>(dispatch) => {
+export const addCardTC = (newCard: addCardType): ThunkType => (dispatch) => {
     dispatch(setAppStatusAC('loading'))
     cardsApi.addCard(newCard).then(
         (res) => {
             dispatch(addCardAc(res.data))
-            dispatch(getCardsTC({cardsPack_id:newCard.cardsPack_id}))
+            dispatch(getCardsTC(newCard.cardsPack_id))
             dispatch(setAppStatusAC('succeeded'))
         }
     ).catch(() => {
@@ -57,25 +60,30 @@ export const addCardTC = (newCard: addCardType): ThunkType =>(dispatch) => {
         dispatch(setAppStatusAC('succeeded'))
     })
 }
-// export const deletePackTC = (userId: string): ThunkType => async (dispatch) => {
-//     dispatch(setAppStatusAC('loading'))
-//     packsApi.deletePack(userId).then(
-//         () => {
-//             dispatch(deletePackAc(userId))
-//             dispatch(getPacksTC({}))
-//             dispatch(setAppStatusAC('succeeded'))
-//         }
-//     ).catch(() => {
-//         dispatch(setAppStatusAC('failed'))
-//     }).finally(() => [
-//         dispatch(setAppStatusAC('succeeded'))
-//     ])
-// }
+export const deleteCardTC = (packId: string, cardId: string): ThunkType => (dispatch) => {
+    dispatch(setAppStatusAC('loading'))
+    cardsApi.deleteCard(cardId).then(
+        () => {
+            dispatch(deleteCardAc(cardId))
+            dispatch(getCardsTC(packId))
+            dispatch(setAppStatusAC('succeeded'))
+        }
+    ).catch(() => {
+        dispatch(setAppStatusAC('failed'))
+    }).finally(() => [
+        dispatch(setAppStatusAC('succeeded'))
+    ])
+}
 
 //types
 export type InitialStateType = typeof initialState
 type ThunkType = ThunkAction<any, RootStateType, {}, ActionsType>
-type ActionsType = ReturnType<typeof setCardsAc> | ReturnType<typeof addCardAc> | SetAppStatusActionType | ReturnType<typeof setPackIdAc>
+type ActionsType =
+    ReturnType<typeof setCardsAc>
+    | ReturnType<typeof addCardAc>
+    | SetAppStatusActionType
+    | ReturnType<typeof setPackIdAc>
+    | ReturnType<typeof deleteCardAc>
 
 
 

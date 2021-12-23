@@ -16,7 +16,7 @@ export const PacksTable: React.FC<PacksTableProps> = () => {
 
     //handlers
     const handleOnLearnButton = (id: string) => {
-        dispatch(getCardsTC({cardsPack_id: id}))
+        dispatch(getCardsTC(id))
         dispatch(setPackIdAc(id))
     }
 
