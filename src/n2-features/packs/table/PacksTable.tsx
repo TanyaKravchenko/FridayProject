@@ -6,12 +6,14 @@ import {deletePackTC, InitialStateType, sortPacksAC} from '../../../n1-main/m2-b
 import {NavLink} from 'react-router-dom';
 import {path} from '../../../n1-main/m1-ui/routes/Routes';
 import {getCardsTC, setPackIdAc} from '../../../n1-main/m2-bll/reducers/cards-reducer';
+import {useParams} from 'react-router';
 
 type PacksTableProps = {}
 
 export const PacksTable: React.FC<PacksTableProps> = () => {
     //hooks
     let sortPacks = useSelector<RootStateType, any>(state => state.packs.sortPacks)
+    let cardsPack_id = useParams<{ cardsPack_id?: string }>()
     const dispatch = useDispatch()
 
     //handlers
