@@ -7,7 +7,6 @@ import {addCardType, cardsApi, OneCardType} from '../../m3-dal/cards-api';
 const initialState = {
     cards: [] as Array<OneCardType>,
     packId: ''
-
 }
 
 export const cardsReducer = (state: InitialStateType = initialState, action: ActionsType) => {
@@ -33,7 +32,6 @@ export const setCardsAc = (cards: OneCardType[]) => ({type: 'cards/SET-CARDS', c
 export const addCardAc = (newCard: OneCardType) => ({type: 'cards/ADD-CARD', newCard} as const)
 export const setPackIdAc = (packId: string) => ({type: 'cards/SET-PACK-ID', packId} as const)
 export const deleteCardAc = (cardId: string) => ({type: 'cards/DELETE-CARD', cardId} as const)
-
 
 //thunks
 export const getCardsTC = (packId: string) => async (dispatch: Dispatch, getState: () => RootStateType) => {
