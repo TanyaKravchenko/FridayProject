@@ -9,7 +9,7 @@ import {InitialStateType, updateUser} from '../../n1-main/m2-bll/reducers/profil
 import Profile from './Profile';
 import {Paginator} from '../paginator/Paginator';
 import {PacksTable} from '../packs/table/PacksTable';
-import {getPacksTC} from '../../n1-main/m2-bll/reducers/packs-reducer';
+import {getPacksTC, setMyPacksAC, setValueSearchAC} from '../../n1-main/m2-bll/reducers/packs-reducer';
 import {Search} from '../search/Search';
 
 const ProfileContainer: React.FC = React.memo(() => {
@@ -22,11 +22,17 @@ const ProfileContainer: React.FC = React.memo(() => {
 
     const packName = useSelector<RootStateType, string | undefined>(state => state.packs.packName)
     let sortPacks = useSelector<RootStateType, string>(state => state.packs.sortPacks)
+
+
     useEffect(() => {
+        dispatch(setMyPacksAC(true))
         dispatch(getPacksTC({packName, sortPacks}))
         //hardCode values
-    }, [dispatch, packName, sortPacks])
+    }, [dispatch, packName, sortPacks, ])
 
+    useEffect(() => {
+        dispatch(setValueSearchAC(''))
+    }, [])
     //terms
     if (!loginIn) {
         return <Redirect to={path.LOGIN}/>

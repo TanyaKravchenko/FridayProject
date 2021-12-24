@@ -15,7 +15,6 @@ const initialState = {
     max: 100,
     portionSize: 7,
     myPacks: false,
-    search: '',
     packName: '',
     sortPacks: '0updated',
 
