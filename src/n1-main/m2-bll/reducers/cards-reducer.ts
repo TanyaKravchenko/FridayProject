@@ -54,9 +54,10 @@ export const addCardTC = (newCard: addCardType): ThunkType => (dispatch) => {
         }
     ).catch(() => {
         dispatch(setAppStatusAC('failed'))
-    }).finally(() => {
-        dispatch(setAppStatusAC('succeeded'))
     })
+    //     .finally(() => {
+    //     dispatch(setAppStatusAC('succeeded'))
+    // })
 }
 export const deleteCardTC = (packId: string, cardId: string): ThunkType => (dispatch) => {
     dispatch(setAppStatusAC('loading'))
