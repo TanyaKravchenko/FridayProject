@@ -2,7 +2,7 @@ import {Dispatch} from 'redux';
 import {setAppStatusAC, SetAppStatusActionType} from './app-reducer';
 import {RootStateType} from '../store';
 import {ThunkAction} from 'redux-thunk';
-import {addCardType, cardsApi, OneCardType} from '../../m3-dal/cards-api';
+import {addCardType, cardsApi, OneCardType, ResponseCardsType} from '../../m3-dal/cards-api';
 
 const initialState = {
     cards: [] as Array<OneCardType>,
@@ -17,11 +17,11 @@ export const cardsReducer = (state: InitialStateType = initialState, action: Act
                 ...state,
                 ...action.cards,
             }
-        case "cards/ADD-CARD":
+        case 'cards/ADD-CARD':
             return {...state, cards: [...state.cards, action.newCard]}
-        case "cards/SET-PACK-ID":
+        case 'cards/SET-PACK-ID':
             return {...state, packId: action.packId}
-        case "cards/DELETE-CARD":
+        case 'cards/DELETE-CARD':
             return {...state, cards: state.cards.filter(c => c._id !== action.cardId)}
         default:
             return state
@@ -29,17 +29,19 @@ export const cardsReducer = (state: InitialStateType = initialState, action: Act
 }
 
 //actionCreators
-export const setCardsAc = (cards: OneCardType[]) => ({type: 'cards/SET-CARDS', cards} as const)
+export const setCardsAc = (cards: ResponseCardsType) => ({type: 'cards/SET-CARDS', cards} as const)
 export const addCardAc = (newCard: OneCardType) => ({type: 'cards/ADD-CARD', newCard} as const)
 export const setPackIdAc = (packId: string) => ({type: 'cards/SET-PACK-ID', packId} as const)
 export const deleteCardAc = (cardId: string) => ({type: 'cards/DELETE-CARD', cardId} as const)
 
 
 //thunks
-export const getCardsTC = (packId: string) => async (dispatch: Dispatch, getState: () => RootStateType) => {
+export const getCardsTC = (id: string) => async (dispatch: Dispatch, getState: () => RootStateType) => {
     dispatch(setAppStatusAC('loading'))
     try {
-        let data = await cardsApi.getCards(packId)
+        const packId = getState().cards.packId
+        const params = {cardsPack_id: id,}
+        let data = await cardsApi.getCards(params)
         dispatch(setCardsAc(data))
         dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
@@ -56,9 +58,10 @@ export const addCardTC = (newCard: addCardType): ThunkType => (dispatch) => {
         }
     ).catch(() => {
         dispatch(setAppStatusAC('failed'))
-    }).finally(() => {
-        dispatch(setAppStatusAC('succeeded'))
     })
+    // .finally(() => {
+    // dispatch(setAppStatusAC('succeeded'))
+    // })
 }
 export const deleteCardTC = (packId: string, cardId: string): ThunkType => (dispatch) => {
     dispatch(setAppStatusAC('loading'))

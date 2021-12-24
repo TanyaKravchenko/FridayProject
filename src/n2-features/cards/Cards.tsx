@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import s from './Cards.module.scss';
 import arrow from './../../assets/images/icons/arrow-icon.png'
 import {useDispatch, useSelector} from 'react-redux';
@@ -7,18 +7,25 @@ import {NavLink} from 'react-router-dom';
 import {path} from '../../n1-main/m1-ui/routes/Routes';
 import {AddCard} from './addCard/AddCard';
 import {OneCardType} from '../../n1-main/m3-dal/cards-api';
-import {deleteCardTC} from '../../n1-main/m2-bll/reducers/cards-reducer';
+import {deleteCardTC, getCardsTC} from '../../n1-main/m2-bll/reducers/cards-reducer';
+import {useParams} from 'react-router';
 
 export const Cards = () => {
     // HOOKS
-    const cards = useSelector<RootStateType, OneCardType[]>(state => state.cards.cards)
+    const cards = useSelector<RootStateType, OneCardType[]>(state => state.cards)
     const dispatch = useDispatch()
-    const packId = useSelector<RootStateType, string>(state => state.cards.packId)
+    // const packId = useSelector<RootStateType, string>(state => state.cards.packId)
+    const {packId} = useParams<{ packId: string }>()
 
     // HANDLERS
-    const handleDeleteCard = (packID: string, cardID: string) => {
+    const handleDeleteCard = (packID: string, cardID: string) => {debugger
         dispatch(deleteCardTC(packID, cardID))
     }
+
+    // useEffect(() => {
+    //     debugger
+    //     dispatch(getCardsTC(packId))
+    // }, [dispatch, packId])
 
     return (
         <div className={s.cards}>
@@ -44,7 +51,7 @@ export const Cards = () => {
                         <div className={s.tableItem}>Actions</div>
                     </div>
                     {
-                        cards.map((card) => {
+                        cards.map((card, i) => {
                             return (
                                 <div className={s.cardsRow}>
                                     <div className={s.cardsRowItem}>
