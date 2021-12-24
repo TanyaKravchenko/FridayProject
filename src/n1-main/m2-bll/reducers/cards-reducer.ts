@@ -69,9 +69,10 @@ export const deleteCardTC = (packId: string, cardId: string): ThunkType => (disp
         }
     ).catch(() => {
         dispatch(setAppStatusAC('failed'))
-    }).finally(() => [
-        dispatch(setAppStatusAC('succeeded'))
-    ])
+    })
+    //     .finally(() => [
+    //     dispatch(setAppStatusAC('succeeded'))
+    // ])
 }
 
 //types
