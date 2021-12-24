@@ -3,6 +3,7 @@ import s from './Profile.module.scss';
 import Button from '../super components/Button/Button';
 import {EditableSpan} from '../../common/editableSpan/EditableSpan';
 import {ProfileType} from '../../n1-main/m3-dal/auth-api';
+import {DoubleSliderContainer} from '../doubleSlider/DoubleSliderContainer';
 
 type ProfilePropsType = {
     user: ProfileType | null
@@ -25,7 +26,7 @@ const Profile: React.FC<ProfilePropsType> = React.memo((props) => {
             <div className={s.cardsFilter}>
                 <h3>Number of cards</h3>
                 <div className={s.range}>
-                    Range slider
+                    <DoubleSliderContainer/>
                 </div>
             </div>
         </div>

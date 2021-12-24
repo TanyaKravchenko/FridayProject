@@ -17,7 +17,6 @@ const initialState = {
     myPacks: false,
     packName: '',
     sortPacks: '0updated',
-
 }
 
 export const packsReducer = (state: InitialStateType = initialState, action: ActionsType) => {
@@ -58,10 +57,17 @@ export const packsReducer = (state: InitialStateType = initialState, action: Act
                 ...state,
                 pageCount: action.pageCount
             };
-        case "Packs/SET-VALUE-SEARCH":
+        case 'Packs/SET-VALUE-SEARCH':
             return {...state, packName: action.value}
-        case "Packs/SORT-PACKS":
+        case 'Packs/SORT-PACKS':
             return {...state, sortPacks: action.value}
+        case 'packs/SET-MIN-MAX-VALUE':
+
+            return {
+                ...state,
+                min: action.payload.newMin,
+                max: action.payload.newMax
+            };
         default:
             return state
     }
@@ -77,10 +83,13 @@ export const setPageAC = (page: number) => ({type: 'packs/SET-PAGE', page} as co
 export const setPageCountAC = (pageCount: number) => ({type: 'packs/SET-PAGE-COUNT', pageCount} as const)
 export const setValueSearchAC = (value: string) => ({type: 'Packs/SET-VALUE-SEARCH', value} as const)
 export const sortPacksAC = (value: string) => ({type: 'Packs/SORT-PACKS', value} as const)
+export const setMinMaxValueAC = (payload: { newMin: number, newMax: number }) => ({
+    type: 'packs/SET-MIN-MAX-VALUE',
+    payload
+} as const)
 
 
 //thunks
-
 export const getPacksTC = (params: RequestParamsType) => async (dispatch: Dispatch, getState: () => RootStateType) => {
     dispatch(setAppStatusAC('loading'))
     try {
@@ -153,6 +162,7 @@ type ActionsType = ReturnType<typeof setPacksAc>
     | ReturnType<typeof setPageCountAC>
     | ReturnType<typeof setValueSearchAC>
     | ReturnType<typeof sortPacksAC>
+    | ReturnType<typeof setMinMaxValueAC>
     | SetAppStatusActionType
 
 export type SortValuesType = {

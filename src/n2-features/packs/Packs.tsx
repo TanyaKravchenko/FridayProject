@@ -5,20 +5,21 @@ import {addPackTC, getPacksTC, setMyPacksAC} from '../../n1-main/m2-bll/reducers
 import {RootStateType} from '../../n1-main/m2-bll/store';
 import {Paginator} from '../paginator/Paginator';
 import {PacksTable} from './table/PacksTable';
-import {Search} from "../search/Search";
+import {Search} from '../search/Search';
+import {DoubleSliderContainer} from '../doubleSlider/DoubleSliderContainer';
 
 export const Packs = () => {
 
     //hooks
     const dispatch = useDispatch()
     const packName = useSelector<RootStateType, string | undefined>(state => state.packs.packName)
-    const sortPacks = useSelector<RootStateType, string| undefined>(state => state.packs.sortPacks)
+    const sortPacks = useSelector<RootStateType, string | undefined>(state => state.packs.sortPacks)
     const myPacks = useSelector<RootStateType, boolean>(state => state.packs.myPacks)
 
     useEffect(() => {
         dispatch(getPacksTC({}))
         //hardCode values
-    }, [dispatch, packName, sortPacks, myPacks ])
+    }, [dispatch, packName, sortPacks, myPacks])
 
     const addNewPackHandler = () => {
         dispatch(addPackTC({}))
@@ -36,12 +37,12 @@ export const Packs = () => {
                 <div className={s.sidebar}>
                     <h3 className={s.btnTitle}>Show packs cards</h3>
                     <div className={s.btnBox}>
-                        <button className={myPacks ? s.btnActive: s.btn} onClick={showMyPacksHandler} >My</button>
-                        <button className={myPacks ? s.btn: s.btnActive} onClick={showAllPacksHandler}>All</button>
+                        <button className={myPacks ? s.btnActive : s.btn} onClick={showMyPacksHandler}>My</button>
+                        <button className={myPacks ? s.btn : s.btnActive} onClick={showAllPacksHandler}>All</button>
                     </div>
                     <h3 className={s.inputTitle}>Number of cards</h3>
                     <div>
-                        Range slider
+                        <DoubleSliderContainer/>
                     </div>
                 </div>
                 <div className={s.listBlock}>

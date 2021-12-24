@@ -14,13 +14,13 @@ export const Cards = () => {
     const cards = useSelector<RootStateType, OneCardType[]>(state => state.cards.cards)
     const dispatch = useDispatch()
     const packId = useSelector<RootStateType, string>(state => state.cards.packId)
+
     // HANDLERS
     const handleDeleteCard = (packID: string, cardID: string) => {
         dispatch(deleteCardTC(packID, cardID))
     }
 
     return (
-
         <div className={s.cards}>
             <div className={s.wrap}>
                 <div className={s.top}>
@@ -71,7 +71,6 @@ export const Cards = () => {
                     }
                 </div>
                 <AddCard id={packId}/>
-
             </div>
         </div>
     );
