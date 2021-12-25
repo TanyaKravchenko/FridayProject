@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import s from './Cards.module.scss';
 import arrow from './../../assets/images/icons/arrow-icon.png'
 import {useDispatch, useSelector} from 'react-redux';
@@ -8,6 +8,7 @@ import {path} from '../../n1-main/m1-ui/routes/Routes';
 import {AddCard} from './addCard/AddCard';
 import {OneCardType} from '../../n1-main/m3-dal/cards-api';
 import {deleteCardTC} from '../../n1-main/m2-bll/reducers/cards-reducer';
+import {useParams} from "react-router";
 
 export const Cards = () => {
     // HOOKS
@@ -15,6 +16,13 @@ export const Cards = () => {
     const dispatch = useDispatch()
     const packId = useSelector<RootStateType, string>(state => state.cards.packId)
 
+
+    const {cardsPack_id} = useParams<any>();
+
+    console.log(cardsPack_id)
+
+
+    // console.log(packUserId)
     // HANDLERS
     const handleDeleteCard = (packID: string, cardID: string) => {
         dispatch(deleteCardTC(packID, cardID))
