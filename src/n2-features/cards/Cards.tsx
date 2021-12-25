@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import s from './Cards.module.scss';
 import arrow from './../../assets/images/icons/arrow-icon.png'
 import {useDispatch, useSelector} from 'react-redux';
@@ -22,12 +22,19 @@ export const Cards = () => {
     const cards = useSelector<RootStateType, OneCardType[]>(state => state.cards.cards)
     const dispatch = useDispatch()
     const packId = useSelector<RootStateType, string>(state => state.cards.packId)
-    let userId = useSelector<RootStateType, string>(state => state.profile._id)
+    const userId = useSelector<RootStateType, string>(state => state.profile._id)
 
-    // console.log(packUserId)
+    const [question, setQuestion] = useState('')
+    const [editMode, setEditMode] = useState(false)
     // HANDLERS
     const handleDeleteCard = (packID: string, cardID: string) => {
         dispatch(deleteCardTC(packID, cardID))
+    }
+    const onClickChangeOpenEditMode=()=>{
+        setEditMode(true)
+    }
+    const onClickChangeCloseEditMode=()=>{
+        setEditMode(false)
     }
 
     return (
@@ -57,9 +64,9 @@ export const Cards = () => {
                         cards.map((card) => {
                             return (
                                 <div className={s.cardsRow}>
-                                    <div className={s.cardsRowItem}>
-                                        {card.question}
-                                    </div>
+                                    {editMode ? <input type="text"/>
+                                        : <div className={s.cardsRowItem} >{card.question}</div>
+                                    }
                                     <div className={s.cardsRowItem}>
                                         {card.answer}
                                     </div>
@@ -71,11 +78,24 @@ export const Cards = () => {
                                     </div>
                                     <div className={s.cardsRowItem}>
                                         {userId === card.user_id &&
-                                            <button className={s.deleteBtn}
-                                                    onClick={() => handleDeleteCard(card.cardsPack_id, card._id)}>delete
-                                            </button>
+                                            <>
+                                                <button className={s.deleteBtn}
+                                                        onClick={() => handleDeleteCard(card.cardsPack_id, card._id)}>delete
+                                                </button>
+                                                {
+                                                    editMode ? <button
+                                                            className={s.editBtn}
+                                                            onClick={onClickChangeCloseEditMode}
+                                                        >safe</button>
+                                                        : <button
+                                                            className={s.editBtn}
+                                                            onClick={onClickChangeOpenEditMode}
+                                                        >edit</button>
+                                                }
+
+                                            </>
                                         }
-                                        <button className={s.editBtn}>edit</button>
+
                                     </div>
                                 </div>
                             )
