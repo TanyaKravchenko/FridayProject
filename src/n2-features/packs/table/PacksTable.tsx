@@ -11,6 +11,7 @@ type PacksTableProps = {}
 export const PacksTable: React.FC<PacksTableProps> = () => {
     //hooks
     let sortPacks = useSelector<RootStateType, any>(state => state.packs.sortPacks)
+    let userId = useSelector<RootStateType, string>(state=>state.profile._id)
     const dispatch = useDispatch()
 
     //handlers
@@ -66,11 +67,11 @@ export const PacksTable: React.FC<PacksTableProps> = () => {
                                     {pack.user_name}
                                 </div>
                                 <div className={s.packRowItem}>
-
+                                    {userId===pack.user_id &&
                                     <button className={s.packRowBtn}
                                             onClick={() => deletePackHandler(pack._id)}>Delete
                                     </button>
-                                    {/*<NavLink className={s.packRowLink} to={`${path.CARDS}/cardsPack_id/:${pack._id}`}*/}
+                                }
                                     <NavLink className={s.packRowLink} to={`${path.CARDS}${pack._id}`}
 
                                              onClick={() => handleOnLearnButton(pack._id)}

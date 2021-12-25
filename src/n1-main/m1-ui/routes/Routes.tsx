@@ -8,8 +8,6 @@ import {NewPassword} from '../../../n2-features/password/NewPassword';
 import {Packs} from '../../../n2-features/packs/Packs';
 import {Cards} from '../../../n2-features/cards/Cards';
 import ProfileContainer from '../../../n2-features/profile/ProfileContainer';
-import {useParams} from "react-router";
-
 export const path = {
     ALL_COMPONENTS: '/allSuperComponents',
     PROFILE: '/profile',
@@ -18,7 +16,6 @@ export const path = {
     PASSWORD: '/newPassword/:token?',
     PASS_REC: '/passwordRecovery',
     PACKS: '/packs',
-    // CARDS: '/cards',
     CARDS: '/cards/'
 }
 

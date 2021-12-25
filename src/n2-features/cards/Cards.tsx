@@ -11,18 +11,18 @@ import {deleteCardTC, getCardsTC} from '../../n1-main/m2-bll/reducers/cards-redu
 import {useParams} from "react-router";
 
 type CardsParamsType = {
-    cardsPack_id:string
+    cardsPack_id: string
 }
 export const Cards = () => {
     // HOOKS
     const {cardsPack_id} = useParams<CardsParamsType>();
-    console.log(cardsPack_id)
-    useEffect(()=>{
+    useEffect(() => {
         dispatch(getCardsTC(cardsPack_id))
-    },[])
+    }, [])
     const cards = useSelector<RootStateType, OneCardType[]>(state => state.cards.cards)
     const dispatch = useDispatch()
     const packId = useSelector<RootStateType, string>(state => state.cards.packId)
+    let userId = useSelector<RootStateType, string>(state => state.profile._id)
 
     // console.log(packUserId)
     // HANDLERS
@@ -70,9 +70,11 @@ export const Cards = () => {
                                         {card.grade}
                                     </div>
                                     <div className={s.cardsRowItem}>
-                                        <button className={s.deleteBtn}
-                                                onClick={() => handleDeleteCard(card.cardsPack_id, card._id)}>delete
-                                        </button>
+                                        {userId === card.user_id &&
+                                            <button className={s.deleteBtn}
+                                                    onClick={() => handleDeleteCard(card.cardsPack_id, card._id)}>delete
+                                            </button>
+                                        }
                                         <button className={s.editBtn}>edit</button>
                                     </div>
                                 </div>

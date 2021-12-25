@@ -57,9 +57,6 @@ export const updateUser = (name: string | null, avatar?: string) => async (dispa
         dispatch(setAppErrorAC(error))
         dispatch(setAppStatusAC('failed'))
     }
-    // finally {
-    //     dispatch(setAppStatusAC('succeeded'))- не нужно, тк в catch есть dispatch(setAppStatusAC('failed'))
-    // }
 }
 
 //types
