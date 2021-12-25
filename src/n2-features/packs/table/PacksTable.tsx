@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import s from './PacksTable.module.scss';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootStateType} from '../../../n1-main/m2-bll/store';
@@ -6,11 +6,6 @@ import {deletePackTC, InitialStateType, sortPacksAC} from '../../../n1-main/m2-b
 import {NavLink} from 'react-router-dom';
 import {path} from '../../../n1-main/m1-ui/routes/Routes';
 import {getCardsTC, setPackIdAc} from '../../../n1-main/m2-bll/reducers/cards-reducer';
-import {useParams} from "react-router";
-
-type CardsParams = {
-    cards: any;
-};
 type PacksTableProps = {}
 
 export const PacksTable: React.FC<PacksTableProps> = () => {
@@ -18,8 +13,6 @@ export const PacksTable: React.FC<PacksTableProps> = () => {
     let sortPacks = useSelector<RootStateType, any>(state => state.packs.sortPacks)
     const dispatch = useDispatch()
 
-    const {cards} = useParams<CardsParams>()
-    console.log(cards)
     //handlers
     const handleOnLearnButton = (id: string) => {
         dispatch(getCardsTC(id))
@@ -78,7 +71,7 @@ export const PacksTable: React.FC<PacksTableProps> = () => {
                                             onClick={() => deletePackHandler(pack._id)}>Delete
                                     </button>
                                     {/*<NavLink className={s.packRowLink} to={`${path.CARDS}/cardsPack_id/:${pack._id}`}*/}
-                                    <NavLink className={s.packRowLink} to={`${path.CARDS}/cardsPack_id/:${pack._id}`}
+                                    <NavLink className={s.packRowLink} to={`${path.CARDS}${pack._id}`}
 
                                              onClick={() => handleOnLearnButton(pack._id)}
                                     >Learn</NavLink>

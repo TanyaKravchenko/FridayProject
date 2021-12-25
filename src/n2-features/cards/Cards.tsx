@@ -7,20 +7,22 @@ import {NavLink} from 'react-router-dom';
 import {path} from '../../n1-main/m1-ui/routes/Routes';
 import {AddCard} from './addCard/AddCard';
 import {OneCardType} from '../../n1-main/m3-dal/cards-api';
-import {deleteCardTC} from '../../n1-main/m2-bll/reducers/cards-reducer';
+import {deleteCardTC, getCardsTC} from '../../n1-main/m2-bll/reducers/cards-reducer';
 import {useParams} from "react-router";
 
+type CardsParamsType = {
+    cardsPack_id:string
+}
 export const Cards = () => {
     // HOOKS
+    const {cardsPack_id} = useParams<CardsParamsType>();
+    console.log(cardsPack_id)
+    useEffect(()=>{
+        dispatch(getCardsTC(cardsPack_id))
+    },[])
     const cards = useSelector<RootStateType, OneCardType[]>(state => state.cards.cards)
     const dispatch = useDispatch()
     const packId = useSelector<RootStateType, string>(state => state.cards.packId)
-
-
-    const {cardsPack_id} = useParams<any>();
-
-    console.log(cardsPack_id)
-
 
     // console.log(packUserId)
     // HANDLERS
