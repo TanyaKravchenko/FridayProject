@@ -47,7 +47,7 @@ export const PacksTable: React.FC<PacksTableProps> = () => {
                         return (
                             <div className={s.packRow} key={index}>
                                 <div className={s.packRowItem}>
-                                    {pack.name}
+                                    <NavLink className={s.packRowNameLink} to={`${path.CARDS}${pack._id}`}> {pack.name} </NavLink>
                                 </div>
                                 <div className={s.packRowItem}>
                                     {pack.cardsCount}
