@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import s from './PacksTable.module.scss';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootStateType} from '../../../n1-main/m2-bll/store';
@@ -6,11 +6,13 @@ import {deletePackTC, InitialStateType, sortPacksAC} from '../../../n1-main/m2-b
 import {NavLink} from 'react-router-dom';
 import {path} from '../../../n1-main/m1-ui/routes/Routes';
 import {getCardsTC, setPackIdAc} from '../../../n1-main/m2-bll/reducers/cards-reducer';
+
 type PacksTableProps = {}
 
 export const PacksTable: React.FC<PacksTableProps> = () => {
     //hooks
     let sortPacks = useSelector<RootStateType, any>(state => state.packs.sortPacks)
+    let userId = useSelector<RootStateType, any>(state => state.profile._id)
     const dispatch = useDispatch()
 
     //handlers
@@ -19,17 +21,8 @@ export const PacksTable: React.FC<PacksTableProps> = () => {
         dispatch(setPackIdAc(id))
     }
 
-    const sortPacksNameHandler = () => {
-        sortPacks === '0name' ? dispatch(sortPacksAC('1name')) : dispatch(sortPacksAC('0name'))
-    }
-    const sortPacksCountHandler = () => {
-        sortPacks === '0cardsCount' ? dispatch(sortPacksAC('1cardsCount')) : dispatch(sortPacksAC('0cardsCount'))
-    }
-    const sortPacksUpdatedHandler = () => {
-        sortPacks === '0updated' ? dispatch(sortPacksAC('1updated')) : dispatch(sortPacksAC('0updated'))
-    }
-    const sortPacksUserNameHandler = () => {
-        sortPacks === '0user_name' ? dispatch(sortPacksAC('1user_name')) : dispatch(sortPacksAC('0user_name'))
+    const sortPacksHandler = (value:string) => {
+        sortPacks.charAt(0) === '0' ? dispatch(sortPacksAC(`1${value}`)) : dispatch(sortPacksAC(`0${value}`))
     }
 
     const deletePackHandler = (packId: string) => {
@@ -43,10 +36,10 @@ export const PacksTable: React.FC<PacksTableProps> = () => {
         <div className={s.packs}>
             <div className={s.table}>
                 <div className={s.tableHeader}>
-                    <div className={s.tableItem} onClick={sortPacksNameHandler}>Name</div>
-                    <div className={s.tableItem} onClick={sortPacksCountHandler}>Cards</div>
-                    <div className={s.tableItem} onClick={sortPacksUpdatedHandler}>Last Updated</div>
-                    <div className={s.tableItem} onClick={sortPacksUserNameHandler}>Created by</div>
+                    <div className={s.tableItem} onClick={() => {sortPacksHandler('name')}}>Name</div>
+                    <div className={s.tableItem} onClick={() => {sortPacksHandler('cardsCount')}}>Cards</div>
+                    <div className={s.tableItem} onClick={() => {sortPacksHandler('updated')}}>Last Updated</div>
+                    <div className={s.tableItem} onClick={() => {sortPacksHandler('user_name')}}>Created by</div>
                     <div className={s.tableItemActions}>Actions</div>
                 </div>
                 {
@@ -67,7 +60,7 @@ export const PacksTable: React.FC<PacksTableProps> = () => {
                                 </div>
                                 <div className={s.packRowItem}>
 
-                                    <button className={s.packRowBtn}
+                                    <button className={s.packRowBtn} disabled={pack.user_id!==userId}
                                             onClick={() => deletePackHandler(pack._id)}>Delete
                                     </button>
                                     {/*<NavLink className={s.packRowLink} to={`${path.CARDS}/cardsPack_id/:${pack._id}`}*/}
