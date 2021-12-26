@@ -1,4 +1,4 @@
-import {ForgotDataType, ForgotResponseType, instance} from './auth-api';
+import {instance} from './auth-api';
 import {AxiosResponse} from "axios";
 
 export const cardsApi = {
@@ -10,10 +10,18 @@ export const cardsApi = {
     },
     deleteCard(cardId:string){
         return instance.delete(`/cards/card?id=${cardId}`)
+    },
+    updateCard(updatedCardData:UpdatedCardDataType){
+        return instance.put<UpdatedCardDataType, AxiosResponse<OneCardType>>('/cards/card', {card:updatedCardData})
     }
 }
 
 //types
+export type UpdatedCardDataType = {
+    _id:string,
+    question?:string,
+    comments?:string
+}
 export type OneCardType = {
     _id: string,
     cardsPack_id: string,

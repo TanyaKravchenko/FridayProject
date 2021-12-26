@@ -22,6 +22,16 @@ export const cardsReducer = (state: InitialStateType = initialState, action: Act
             return {...state, packId: action.packId}
         case "cards/DELETE-CARD":
             return {...state, cards: state.cards.filter(c => c._id !== action.cardId)}
+        case "cards/UPDATE-CARD":
+            return {
+                ...state,
+                cards: state.cards.map
+                (card => card.cardsPack_id === action.id
+                    ?
+                    {...card, question: action.question}
+                    :
+                    card)
+            }
         default:
             return state
     }
@@ -32,6 +42,10 @@ export const setCardsAc = (cards: OneCardType[]) => ({type: 'cards/SET-CARDS', c
 export const addCardAc = (newCard: OneCardType) => ({type: 'cards/ADD-CARD', newCard} as const)
 export const setPackIdAc = (packId: string) => ({type: 'cards/SET-PACK-ID', packId} as const)
 export const deleteCardAc = (cardId: string) => ({type: 'cards/DELETE-CARD', cardId} as const)
+export const updateCardAc = (id: string, question: string) => ({
+    type: 'cards/UPDATE-CARD',
+    id, question
+} as const)
 
 //thunks
 export const getCardsTC = (packId: string) => async (dispatch: Dispatch, getState: () => RootStateType) => {
@@ -55,9 +69,6 @@ export const addCardTC = (newCard: addCardType): ThunkType => (dispatch) => {
     ).catch(() => {
         dispatch(setAppStatusAC('failed'))
     })
-    //     .finally(() => {
-    //     dispatch(setAppStatusAC('succeeded'))
-    // })
 }
 export const deleteCardTC = (packId: string, cardId: string): ThunkType => (dispatch) => {
     dispatch(setAppStatusAC('loading'))
@@ -70,9 +81,18 @@ export const deleteCardTC = (packId: string, cardId: string): ThunkType => (disp
     ).catch(() => {
         dispatch(setAppStatusAC('failed'))
     })
-    //     .finally(() => [
-    //     dispatch(setAppStatusAC('succeeded'))
-    // ])
+}
+export const updateCardTC = (packId: string, cardId: string, question:string): ThunkType => (dispatch) => {
+    dispatch(setAppStatusAC('loading'))
+    cardsApi.updateCard({_id:cardId, question:question}).then(
+        (res) => {
+            dispatch(updateCardAc(cardId, question))
+            dispatch(getCardsTC(res.data.cardsPack_id))
+            dispatch(setAppStatusAC('succeeded'))
+        }
+    ).catch(() => {
+        dispatch(setAppStatusAC('failed'))
+    })
 }
 
 //types
@@ -84,6 +104,7 @@ type ActionsType =
     | SetAppStatusActionType
     | ReturnType<typeof setPackIdAc>
     | ReturnType<typeof deleteCardAc>
+    | ReturnType<typeof updateCardAc>
 
 
 
