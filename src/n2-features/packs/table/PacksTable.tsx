@@ -12,7 +12,7 @@ type PacksTableProps = {}
 export const PacksTable: React.FC<PacksTableProps> = () => {
     //hooks
     let sortPacks = useSelector<RootStateType, any>(state => state.packs.sortPacks)
-    let userId = useSelector<RootStateType, string>(state=>state.profile._id)
+    let userId = useSelector<RootStateType, string>(state => state.profile._id)
     const dispatch = useDispatch()
 
     //handlers
@@ -21,7 +21,7 @@ export const PacksTable: React.FC<PacksTableProps> = () => {
         dispatch(setPackIdAc(id))
     }
 
-    const sortPacksHandler = (value:string) => {
+    const sortPacksHandler = (value: string) => {
         sortPacks.charAt(0) === '0' ? dispatch(sortPacksAC(`1${value}`)) : dispatch(sortPacksAC(`0${value}`))
     }
 
@@ -36,10 +36,22 @@ export const PacksTable: React.FC<PacksTableProps> = () => {
         <div className={s.packs}>
             <div className={s.table}>
                 <div className={s.tableHeader}>
-                    <div className={s.tableItem} onClick={() => {sortPacksHandler('name')}}>Name</div>
-                    <div className={s.tableItem} onClick={() => {sortPacksHandler('cardsCount')}}>Cards</div>
-                    <div className={s.tableItem} onClick={() => {sortPacksHandler('updated')}}>Last Updated</div>
-                    <div className={s.tableItem} onClick={() => {sortPacksHandler('user_name')}}>Created by</div>
+                    <div className={s.tableItem} onClick={() => {
+                        sortPacksHandler('name')
+                    }}>Name
+                    </div>
+                    <div className={s.tableItem} onClick={() => {
+                        sortPacksHandler('cardsCount')
+                    }}>Cards
+                    </div>
+                    <div className={s.tableItem} onClick={() => {
+                        sortPacksHandler('updated')
+                    }}>Last Updated
+                    </div>
+                    <div className={s.tableItem} onClick={() => {
+                        sortPacksHandler('user_name')
+                    }}>Created by
+                    </div>
                     <div className={s.tableItemActions}>Actions</div>
                 </div>
                 {
@@ -47,7 +59,8 @@ export const PacksTable: React.FC<PacksTableProps> = () => {
                         return (
                             <div className={s.packRow} key={index}>
                                 <div className={s.packRowItem}>
-                                    <NavLink className={s.packRowNameLink} to={`${path.CARDS}${pack._id}`}> {pack.name} </NavLink>
+                                    <NavLink className={s.packRowNameLink}
+                                             to={`${path.CARDS}${pack._id}`}> {pack.name} </NavLink>
                                 </div>
                                 <div className={s.packRowItem}>
                                     {pack.cardsCount}
@@ -59,16 +72,19 @@ export const PacksTable: React.FC<PacksTableProps> = () => {
                                     {pack.user_name}
                                 </div>
                                 <div className={s.packRowItem}>
-                                    {userId===pack.user_id &&
-                                    <button className={s.packRowBtn}
-
-                                    <button className={s.packRowBtn} disabled={pack.user_id!==userId}
-                                            onClick={() => deletePackHandler(pack._id)}>Delete
+                                    {userId === pack.user_id &&
+                                    <button
+                                        className={s.packRowBtn}
+                                        disabled={pack.user_id !== userId}
+                                        onClick={() => deletePackHandler(pack._id)}
+                                    >
+                                        Delete
                                     </button>
-                                }
-                                    <NavLink className={s.packRowLink} to={`${path.CARDS}${pack._id}`}
-
-                                             onClick={() => handleOnLearnButton(pack._id)}
+                                    }
+                                    <NavLink
+                                        className={s.packRowLink}
+                                        to={`${path.CARDS}${pack._id}`}
+                                        onClick={() => handleOnLearnButton(pack._id)}
                                     >Learn</NavLink>
                                 </div>
                             </div>
