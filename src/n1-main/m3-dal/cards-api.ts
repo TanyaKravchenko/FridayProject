@@ -2,8 +2,9 @@ import {instance} from './auth-api';
 import {AxiosResponse} from "axios";
 
 export const cardsApi = {
-    getCards(packId: string) {
-        return instance.get(`/cards/card?cardsPack_id=${packId}` ).then(res => res.data)
+    getCards(packId: string, sortCards: string , cardAnswer: string, cardQuestion:string) {
+        return instance.get(`/cards/card?cardsPack_id=${packId}&sortCards=${sortCards}&cardAnswer=${cardAnswer}&cardQuestion=${cardQuestion}`)
+            .then(res => res.data)
     },
      addCard(newCardData:addCardType) {
         return instance.post<addCardType, AxiosResponse<OneCardType>>('/cards/card', {card:newCardData})

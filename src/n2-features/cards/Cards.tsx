@@ -7,34 +7,52 @@ import {NavLink} from 'react-router-dom';
 import {path} from '../../n1-main/m1-ui/routes/Routes';
 import {AddCard} from './addCard/AddCard';
 import {OneCardType} from '../../n1-main/m3-dal/cards-api';
-import {deleteCardTC, getCardsTC} from '../../n1-main/m2-bll/reducers/cards-reducer';
+import {
+    deleteCardTC,
+    getCardsTC,
+    searchAnswerCardsAC,
+    searchQuestionCardsAC,
+    sortCardsAC
+} from '../../n1-main/m2-bll/reducers/cards-reducer';
 import {useParams} from "react-router";
+import {Search} from "../search/Search";
 
 type CardsParamsType = {
     cardsPack_id: string
 }
 export const Cards = () => {
+    const sortCards = useSelector<RootStateType, string | undefined>(state => state.cards.sortCards)
+    const cardAnswer = useSelector<RootStateType, string | undefined>(state => state.cards.cardAnswer)
+    const cardQuestion = useSelector<RootStateType, string | undefined>(state => state.cards.cardQuestion)
+    const cards = useSelector<RootStateType, OneCardType[]>(state => state.cards.cards)
+    const dispatch = useDispatch()
+    const userId = useSelector<RootStateType, string>(state => state.profile._id)
+    const packId = useSelector<RootStateType, string>(state => state.cards.packId)
     // HOOKS
     const {cardsPack_id} = useParams<CardsParamsType>();
     useEffect(() => {
-        dispatch(getCardsTC(cardsPack_id))
-    }, [])
-    const cards = useSelector<RootStateType, OneCardType[]>(state => state.cards.cards)
-    const dispatch = useDispatch()
-    const packId = useSelector<RootStateType, string>(state => state.cards.packId)
-    const userId = useSelector<RootStateType, string>(state => state.profile._id)
 
+        dispatch(getCardsTC(cardsPack_id))
+    }, [dispatch, sortCards, cardAnswer, cardQuestion])
     const [question, setQuestion] = useState('')
     const [editMode, setEditMode] = useState(false)
     // HANDLERS
     const handleDeleteCard = (packID: string, cardID: string) => {
         dispatch(deleteCardTC(packID, cardID))
     }
-    const onClickChangeOpenEditMode=()=>{
+    const onClickChangeOpenEditMode = () => {
         setEditMode(true)
     }
-    const onClickChangeCloseEditMode=()=>{
+    const onClickChangeCloseEditMode = () => {
         setEditMode(false)
+    }
+    const sortCardsHandler = (value: string) => {
+        if (sortCards) {
+            sortCards.charAt(0) === '0'
+                ? dispatch(sortCardsAC(`1${value}`))
+                : dispatch(sortCardsAC(`0${value}`))
+        }
+
     }
 
     return (
@@ -48,16 +66,31 @@ export const Cards = () => {
                 </div>
                 <div className={s.btnBox}>
                     <div className={s.inputWrap}>
-                        <input className={s.cardsInput} placeholder={'Search...'}/>
+
+                        <Search setValueSearchAC={searchAnswerCardsAC} buttonText={'Answer Search'}/>
+                        <Search setValueSearchAC={searchQuestionCardsAC} buttonText={'Question Search'}/>
+
                     </div>
                 </div>
 
                 <div className={s.table}>
                     <div className={s.tableHeader}>
-                        <div className={s.tableItem}>Question</div>
-                        <div className={s.tableItem}>Answer</div>
-                        <div className={s.tableItem}>Last Updated</div>
-                        <div className={s.tableItem}>Grade</div>
+                        <div className={s.tableItem} onClick={() => {
+                            sortCardsHandler('question')
+                        }}>Question
+                        </div>
+                        <div className={s.tableItem} onClick={() => {
+                            sortCardsHandler('answer')
+                        }}>Answer
+                        </div>
+                        <div className={s.tableItem} onClick={() => {
+                            sortCardsHandler('answer')
+                        }}>Last Updated
+                        </div>
+                        <div className={s.tableItem} onClick={() => {
+                            sortCardsHandler('answer')
+                        }}>Grade
+                        </div>
                         <div className={s.tableItem}>Actions</div>
                     </div>
                     {
@@ -65,7 +98,7 @@ export const Cards = () => {
                             return (
                                 <div className={s.cardsRow}>
                                     {editMode ? <input type="text"/>
-                                        : <div className={s.cardsRowItem} >{card.question}</div>
+                                        : <div className={s.cardsRowItem}>{card.question}</div>
                                     }
                                     <div className={s.cardsRowItem}>
                                         {card.answer}
@@ -78,22 +111,22 @@ export const Cards = () => {
                                     </div>
                                     <div className={s.cardsRowItem}>
                                         {userId === card.user_id &&
-                                            <>
-                                                <button className={s.deleteBtn}
-                                                        onClick={() => handleDeleteCard(card.cardsPack_id, card._id)}>delete
-                                                </button>
-                                                {
-                                                    editMode ? <button
-                                                            className={s.editBtn}
-                                                            onClick={onClickChangeCloseEditMode}
-                                                        >safe</button>
-                                                        : <button
-                                                            className={s.editBtn}
-                                                            onClick={onClickChangeOpenEditMode}
-                                                        >edit</button>
-                                                }
+                                        <>
+                                            <button className={s.deleteBtn}
+                                                    onClick={() => handleDeleteCard(card.cardsPack_id, card._id)}>delete
+                                            </button>
+                                            {
+                                                editMode ? <button
+                                                        className={s.editBtn}
+                                                        onClick={onClickChangeCloseEditMode}
+                                                    >safe</button>
+                                                    : <button
+                                                        className={s.editBtn}
+                                                        onClick={onClickChangeOpenEditMode}
+                                                    >edit</button>
+                                            }
 
-                                            </>
+                                        </>
                                         }
 
                                     </div>

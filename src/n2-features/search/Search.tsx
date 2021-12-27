@@ -1,10 +1,12 @@
 import React, {ChangeEvent, useState} from 'react';
 import s from './Search.module.scss'
-import {setValueSearchAC} from "../../n1-main/m2-bll/reducers/packs-reducer";
 import {useDispatch} from "react-redux";
 
-type SearchPropsType = {}
-export const Search: React.FC<SearchPropsType> = () => {
+type SearchPropsType = {
+    setValueSearchAC: (value: string) => void
+    buttonText:string
+}
+export const Search: React.FC<SearchPropsType> = (props) => {
     const dispatch = useDispatch()
     const [searchValue, setSearchValue] = useState('')
 
@@ -13,7 +15,7 @@ export const Search: React.FC<SearchPropsType> = () => {
         setSearchValue(e.currentTarget.value)
     }
     const setValueSearchHandler = () => {
-        dispatch(setValueSearchAC(searchValue))
+        dispatch(props.setValueSearchAC(searchValue))
         setSearchValue('')
     }
     return (
@@ -26,7 +28,7 @@ export const Search: React.FC<SearchPropsType> = () => {
                        type={'text'}
                 />
             </div>
-            <button className={s.addBtn} onClick={setValueSearchHandler}>Search</button>
+            <button className={s.addBtn} onClick={setValueSearchHandler}>{props.buttonText}</button>
         </div>
     )
 }
