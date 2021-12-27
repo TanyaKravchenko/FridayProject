@@ -67,8 +67,9 @@ export const getCardsTC = (packId: string) => async (dispatch: Dispatch, getStat
         const sortCards = getState().cards.sortCards
         const cardAnswer = getState().cards.cardAnswer
         const cardQuestion = getState().cards.cardQuestion
-
+        console.log('packId', packId)
         let data = await cardsApi.getCards(packId, sortCards, cardAnswer, cardQuestion)
+        console.log('getCardsTc', data)
         dispatch(setCardsAc(data))
         dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
@@ -99,12 +100,14 @@ export const deleteCardTC = (packId: string, cardId: string): ThunkType => (disp
         dispatch(setAppStatusAC('failed'))
     })
 }
-export const updateCardTC = (packId: string, cardId: string, question: string): ThunkType => (dispatch) => {
+export const updateQuestionTC = (packId:string,cardId: string, question: string): ThunkType => (dispatch) => {
     dispatch(setAppStatusAC('loading'))
+    debugger
     cardsApi.updateCard({_id: cardId, question: question}).then(
+
         (res) => {
-            dispatch(updateCardAc(cardId, question))
-            dispatch(getCardsTC(res.data.cardsPack_id))
+            dispatch(updateCardAc(packId, res.data.question))
+            dispatch(getCardsTC(packId))
             dispatch(setAppStatusAC('succeeded'))
         }
     ).catch(() => {
