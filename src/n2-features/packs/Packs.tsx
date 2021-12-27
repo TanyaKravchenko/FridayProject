@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import s from './Packs.module.scss';
-import {addPackTC, getPacksTC, setMyPacksAC} from '../../n1-main/m2-bll/reducers/packs-reducer';
+import {addPackTC, getPacksTC, setMyPacksAC, setValueSearchAC} from '../../n1-main/m2-bll/reducers/packs-reducer';
 import {RootStateType} from '../../n1-main/m2-bll/store';
 import {Paginator} from '../paginator/Paginator';
 import {PacksTable} from './table/PacksTable';
@@ -48,7 +48,7 @@ export const Packs = () => {
                 <div className={s.listBlock}>
                     <h2 className={s.listTitle}>Packs list</h2>
                     <div className={s.addPack}>
-                        <Search/>
+                        <Search setValueSearchAC= {setValueSearchAC} buttonText={' Search'}/>
                         <button className={s.addBtn} onClick={addNewPackHandler}>Add new pack</button>
                     </div>
                     <PacksTable/>

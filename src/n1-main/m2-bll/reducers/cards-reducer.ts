@@ -6,7 +6,10 @@ import {addCardType, cardsApi, OneCardType} from '../../m3-dal/cards-api';
 
 const initialState = {
     cards: [] as Array<OneCardType>,
-    packId: ''
+    packId: '',
+    sortCards: '0updated',
+    cardAnswer: '',
+    cardQuestion: '',
 }
 
 export const cardsReducer = (state: InitialStateType = initialState, action: ActionsType) => {
@@ -22,22 +25,50 @@ export const cardsReducer = (state: InitialStateType = initialState, action: Act
             return {...state, packId: action.packId}
         case "cards/DELETE-CARD":
             return {...state, cards: state.cards.filter(c => c._id !== action.cardId)}
+        case "cards/UPDATE-CARD":
+            return {
+                ...state,
+                cards: state.cards.map
+                (card => card.cardsPack_id === action.id
+                    ?
+                    {...card, question: action.question}
+                    :
+                    card)
+            }
+        case "cards/SORT-CARDS":
+            return {...state, sortCards: action.value}
+        case "cards/SEARCH-ANSWER-CARDS":
+            return {...state, cardAnswer: action.value, cardQuestion: ''}
+        case "cards/SEARCH-QUESTION-CARDS":
+            return {...state, cardQuestion: action.value, cardAnswer: ''}
         default:
             return state
     }
 }
-
 //actionCreators
 export const setCardsAc = (cards: OneCardType[]) => ({type: 'cards/SET-CARDS', cards} as const)
 export const addCardAc = (newCard: OneCardType) => ({type: 'cards/ADD-CARD', newCard} as const)
 export const setPackIdAc = (packId: string) => ({type: 'cards/SET-PACK-ID', packId} as const)
 export const deleteCardAc = (cardId: string) => ({type: 'cards/DELETE-CARD', cardId} as const)
+export const sortCardsAC = (value: string) => ({type: 'cards/SORT-CARDS', value} as const)
+export const searchAnswerCardsAC = (value: string) => ({type: 'cards/SEARCH-ANSWER-CARDS', value} as const)
+export const searchQuestionCardsAC = (value: string) => ({type: 'cards/SEARCH-QUESTION-CARDS', value} as const)
+
+
+export const updateCardAc = (id: string, question: string) => ({
+    type: 'cards/UPDATE-CARD',
+    id, question
+} as const)
 
 //thunks
 export const getCardsTC = (packId: string) => async (dispatch: Dispatch, getState: () => RootStateType) => {
     dispatch(setAppStatusAC('loading'))
     try {
-        let data = await cardsApi.getCards(packId)
+        const sortCards = getState().cards.sortCards
+        const cardAnswer = getState().cards.cardAnswer
+        const cardQuestion = getState().cards.cardQuestion
+
+        let data = await cardsApi.getCards(packId, sortCards, cardAnswer, cardQuestion)
         dispatch(setCardsAc(data))
         dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
@@ -55,9 +86,6 @@ export const addCardTC = (newCard: addCardType): ThunkType => (dispatch) => {
     ).catch(() => {
         dispatch(setAppStatusAC('failed'))
     })
-    //     .finally(() => {
-    //     dispatch(setAppStatusAC('succeeded'))
-    // })
 }
 export const deleteCardTC = (packId: string, cardId: string): ThunkType => (dispatch) => {
     dispatch(setAppStatusAC('loading'))
@@ -70,9 +98,18 @@ export const deleteCardTC = (packId: string, cardId: string): ThunkType => (disp
     ).catch(() => {
         dispatch(setAppStatusAC('failed'))
     })
-    //     .finally(() => [
-    //     dispatch(setAppStatusAC('succeeded'))
-    // ])
+}
+export const updateCardTC = (packId: string, cardId: string, question: string): ThunkType => (dispatch) => {
+    dispatch(setAppStatusAC('loading'))
+    cardsApi.updateCard({_id: cardId, question: question}).then(
+        (res) => {
+            dispatch(updateCardAc(cardId, question))
+            dispatch(getCardsTC(res.data.cardsPack_id))
+            dispatch(setAppStatusAC('succeeded'))
+        }
+    ).catch(() => {
+        dispatch(setAppStatusAC('failed'))
+    })
 }
 
 //types
@@ -84,6 +121,10 @@ type ActionsType =
     | SetAppStatusActionType
     | ReturnType<typeof setPackIdAc>
     | ReturnType<typeof deleteCardAc>
+    | ReturnType<typeof updateCardAc>
+    | ReturnType<typeof sortCardsAC>
+    | ReturnType<typeof searchAnswerCardsAC>
+    | ReturnType<typeof searchQuestionCardsAC>
 
 
 

@@ -8,8 +8,6 @@ import {NewPassword} from '../../../n2-features/password/NewPassword';
 import {Packs} from '../../../n2-features/packs/Packs';
 import {Cards} from '../../../n2-features/cards/Cards';
 import ProfileContainer from '../../../n2-features/profile/ProfileContainer';
-import {useParams} from "react-router";
-
 export const path = {
     ALL_COMPONENTS: '/allSuperComponents',
     PROFILE: '/profile',
@@ -18,7 +16,7 @@ export const path = {
     PASSWORD: '/newPassword/:token?',
     PASS_REC: '/passwordRecovery',
     PACKS: '/packs',
-    CARDS: '/cards',
+    CARDS: '/cards/'
 }
 
 const Routes = () => {
@@ -32,7 +30,7 @@ const Routes = () => {
                 <Route path={path.REG} exact render={() => <Registration/>}/>
                 <Route path={path.PASSWORD} render={() => <NewPassword/>}/>
                 <Route path={path.PACKS} render={() => <Packs/>}/>
-                <Route path={path.CARDS} render={() => <Cards/>}/>
+                <Route path={path.CARDS+':cardsPack_id?'} render={() => <Cards/>}/>
                 <Route path={path.PASS_REC} exact render={() => <PasswordRecoveryContainer/>}/>
                 <Route path={'/404'} render={() => <NotFound/>}/>
                 <Redirect from={'*'} to={'/404'}/>

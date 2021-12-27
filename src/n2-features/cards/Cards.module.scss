@@ -11,7 +11,7 @@
     padding: 1.2rem 1.5rem 0;
 
     width: 1008px;
-    height: 680px;
+    height:750px;
 
     background-color: white;
 
@@ -145,6 +145,10 @@
           transform: translateX(-40px);
         }
 
+      }
+      .tableItem:hover {
+        color: #564b8e;
+        cursor: pointer;
       }
     }
 

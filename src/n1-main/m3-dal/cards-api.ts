@@ -1,19 +1,28 @@
-import {ForgotDataType, ForgotResponseType, instance} from './auth-api';
+import {instance} from './auth-api';
 import {AxiosResponse} from "axios";
 
 export const cardsApi = {
-    getCards(params: RequestCardsParamsType) {
-        return instance.get<ResponseCardsType>('cards/card', {params}).then(res => res.data)
+    getCards(packId: string, sortCards: string , cardAnswer: string, cardQuestion:string) {
+        return instance.get(`/cards/card?cardsPack_id=${packId}&sortCards=${sortCards}&cardAnswer=${cardAnswer}&cardQuestion=${cardQuestion}`)
+            .then(res => res.data)
     },
      addCard(newCardData:addCardType) {
         return instance.post<addCardType, AxiosResponse<OneCardType>>('/cards/card', {card:newCardData})
     },
     deleteCard(cardId:string){
         return instance.delete(`/cards/card?id=${cardId}`)
+    },
+    updateCard(updatedCardData:UpdatedCardDataType){
+        return instance.put<UpdatedCardDataType, AxiosResponse<OneCardType>>('/cards/card', {card:updatedCardData})
     }
 }
 
 //types
+export type UpdatedCardDataType = {
+    _id:string,
+    question?:string,
+    comments?:string
+}
 export type OneCardType = {
     _id: string,
     cardsPack_id: string,
@@ -56,30 +65,3 @@ export type addCardType = {
     answerVideo?:string,
     type?:string
 }
-
-export type ResponseCardsType = {
-    cards: CardType []
-    cardsTotalCount: number
-    maxGrade: number
-    minGrade: number
-    page: number
-    pageCount: number
-    packUserId: string
-}
-
-export type CardType = {
-    answer: string
-    question: string
-    cardsPack_id: string
-    grade: number
-    rating: number
-    shots: number
-    type: TypeType
-    user_id: string
-    created: string
-    updated: string
-    __v: number
-    _id: string
-}
-
-export type TypeType = 'card' | 'pack'

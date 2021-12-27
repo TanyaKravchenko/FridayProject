@@ -28,7 +28,7 @@ const ProfileContainer: React.FC = React.memo(() => {
         dispatch(setMyPacksAC(true))
         dispatch(getPacksTC({packName, sortPacks}))
         //hardCode values
-    }, [dispatch, packName, sortPacks, ])
+    }, [dispatch, packName, sortPacks,])
 
     useEffect(() => {
         dispatch(setValueSearchAC(''))
@@ -56,7 +56,7 @@ const ProfileContainer: React.FC = React.memo(() => {
                 </div>
                 <div className={s.listBlock}>
                     <h3>Packs list {name && name + '\'s'}</h3>
-                    <Search/>
+                    <Search setValueSearchAC={setValueSearchAC} buttonText={' Search'}/>
                     <PacksTable/>
                     <Paginator/>
                 </div>

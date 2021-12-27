@@ -17,10 +17,11 @@
       align-self: center;
       font-weight: 600;
       font-size: 1.1rem;
-      cursor: pointer;
+
     }
     .tableItem:hover {
       color: #564b8e;
+      cursor: pointer;
     }
 
     .tableItemActions {
@@ -65,6 +66,11 @@
       background-color: red;
       color: white;
       border: 0;
+
+      &:disabled{
+        opacity: 50%;
+        background-color: #a0a0a0;
+      }
     }
 
     .packRowLink {
@@ -77,6 +83,13 @@
       line-height: 24px;
       display: inline-block;
       background-color: #B0C4DE;
+    }
+    .packRowNameLink {
+      text-decoration: none;
+      color: inherit;
+      &:hover{
+        opacity: 70%;
+      }
     }
   }
 }
