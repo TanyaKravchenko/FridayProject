@@ -135,7 +135,7 @@ export const Cards = () => {
                         })
                     }
                 </div>
-                <AddCard id={packId}/>
+                <AddCard id={cardsPack_id}/>
             </div>
         </div>
     );
