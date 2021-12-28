@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import s from './Cards.module.scss';
 import arrow from './../../assets/images/icons/arrow-icon.png'
 import {useDispatch, useSelector} from 'react-redux';
@@ -12,10 +12,13 @@ import {
     getCardsTC,
     searchAnswerCardsAC,
     searchQuestionCardsAC,
-    sortCardsAC
+    setPackIdAc,
+    sortCardsAC,
+    updateQuestionTC
 } from '../../n1-main/m2-bll/reducers/cards-reducer';
 import {useParams} from "react-router";
 import {Search} from "../search/Search";
+import {Card} from "./card/Card";
 
 type CardsParamsType = {
     cardsPack_id: string
@@ -31,20 +34,12 @@ export const Cards = () => {
     // HOOKS
     const {cardsPack_id} = useParams<CardsParamsType>();
     useEffect(() => {
-
         dispatch(getCardsTC(cardsPack_id))
     }, [dispatch, sortCards, cardAnswer, cardQuestion])
-    const [question, setQuestion] = useState('')
-    const [editMode, setEditMode] = useState(false)
     // HANDLERS
-    const handleDeleteCard = (packID: string, cardID: string) => {
+    const DeleteCard = (packID: string, cardID: string) => {
         dispatch(deleteCardTC(packID, cardID))
-    }
-    const onClickChangeOpenEditMode = () => {
-        setEditMode(true)
-    }
-    const onClickChangeCloseEditMode = () => {
-        setEditMode(false)
+        dispatch(setPackIdAc(packId))
     }
     const sortCardsHandler = (value: string) => {
         if (sortCards) {
@@ -52,9 +47,12 @@ export const Cards = () => {
                 ? dispatch(sortCardsAC(`1${value}`))
                 : dispatch(sortCardsAC(`0${value}`))
         }
-
     }
 
+    //update card question
+    const toSetQuestion = (packId:string, cardId: string, question: string) =>{
+        dispatch(updateQuestionTC(packId, cardId, question))
+    }
     return (
         <div className={s.cards}>
             <div className={s.wrap}>
@@ -94,43 +92,15 @@ export const Cards = () => {
                         <div className={s.tableItem}>Actions</div>
                     </div>
                     {
-                        cards.map((card) => {
+                        cards.map((card, index) => {
                             return (
-                                <div className={s.cardsRow}>
-                                    {editMode ? <input type="text"/>
-                                        : <div className={s.cardsRowItem}>{card.question}</div>
-                                    }
-                                    <div className={s.cardsRowItem}>
-                                        {card.answer}
-                                    </div>
-                                    <div className={s.cardsRowItem}>
-                                        {card.updated}
-                                    </div>
-                                    <div className={s.cardsRowItem}>
-                                        {card.grade}
-                                    </div>
-                                    <div className={s.cardsRowItem}>
-                                        {userId === card.user_id &&
-                                        <>
-                                            <button className={s.deleteBtn}
-                                                    onClick={() => handleDeleteCard(card.cardsPack_id, card._id)}>delete
-                                            </button>
-                                            {
-                                                editMode ? <button
-                                                        className={s.editBtn}
-                                                        onClick={onClickChangeCloseEditMode}
-                                                    >safe</button>
-                                                    : <button
-                                                        className={s.editBtn}
-                                                        onClick={onClickChangeOpenEditMode}
-                                                    >edit</button>
-                                            }
-
-                                        </>
-                                        }
-
-                                    </div>
-                                </div>
+                                <Card
+                                    key={card._id}
+                                    card={card}
+                                    userId={userId}
+                                    deleteCard={DeleteCard}
+                                    toSetQuestion={toSetQuestion}
+                                />
                             )
                         })
                     }

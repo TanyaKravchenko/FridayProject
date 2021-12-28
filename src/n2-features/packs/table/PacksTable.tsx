@@ -28,10 +28,7 @@ export const PacksTable: React.FC<PacksTableProps> = () => {
     const deletePackHandler = (packId: string) => {
         dispatch(deletePackTC(packId))
     }
-
     const {cardPacks} = useSelector<RootStateType, InitialStateType>(state => state.packs)
-    console.log(cardPacks)
-
     return (
         <div className={s.packs}>
             <div className={s.table}>
