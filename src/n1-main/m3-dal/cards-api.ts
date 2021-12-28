@@ -2,27 +2,29 @@ import {instance} from './auth-api';
 import {AxiosResponse} from "axios";
 
 export const cardsApi = {
-    getCards(packId: string, sortCards: string , cardAnswer: string, cardQuestion:string) {
+    getCards(packId: string, sortCards: string, cardAnswer: string, cardQuestion: string) {
         return instance.get(`/cards/card?cardsPack_id=${packId}&sortCards=${sortCards}&cardAnswer=${cardAnswer}&cardQuestion=${cardQuestion}`)
             .then(res => res.data)
     },
-     addCard(newCardData:addCardType) {
-        return instance.post<addCardType, AxiosResponse<OneCardType>>('/cards/card', {card:newCardData})
+    addCard(newCardData: addCardType) {
+        return instance.post<addCardType, AxiosResponse<OneCardType>>('/cards/card', {card: newCardData})
     },
-    deleteCard(cardId:string){
+    deleteCard(cardId: string) {
         return instance.delete(`/cards/card?id=${cardId}`)
     },
-    updateCard(updatedCardData:UpdatedCardDataType){
-        return instance.put<UpdatedCardDataType, AxiosResponse<OneCardType>>('/cards/card', {card:updatedCardData})
+    updateCard(updatedCardData: UpdatedCardDataType) {
+        return instance.put<UpdatedCardDataType, AxiosResponse<OneCardType>>('/cards/card', {card: updatedCardData})
     }
 }
 
 //types
 export type UpdatedCardDataType = {
-    _id:string,
-    question?:string,
-    comments?:string
+    _id: string,
+    question?: string,
+    comments?: string
 }
+
+
 export type OneCardType = {
     _id: string,
     cardsPack_id: string,
@@ -54,14 +56,14 @@ export type RequestCardsParamsType = {
     pageCount?: number // не обязательно
 }
 export type addCardType = {
-    cardsPack_id:string,
-    question:string,
-    answer:string,
-    grade?:number,
+    cardsPack_id: string,
+    question: string,
+    answer: string,
+    grade?: number,
     shots?: number,
     rating?: number,
-    answerImg?:string,
-    questionImg?:string,
-    answerVideo?:string,
-    type?:string
+    answerImg?: string,
+    questionImg?: string,
+    answerVideo?: string,
+    type?: string
 }
