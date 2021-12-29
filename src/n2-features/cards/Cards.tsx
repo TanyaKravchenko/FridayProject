@@ -87,7 +87,7 @@ export const Cards = () => {
                         <Search setValueSearchAC={searchQuestionCardsAC} buttonText={'Question Search'}/>
                         <button className={s.addBtn} onClick={() => {
                             setShowAddModal(true)
-                        }}>Add new pack
+                        }}>Add new card
                         </button>
                     </div>
                 </div>
