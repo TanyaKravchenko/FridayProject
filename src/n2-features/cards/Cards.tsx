@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import s from './Cards.module.scss';
 import arrow from './../../assets/images/icons/arrow-icon.png'
 import {useDispatch, useSelector} from 'react-redux';
@@ -19,6 +19,7 @@ import {
 import {useParams} from "react-router";
 import {Search} from "../search/Search";
 import {Card} from "./card/Card";
+import PageModal from '../modal/PageModal';
 
 type CardsParamsType = {
     cardsPack_id: string
@@ -33,6 +34,12 @@ export const Cards = () => {
     const packId = useSelector<RootStateType, string>(state => state.cards.packId)
     // HOOKS
     const {cardsPack_id} = useParams<CardsParamsType>();
+
+    const [showAddModal, setShowAddModal] = useState<boolean>(false)
+    const closeEditModal = () => {
+        setShowAddModal(false)
+    }
+
     useEffect(() => {
         dispatch(getCardsTC(cardsPack_id))
     }, [dispatch, sortCards, cardAnswer, cardQuestion])
@@ -105,7 +112,12 @@ export const Cards = () => {
                         })
                     }
                 </div>
-                <AddCard id={cardsPack_id}/>
+                {showAddModal &&
+                <PageModal onModalClose={() => setShowAddModal(false)} childrenWidth={413}
+                            childrenHeight={540}>
+                    <AddCard closeEditModal={closeEditModal} id={cardsPack_id}/>
+                </PageModal>}
+
             </div>
         </div>
     );

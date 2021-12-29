@@ -17,7 +17,7 @@
       }
 
       .paginatorBtn:hover {
-        background-color: lightblue;
+        background-color: #c8c5d9;
         color: black;
         font-weight: 700;
       }
@@ -43,12 +43,13 @@
 
       .pageNumber.selectedPage {
         font-weight: bold;
-        border-color: lightblue;
-        color: lightblue;
+        border-color: #9A91C8;
+        background-color: #ECECF9;
+        color: #9A91C8;
       }
 
       .pageNumber:hover {
-        background-color: lightblue;
+        background-color: #c8c5d9;
         color: #21268F;
       }
     }
@@ -59,7 +60,7 @@
       font-weight: normal;
       font-size: 12px;
       line-height: 14px;
-      color: rgb(53, 62, 14);
+      color: #21268F;
 
       .selectWrapper {
         margin-left: 34px;
