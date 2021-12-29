@@ -1,3 +1,6 @@
+@import '../../common/styles/mixins';
+@import '../../common/styles/variables';
+
 .cards {
   height: 1000px;
   display: flex;
@@ -55,6 +58,14 @@
           top: 50%;
           left: 12px;
           transform: translate(0, -50%);
+        }
+
+        .searchWrap {
+          padding-bottom: 10px;
+        }
+
+        .addBtn {
+          @include BtnStyle(124px, 36px, $backgroundColor, $lightTextColor);
         }
       }
 

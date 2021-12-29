@@ -82,9 +82,12 @@ export const Cards = () => {
                 </div>
                 <div className={s.btnBox}>
                     <div className={s.inputWrap}>
-
-                        <Search setValueSearchAC={searchAnswerCardsAC} buttonText={'Answer Search'}/>
-                        <Search setValueSearchAC={searchQuestionCardsAC} buttonText={'Question Search'}/>
+                        <div className={s.searchWrap}>
+                            <Search setValueSearchAC={searchAnswerCardsAC} buttonText={'Answer Search'}/>
+                        </div>
+                        <div className={s.searchWrap}>
+                            <Search setValueSearchAC={searchQuestionCardsAC} buttonText={'Question Search'}/>
+                        </div>
                         <button className={s.addBtn} onClick={() => {
                             setShowAddModal(true)
                         }}>Add new card

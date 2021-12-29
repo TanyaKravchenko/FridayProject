@@ -27,11 +27,11 @@
       justify-content: space-around;
 
       .cancelBtn {
-        @include BtnStyle(124px, 36px, $backgroundColorCard, $backgroundColor);
+        @include BtnStyle(124px, 36px, #e3dfe5, $backgroundColor);
       }
 
       .saveBtn {
-        @include BtnStyle(124px, 36px, $backgroundColor, $backgroundColorCard);
+        @include BtnStyle(124px, 36px, $backgroundColor, #e3dfe5);
       }
     }
   }

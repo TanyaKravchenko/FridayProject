@@ -2,7 +2,7 @@
 @import '../../../common/styles/variables';
 
 .editContainer {
-  background-color: #9890c7;
+  background-color: $backgroundColorCard;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -20,12 +20,13 @@
   }
 
   .inputsBlock {
-    width: 80%;
+    width: 90%;
 
     .editInput {
       display: flex;
       flex-direction: column;
       width: 100%;
+      padding-bottom: 20px;
 
       label {
         font-style: normal;
@@ -37,14 +38,7 @@
       }
 
       input {
-        font-style: normal;
-        font-weight: 500;
-        font-size: 16px;
-        line-height: 24px;
-        border: none;
-        border-bottom: 2px solid #EFF6D5;
-        background-color: #9890c7;
-        width: 100%;
+        @include commonInputStyles();
 
         &:focus {
           outline: none;
@@ -59,11 +53,11 @@
     justify-content: space-between;
 
     .cancelBtn {
-      @include BtnStyle(124px, 36px, red, green);
+      @include BtnStyle(124px, 36px, $lightTextColor, $backgroundColor);
     }
 
     .saveBtn {
-      @include BtnStyle(124px, 36px, yellow, blue);
+      @include BtnStyle(124px, 36px, $backgroundColor, $lightTextColor);
     }
   }
 }

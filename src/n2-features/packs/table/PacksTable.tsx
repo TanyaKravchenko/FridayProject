@@ -119,7 +119,7 @@ export const PacksTable: React.FC = () => {
                                         }
                                         {userId === pack.user_id &&
                                         <button
-                                            className={s.packRowLink}
+                                            className={s.packEditLearnBtn}
                                             disabled={pack.user_id !== userId}
                                             onClick={() => {
                                                 handleOnEditButton(pack._id, pack.name)
@@ -130,7 +130,7 @@ export const PacksTable: React.FC = () => {
                                         </button>
                                         }
                                         <button
-                                            className={s.packRowLink}
+                                            className={s.packEditLearnBtn}
                                             onClick={() => {
                                                 handleOnLearnButton(pack._id)
                                                 setShowLearnModal(true)
