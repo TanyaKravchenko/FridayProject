@@ -57,3 +57,19 @@
   grid-template-columns: 25% 75%;
   grid-template-rows: 1fr;
 }
+
+@mixin h3Style {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 33px;
+  color: $darkTextColor;
+}
+
+@mixin h4Style {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 27px;
+  color: $darkTextColor;
+}

@@ -56,7 +56,12 @@ export const Packs = () => {
                     <h2 className={s.listTitle}>Packs list</h2>
                     <div className={s.addPack}>
                         <Search setValueSearchAC={setValueSearchAC} buttonText={' Search'}/>
-                        <button className={s.addBtn} onClick={() => setShowEditModal(true)}>Add new pack</button>
+                        <button
+                            className={s.addBtn}
+                            onClick={() => setShowEditModal(true)}
+                        >
+                            Add new pack
+                        </button>
                     </div>
                     <PacksTable/>
                     <Paginator/>
