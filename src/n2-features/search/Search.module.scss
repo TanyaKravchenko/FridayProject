@@ -1,11 +1,11 @@
-@import './../../common/styles/mixins';
-@import './../../common/styles/variables';
+@import '../../common/styles/mixins';
+@import '../../common/styles/variables';
 
 
 .searchContainer {
   width: 100%;
   display: flex;
-  align-items:start;
+  align-items: start;
   position: relative;
   height: 40px;
 
@@ -41,7 +41,10 @@
     width: 120px;
     height: 100%;
     font-weight: 500;
-    font-size: 1rem;
+    border-radius: 30px;
+    border: none;
+    font-size: 16px;
+    line-height: 19px;
   }
 }
 

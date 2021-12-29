@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import s from './Cards.module.scss';
 import arrow from './../../assets/images/icons/arrow-icon.png'
 import {useDispatch, useSelector} from 'react-redux';
@@ -6,8 +6,9 @@ import {RootStateType} from '../../n1-main/m2-bll/store';
 import {NavLink} from 'react-router-dom';
 import {path} from '../../n1-main/m1-ui/routes/Routes';
 import {AddCard} from './addCard/AddCard';
-import {OneCardType} from '../../n1-main/m3-dal/cards-api';
+import {addCardType, OneCardType} from '../../n1-main/m3-dal/cards-api';
 import {
+    addCardTC,
     deleteCardTC,
     getCardsTC,
     searchAnswerCardsAC,
@@ -16,9 +17,10 @@ import {
     sortCardsAC,
     updateQuestionTC
 } from '../../n1-main/m2-bll/reducers/cards-reducer';
-import {useParams} from "react-router";
-import {Search} from "../search/Search";
-import {Card} from "./card/Card";
+import {useParams} from 'react-router';
+import {Search} from '../search/Search';
+import {Card} from './card/Card';
+import PageModal from '../modal/BackModal';
 
 type CardsParamsType = {
     cardsPack_id: string
@@ -33,6 +35,12 @@ export const Cards = () => {
     const packId = useSelector<RootStateType, string>(state => state.cards.packId)
     // HOOKS
     const {cardsPack_id} = useParams<CardsParamsType>();
+
+    const [showAddModal, setShowAddModal] = useState<boolean>(false)
+    const closeEditModal = () => {
+        setShowAddModal(false)
+    }
+
     useEffect(() => {
         dispatch(getCardsTC(cardsPack_id))
     }, [dispatch, sortCards, cardAnswer, cardQuestion])
@@ -49,8 +57,18 @@ export const Cards = () => {
         }
     }
 
+    const addCard = (id: string, question: string, answer: string) => {
+        const card: addCardType = {
+            cardsPack_id: id,
+            question: question,
+            answer: answer,
+        }
+        dispatch(addCardTC(card))
+    }
+
+
     //update card question
-    const toSetQuestion = (packId:string, cardId: string, question: string) =>{
+    const toSetQuestion = (packId: string, cardId: string, question: string) => {
         dispatch(updateQuestionTC(packId, cardId, question))
     }
     return (
@@ -67,7 +85,10 @@ export const Cards = () => {
 
                         <Search setValueSearchAC={searchAnswerCardsAC} buttonText={'Answer Search'}/>
                         <Search setValueSearchAC={searchQuestionCardsAC} buttonText={'Question Search'}/>
-
+                        <button className={s.addBtn} onClick={() => {
+                            setShowAddModal(true)
+                        }}>Add new pack
+                        </button>
                     </div>
                 </div>
 
@@ -92,7 +113,7 @@ export const Cards = () => {
                         <div className={s.tableItem}>Actions</div>
                     </div>
                     {
-                        cards.map((card, index) => {
+                        cards.map((card) => {
                             return (
                                 <Card
                                     key={card._id}
@@ -105,7 +126,11 @@ export const Cards = () => {
                         })
                     }
                 </div>
-                <AddCard id={cardsPack_id}/>
+                {showAddModal &&
+                <PageModal onModalClose={() => setShowAddModal(false)} childrenWidth={413}
+                           childrenHeight={540}>
+                    <AddCard closeEditModal={closeEditModal} id={cardsPack_id} updatePack={addCard}/>
+                </PageModal>}
             </div>
         </div>
     );

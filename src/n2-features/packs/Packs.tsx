@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import s from './Packs.module.scss';
 import {addPackTC, getPacksTC, setMyPacksAC, setValueSearchAC} from '../../n1-main/m2-bll/reducers/packs-reducer';
@@ -7,6 +7,8 @@ import {Paginator} from '../paginator/Paginator';
 import {PacksTable} from './table/PacksTable';
 import {Search} from '../search/Search';
 import {DoubleSliderContainer} from '../doubleSlider/DoubleSliderContainer';
+import Modal from '../modal/Modal';
+import {CreateCardsPackType} from '../../n1-main/m3-dal/packs-api';
 
 export const Packs = () => {
 
@@ -16,13 +18,18 @@ export const Packs = () => {
     const sortPacks = useSelector<RootStateType, string | undefined>(state => state.packs.sortPacks)
     const myPacks = useSelector<RootStateType, boolean>(state => state.packs.myPacks)
 
+    const [showEditModal, setShowEditModal] = useState<boolean>(false);
+
     useEffect(() => {
         dispatch(getPacksTC({}))
         //hardCode values
     }, [dispatch, packName, sortPacks, myPacks])
 
-    const addNewPackHandler = () => {
-        dispatch(addPackTC({}))
+    const addNewPackHandler = (name: string) => {
+        let cardsPack: CreateCardsPackType = {
+            name
+        }
+        dispatch(addPackTC(cardsPack))
     }
     const showMyPacksHandler = () => {
         dispatch(setMyPacksAC(true))
@@ -48,12 +55,23 @@ export const Packs = () => {
                 <div className={s.listBlock}>
                     <h2 className={s.listTitle}>Packs list</h2>
                     <div className={s.addPack}>
-                        <Search setValueSearchAC= {setValueSearchAC} buttonText={' Search'}/>
-                        <button className={s.addBtn} onClick={addNewPackHandler}>Add new pack</button>
+                        <Search setValueSearchAC={setValueSearchAC} buttonText={' Search'}/>
+                        <button className={s.addBtn} onClick={() => setShowEditModal(true)}>Add new pack</button>
                     </div>
                     <PacksTable/>
                     <Paginator/>
                 </div>
+                {showEditModal && <Modal childrenHeight={233}
+                                         childrenWidth={400}
+                                         onSaveClick={(value) => {
+                                             addNewPackHandler(value);
+                                             setShowEditModal(false);
+                                         }}
+                                         onModalClose={() => setShowEditModal(false)}
+                                         type={'input'}
+                                         header={'Add new pack'}
+                                         buttonTitle={'Save'}
+                                         inputTitle={'Name pack'}/>}
             </div>
         </div>
     )

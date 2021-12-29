@@ -1,42 +1,69 @@
-.addCardForm {
-  width: 600px;
+@import '../../../common/styles/mixins';
+@import '../../../common/styles/variables';
 
-  padding: .7rem;
-  margin: 0 auto;
-
+.editContainer {
+  background-color: #9890c7;
   display: flex;
-
   flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  border-radius: 8px;
+  height: 100%;
+  width: 100%;
 
-  border:2px solid #9890c7;
-  .addCardBtn {
-    width: 11.5rem;
-    height: 2.25rem;
-
-    margin-top: 1rem;
-
-    border-radius: 30px;
-    border: 0;
-
-    background-color: #9890c7;
-
-    font-weight: 500;
-    font-size: 1rem;
-
-    color: white;
+  h3 {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 33px;
+    color: #1f1f1f;
   }
 
-  .cardsInput {
-    width: 60%;
-    height: 36px;
+  .inputsBlock {
+    width: 80%;
 
-    margin-top: 1rem;
+    .editInput {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
 
-    padding-left: 2.5rem;
+      label {
+        font-style: normal;
+        font-weight: normal;
+        font-size: 13px;
+        line-height: 20px;
+        opacity: 0.5;
+        color: #1f1f1f;
+      }
 
-    border: 1px solid lightgrey;
-    border-radius: 2px;
+      input {
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 24px;
+        border: none;
+        border-bottom: 2px solid #EFF6D5;
+        background-color: #9890c7;
+        width: 100%;
 
-    background-color: #ECECF9;
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+  }
+
+  .buttonsBlock {
+    display: flex;
+    width: 80%;
+    justify-content: space-between;
+
+    .cancelBtn {
+      @include BtnStyle(124px, 36px, red, green);
+    }
+
+    .saveBtn {
+      @include BtnStyle(124px, 36px, yellow, blue);
+    }
   }
 }
