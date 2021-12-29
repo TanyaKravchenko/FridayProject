@@ -34,6 +34,7 @@ export const PacksTable: React.FC = () => {
     const pageCount = useSelector<RootStateType, number>(state => state.packs.pageCount)
     const {id} = useParams<PacksParamsType>();
     const dispatch = useDispatch()
+    // console.log(packId)
 
     //handlers
     const handleOnLearnButton = (id: string) => {
@@ -172,8 +173,8 @@ export const PacksTable: React.FC = () => {
             <BackModal onModalClose={() => setShowLearnModal(false)} childrenWidth={413}
                        childrenHeight={575}>
                 <LearnPage
-                    // cardsPack_id={props.id}
-                    // onModalClose={() => setShowLearnModal(false)}
+                    cardsPack_id={packId}
+                    onModalClose={() => setShowLearnModal(false)}
                 />
             </BackModal>}
         </div>
