@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import s from './PacksTable.module.scss';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootStateType} from '../../../n1-main/m2-bll/store';
@@ -6,11 +6,15 @@ import {deletePackTC, InitialStateType, sortPacksAC} from '../../../n1-main/m2-b
 import {NavLink} from 'react-router-dom';
 import {path} from '../../../n1-main/m1-ui/routes/Routes';
 import {getCardsTC, setPackIdAc} from '../../../n1-main/m2-bll/reducers/cards-reducer';
+import Modal from '../../modal/Modal';
 
 type PacksTableProps = {}
 
 export const PacksTable: React.FC<PacksTableProps> = () => {
     //hooks
+    const [showDelModal, setShowDelModal] = useState<boolean>(false);
+    const [showLearnModal, setShowLearnModal] = useState<boolean>(false);
+    const [showEditModal, setShowEditModal] = useState<boolean>(false);
     let sortPacks = useSelector<RootStateType, any>(state => state.packs.sortPacks)
     let userId = useSelector<RootStateType, string>(state => state.profile._id)
     const dispatch = useDispatch()
@@ -73,9 +77,21 @@ export const PacksTable: React.FC<PacksTableProps> = () => {
                                     <button
                                         className={s.packRowBtn}
                                         disabled={pack.user_id !== userId}
-                                        onClick={() => deletePackHandler(pack._id)}
+                                        onClick={() => {
+                                            deletePackHandler(pack._id)
+                                            setShowDelModal(true)
+                                        }}
                                     >
                                         Delete
+                                    </button>
+                                    }
+                                    {userId === pack.user_id &&
+                                    <button
+                                        className={s.packRowLink}
+                                        disabled={pack.user_id !== userId}
+                                        // onClick={() => deletePackHandler(pack._id)}
+                                    >
+                                        Edit
                                     </button>
                                     }
                                     <NavLink
@@ -83,12 +99,30 @@ export const PacksTable: React.FC<PacksTableProps> = () => {
                                         to={`${path.CARDS}${pack._id}`}
                                         onClick={() => handleOnLearnButton(pack._id)}
                                     >Learn</NavLink>
+
                                 </div>
+
                             </div>
+
                         )
+
                     })
+
                 }
             </div>
+            {
+                showDelModal && <Modal childrenHeight={220}
+                                       childrenWidth={400}
+                                       onDeleteClick={() => {
+                                           setShowDelModal(false)
+                                       }}
+                                       onModalClose={() => setShowDelModal(false)}
+                                       type={'info'}
+                                       header={'Delete pack'}
+                                       buttonTitle={'Delete'}
+                                       packName={'Pack name'}/>
+            }
+
         </div>
     )
 }
