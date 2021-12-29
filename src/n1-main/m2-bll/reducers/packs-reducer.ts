@@ -1,5 +1,5 @@
 import {Dispatch} from 'redux';
-import {setAppStatusAC, SetAppStatusActionType} from './app-reducer';
+import {setAppStatusAC, SetAppStatusActionType, setIsInitializedAC} from './app-reducer';
 import {RootStateType} from '../store';
 import {ThunkAction} from 'redux-thunk';
 import {CreateCardsPackType, packsApi, RequestParamsType} from '../../m3-dal/packs-api';
@@ -148,6 +148,21 @@ export const deletePackTC = (userId: string): ThunkType => async (dispatch) => {
     }).finally(() => [
         dispatch(setAppStatusAC('succeeded'))
     ])
+}
+
+export const updateCardsPackTC = (_id: string, name: string, count: number, userId: string | null): ThunkType => async (dispatch) => {
+    dispatch(setAppStatusAC('loading'))
+    packsApi.updatePack(_id, name)
+        .then(() => {
+            debugger
+            dispatch(getPacksTC({}))
+            dispatch(setAppStatusAC('succeeded'))
+        })
+        .catch(error => {
+            console.log(error)
+            // dispatch(setIsInitializedAC(true))
+            dispatch(setAppStatusAC('failed'))
+        })
 }
 
 //types

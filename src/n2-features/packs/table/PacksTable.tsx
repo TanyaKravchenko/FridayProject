@@ -2,27 +2,53 @@ import React, {useState} from 'react';
 import s from './PacksTable.module.scss';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootStateType} from '../../../n1-main/m2-bll/store';
-import {deletePackTC, InitialStateType, sortPacksAC} from '../../../n1-main/m2-bll/reducers/packs-reducer';
+import {
+    deletePackTC,
+    InitialStateType,
+    sortPacksAC,
+    updateCardsPackTC
+} from '../../../n1-main/m2-bll/reducers/packs-reducer';
 import {NavLink} from 'react-router-dom';
 import {path} from '../../../n1-main/m1-ui/routes/Routes';
 import {getCardsTC, setPackIdAc} from '../../../n1-main/m2-bll/reducers/cards-reducer';
 import Modal from '../../modal/Modal';
+import BackModal from '../../modal/BackModal';
+import {EditPack} from '../edit pack/EditPack';
+import {useParams} from 'react-router';
+import LearnPage from '../../learnPage/LearnPage';
 
-type PacksTableProps = {}
+type PacksParamsType = {
+    id: string
+}
 
-export const PacksTable: React.FC<PacksTableProps> = () => {
+export const PacksTable: React.FC = () => {
     //hooks
     const [showDelModal, setShowDelModal] = useState<boolean>(false);
     const [showLearnModal, setShowLearnModal] = useState<boolean>(false);
     const [showEditModal, setShowEditModal] = useState<boolean>(false);
+    const {cardPacks} = useSelector<RootStateType, InitialStateType>(state => state.packs)
     let sortPacks = useSelector<RootStateType, any>(state => state.packs.sortPacks)
+    let name = useSelector<RootStateType, any>(state => state.packs.packName)
     let userId = useSelector<RootStateType, string>(state => state.profile._id)
+    const packId = useSelector<RootStateType, string>(state => state.cards.packId)
+    const pageCount = useSelector<RootStateType, number>(state => state.packs.pageCount)
+    const {id} = useParams<PacksParamsType>();
     const dispatch = useDispatch()
 
     //handlers
     const handleOnLearnButton = (id: string) => {
         dispatch(getCardsTC(id))
         dispatch(setPackIdAc(id))
+    }
+
+    const handleOnEditButton = (packId: string, packName: string) => {
+        dispatch(getCardsTC(packId))
+        dispatch(setPackIdAc(packId))
+    }
+
+    const handleOnDeleteButton = (packId: string) => {
+        dispatch(getCardsTC(packId))
+        dispatch(setPackIdAc(packId))
     }
 
     const sortPacksHandler = (value: string) => {
@@ -32,7 +58,11 @@ export const PacksTable: React.FC<PacksTableProps> = () => {
     const deletePackHandler = (packId: string) => {
         dispatch(deletePackTC(packId))
     }
-    const {cardPacks} = useSelector<RootStateType, InitialStateType>(state => state.packs)
+
+    const updatePack = (packId: string, packName: string) => {
+        dispatch(updateCardsPackTC(packId, packName, pageCount, id))
+    }
+
     return (
         <div className={s.packs}>
             <div className={s.table}>
@@ -73,47 +103,52 @@ export const PacksTable: React.FC<PacksTableProps> = () => {
                                     {pack.user_name}
                                 </div>
                                 <div className={s.packRowItem}>
-                                    {userId === pack.user_id &&
-                                    <button
-                                        className={s.packRowBtn}
-                                        disabled={pack.user_id !== userId}
-                                        onClick={() => {
-                                            deletePackHandler(pack._id)
-                                            setShowDelModal(true)
-                                        }}
-                                    >
-                                        Delete
-                                    </button>
-                                    }
-                                    {userId === pack.user_id &&
-                                    <button
-                                        className={s.packRowLink}
-                                        disabled={pack.user_id !== userId}
-                                        // onClick={() => deletePackHandler(pack._id)}
-                                    >
-                                        Edit
-                                    </button>
-                                    }
-                                    <NavLink
-                                        className={s.packRowLink}
-                                        to={`${path.CARDS}${pack._id}`}
-                                        onClick={() => handleOnLearnButton(pack._id)}
-                                    >Learn</NavLink>
-
+                                    <div className={s.packButtonItem}>
+                                        {userId === pack.user_id &&
+                                        <button
+                                            className={s.packDeleteBtn}
+                                            disabled={pack.user_id !== userId}
+                                            onClick={() => {
+                                                handleOnDeleteButton(pack._id)
+                                                setShowDelModal(true)
+                                            }}
+                                        >
+                                            Delete
+                                        </button>
+                                        }
+                                        {userId === pack.user_id &&
+                                        <button
+                                            className={s.packRowLink}
+                                            disabled={pack.user_id !== userId}
+                                            onClick={() => {
+                                                handleOnEditButton(pack._id, pack.name)
+                                                setShowEditModal(true)
+                                            }}
+                                        >
+                                            Edit
+                                        </button>
+                                        }
+                                        <button
+                                            className={s.packRowLink}
+                                            onClick={() => {
+                                                handleOnLearnButton(pack._id)
+                                                setShowLearnModal(true)
+                                            }}
+                                        >
+                                            Learn
+                                        </button>
+                                    </div>
                                 </div>
-
                             </div>
-
                         )
-
                     })
-
                 }
             </div>
             {
                 showDelModal && <Modal childrenHeight={220}
                                        childrenWidth={400}
                                        onDeleteClick={() => {
+                                           deletePackHandler(packId)
                                            setShowDelModal(false)
                                        }}
                                        onModalClose={() => setShowDelModal(false)}
@@ -122,7 +157,25 @@ export const PacksTable: React.FC<PacksTableProps> = () => {
                                        buttonTitle={'Delete'}
                                        packName={'Pack name'}/>
             }
-
+            {
+                showEditModal &&
+                <BackModal onModalClose={() => setShowEditModal(false)} childrenWidth={413}
+                           childrenHeight={540}>
+                    <EditPack packId={packId}
+                              closeEditModal={() => setShowEditModal(false)}
+                              packName={name}
+                              updatePack={updatePack}
+                    />
+                </BackModal>
+            }
+            {showLearnModal &&
+            <BackModal onModalClose={() => setShowLearnModal(false)} childrenWidth={413}
+                       childrenHeight={575}>
+                <LearnPage
+                    // cardsPack_id={props.id}
+                    // onModalClose={() => setShowLearnModal(false)}
+                />
+            </BackModal>}
         </div>
     )
 }

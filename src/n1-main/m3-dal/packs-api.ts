@@ -8,8 +8,8 @@ export const packsApi = {
     addPack(cardsPack: CreateCardsPackType) {
         return instance.post('cards/pack', {cardsPack})
     },
-    updatePack(cardsPack: CreateCardsPackType & { _id: string }) {
-        return instance.put('cards/pack', {cardsPack})
+    updatePack(_id: string, name ?: string) {
+        return instance.put(`cards/pack`, {cardsPack: {_id, name}})
     },
     deletePack(userId: string) {
         return instance.delete(`cards/pack?id=${userId}`)

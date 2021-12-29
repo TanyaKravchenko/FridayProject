@@ -45,18 +45,18 @@
     }
 
     .packRowItem {
+      display: flex;
       align-self: center;
       margin: 0 5px;
       font-weight: 500;
       font-size: 0.8rem;
-      color: black;
 
       &:last-child {
         padding-right: 20px;
       }
     }
 
-    .packRowBtn {
+    .packDeleteBtn {
       width: 48px;
       height: 24px;
       margin-right: 10px;
