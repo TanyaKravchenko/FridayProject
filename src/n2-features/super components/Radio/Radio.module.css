@@ -8,7 +8,7 @@
 
 }
 
-.label input[type="radio"]:checked:before {
+label input[type="radio"]:visited::before {
     content: "";
     display: block;
     position: relative;
@@ -19,3 +19,5 @@
     border-radius: 50%;
     background: red;
 }
+
+
