@@ -26,7 +26,7 @@ export const Packs = () => {
     }, [dispatch, packName, sortPacks, myPacks])
 
     const addNewPackHandler = (name: string) => {
-        let cardsPack: Partial<CreateCardsPackType> = {
+        let cardsPack: CreateCardsPackType = {
             name
         }
         dispatch(addPackTC(cardsPack))
@@ -55,7 +55,7 @@ export const Packs = () => {
                 <div className={s.listBlock}>
                     <h2 className={s.listTitle}>Packs list</h2>
                     <div className={s.addPack}>
-                        <Search setValueSearchAC= {setValueSearchAC} buttonText={' Search'}/>
+                        <Search setValueSearchAC={setValueSearchAC} buttonText={' Search'}/>
                         <button className={s.addBtn} onClick={() => setShowEditModal(true)}>Add new pack</button>
                     </div>
                     <PacksTable/>

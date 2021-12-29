@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './PageModal.module.scss';
+import styles from './BackModal.module.scss';
 
 type ModalPropsType = {
     onModalClose: () => void

@@ -19,13 +19,13 @@ export const cardsReducer = (state: InitialStateType = initialState, action: Act
                 ...state,
                 ...action.cards,
             }
-        case "cards/ADD-CARD":
+        case 'cards/ADD-CARD':
             return {...state, cards: [...state.cards, action.newCard]}
-        case "cards/SET-PACK-ID":
+        case 'cards/SET-PACK-ID':
             return {...state, packId: action.packId}
-        case "cards/DELETE-CARD":
+        case 'cards/DELETE-CARD':
             return {...state, cards: state.cards.filter(c => c._id !== action.cardId)}
-        case "cards/UPDATE-CARD":
+        case 'cards/UPDATE-CARD':
             return {
                 ...state,
                 cards: state.cards.map
@@ -35,11 +35,11 @@ export const cardsReducer = (state: InitialStateType = initialState, action: Act
                     :
                     card)
             }
-        case "cards/SORT-CARDS":
+        case 'cards/SORT-CARDS':
             return {...state, sortCards: action.value}
-        case "cards/SEARCH-ANSWER-CARDS":
+        case 'cards/SEARCH-ANSWER-CARDS':
             return {...state, cardAnswer: action.value, cardQuestion: ''}
-        case "cards/SEARCH-QUESTION-CARDS":
+        case 'cards/SEARCH-QUESTION-CARDS':
             return {...state, cardQuestion: action.value, cardAnswer: ''}
         default:
             return state
@@ -100,11 +100,9 @@ export const deleteCardTC = (packId: string, cardId: string): ThunkType => (disp
         dispatch(setAppStatusAC('failed'))
     })
 }
-export const updateQuestionTC = (packId:string,cardId: string, question: string): ThunkType => (dispatch) => {
+export const updateQuestionTC = (packId: string, cardId: string, question: string): ThunkType => (dispatch) => {
     dispatch(setAppStatusAC('loading'))
-    debugger
     cardsApi.updateCard({_id: cardId, question: question}).then(
-
         (res) => {
             dispatch(updateCardAc(packId, res.data.question))
             dispatch(getCardsTC(packId))
