@@ -76,7 +76,7 @@ const LearnPage: React.FC<LearnPagePropsType> = (props) => {
         }
     }
     const onChangeCallBack = (value:string)=>{
-        // alert(value)
+        console.log(value)
     }
 
     return (

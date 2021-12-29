@@ -22,7 +22,7 @@ const Radio: React.FC<RadioPropsType> = (
     }
 
     const mappedOptions: any[] = options ? options.map((o, i) => (
-        <label key={name + "-" + i} className={s.label}>
+        <label key={name + "-" + i} className={s.label}  >
             <input
                 type={"radio"}
                 name="radio"
