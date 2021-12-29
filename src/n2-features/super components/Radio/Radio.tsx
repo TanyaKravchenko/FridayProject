@@ -22,12 +22,12 @@ const Radio: React.FC<RadioPropsType> = (
     }
 
     const mappedOptions: any[] = options ? options.map((o, i) => (
-        <label key={name + "-" + i} className={s.label}  >
+        <label key={o} className={s.label}  >
             <input
                 type={"radio"}
                 name="radio"
                 value={o}
-                checked={value === o}
+                // checked={value === o}
                 onChange={onChangeCallback}
             />
              {o}

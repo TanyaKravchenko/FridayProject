@@ -76,7 +76,7 @@ const LearnPage: React.FC<LearnPagePropsType> = (props) => {
         }
     }
     const onChangeCallBack = (value:string)=>{
-        console.log(value)
+        alert(value)
     }
 
     return (
@@ -99,6 +99,7 @@ const LearnPage: React.FC<LearnPagePropsType> = (props) => {
                         <h4>Rate yourself: </h4>
                         <div className={styles.ratingBox}>
                                 <Radio
+                                    name={'radio'}
                                     options={grades}
                                     onChangeOption={onChangeCallBack}
                                 />

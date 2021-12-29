@@ -8,7 +8,7 @@
 
 }
 
-label input[type="radio"]:active::before {
+label input[type="radio"]:visited::before {
     content: "";
     display: block;
     position: relative;
