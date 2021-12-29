@@ -18,7 +18,7 @@
 
     h4 {
       @include h4Style();
-      margin-top: 0px;
+      margin-top: 0;
       text-align: center;
     }
 
@@ -27,11 +27,11 @@
       justify-content: space-around;
 
       .cancelBtn {
-        @include BtnStyle(124px, 36px, #e3dfe5, $backgroundColor);
+        @include BtnStyle(124px, 36px, $lightTextColor, $backgroundColor);
       }
 
       .saveBtn {
-        @include BtnStyle(124px, 36px, $backgroundColor, #e3dfe5);
+        @include BtnStyle(124px, 36px, $backgroundColor, $lightTextColor);
       }
     }
   }
@@ -46,6 +46,7 @@
 
     .ratingBox {
       margin-top: 10px;
+      padding-bottom: 60px;
     }
 
     .answer {

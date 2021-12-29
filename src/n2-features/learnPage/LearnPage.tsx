@@ -103,7 +103,6 @@ const LearnPage: React.FC<LearnPagePropsType> = (props) => {
                                     options={grades}
                                     onChangeOption={onChangeCallBack}
                                 />
-
                         </div>
                     </div>
                     <div className={styles.buttonsBlock}>
