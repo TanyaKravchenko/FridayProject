@@ -15,7 +15,8 @@
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    h4{
+
+    h4 {
       @include h4Style();
       margin-top: 0px;
       text-align: center;
@@ -26,32 +27,37 @@
       justify-content: space-around;
 
       .cancelBtn {
-        @include BtnStyle(124px, 36px, $backgroundColor, $backgroundColorCard);
+        @include BtnStyle(124px, 36px, $backgroundColorCard, $backgroundColor);
       }
 
       .saveBtn {
-        @include BtnStyle(124px, 36px, $backgroundColorCard, $backgroundColor);
+        @include BtnStyle(124px, 36px, $backgroundColor, $backgroundColorCard);
       }
     }
   }
-  .answerBlock{
+
+  .answerBlock {
     width: 80%;
     height: 390px;
-    h4{
+
+    h4 {
       @include h4Style();
 
     }
-    .answer{
+
+    .answer {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
       margin-bottom: 15px;
-      h4{
+
+      h4 {
         @include h4Style();
         margin-bottom: 0;
       }
     }
-    .buttonsBlock{
+
+    .buttonsBlock {
       display: flex;
       justify-content: space-between;
 
