@@ -8,15 +8,12 @@ type LearnPagePropsType = {
     onModalClose?: () => void
 }
 
-const grades = ['Didn\'t know', 'Forgot', 'Confused', 'A lot of thought', 'Knew'];
+// const grades = ['Didn\'t know', 'Forgot', 'Confused', 'A lot of thought', 'Knew'];
 
 const LearnPage: React.FC<LearnPagePropsType> = (props) => {
     const {cardsPack_id} = props
     const packName = useSelector<RootStateType, any | undefined>(state => state.packs.cardPacks && state.packs.cardPacks.find(pack => pack._id === cardsPack_id));
-    const cards = useSelector<RootStateType, Array<any>>(state => state.cards.cards);
     const [isChecked, setIsChecked] = useState<boolean>(false);
-    const [first, setFirst] = useState<boolean>(true);
-    const [grade, setGrade] = useState(grades.indexOf(grades[0]) + 1)
     const [card, setCard] = useState<any>({
         _id: 'fake',
         cardsPack_id: '',
