@@ -3,7 +3,7 @@ import styles from './LearnPage.module.scss';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootStateType} from '../../n1-main/m2-bll/store';
 import {OneCardType} from "../../n1-main/m3-dal/cards-api";
-import {getCardsTC} from "../../n1-main/m2-bll/reducers/cards-reducer";
+import {getCardsTC, setCardsGradeTC} from "../../n1-main/m2-bll/reducers/cards-reducer";
 import Radio from "../super components/Radio/Radio";
 
 type LearnPagePropsType = {
@@ -27,10 +27,11 @@ const getCard = (cards: OneCardType[]) => {
 
 const LearnPage: React.FC<LearnPagePropsType> = (props) => {
     const {cardsPack_id} = props
-    const cards = useSelector<RootStateType, OneCardType[]>(state => state.cards.cards)
+    const cards = useSelector<RootStateType, any>(state => state.cards.cards)
     const packName = useSelector<RootStateType, any | undefined>(state => state.packs.cardPacks && state.packs.cardPacks.find(pack => pack._id === cardsPack_id));
     const [isChecked, setIsChecked] = useState<boolean>(false);
     const [first, setFirst] = useState<boolean>(true);
+    const [grade, setGrade] = useState(1)
     const [card, setCard] = useState<any>({
         _id: 'fake',
         cardsPack_id: '',
@@ -67,18 +68,15 @@ const LearnPage: React.FC<LearnPagePropsType> = (props) => {
     }
     const onNext = () => {
         setIsChecked(false);
-
         if (cards.length > 0) {
-            // dispatch
-            setCard(getCard(cards));
+            dispatch(setCardsGradeTC(card._id, grade ));
         } else {
 
         }
     }
-    const onChangeCallBack = (value:string)=>{
-        alert(value)
+    const onChangeCallBack = (value:number)=>{
+        setGrade(value)
     }
-
     return (
         <div className={styles.learnPageContainer}>
             <h3>Learn "{packName?.name}"</h3>
@@ -109,7 +107,7 @@ const LearnPage: React.FC<LearnPagePropsType> = (props) => {
                         <button className={styles.cancelBtn} onClick={props.onModalClose}>cancel</button>
                         <button
                             className={styles.saveBtn}
-                            onClick={onNext}
+                            onClick={ onNext}
                         >
                             next
                         </button>

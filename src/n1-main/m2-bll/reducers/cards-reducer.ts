@@ -10,6 +10,7 @@ const initialState = {
     sortCards: '0updated',
     cardAnswer: '',
     cardQuestion: '',
+    cardsTotalCount: 100,
 }
 
 export const cardsReducer = (state: InitialStateType = initialState, action: ActionsType) => {
@@ -41,6 +42,8 @@ export const cardsReducer = (state: InitialStateType = initialState, action: Act
             return {...state, cardAnswer: action.value, cardQuestion: ''}
         case 'cards/SEARCH-QUESTION-CARDS':
             return {...state, cardQuestion: action.value, cardAnswer: ''}
+        case "cards/SET-CARDS-GRADE":
+            return {...state, cards: state.cards.map(c => c._id === action.card_id ? {...c , grade: action.grade } : c)}
         default:
             return state
     }
@@ -53,6 +56,7 @@ export const deleteCardAc = (cardId: string) => ({type: 'cards/DELETE-CARD', car
 export const sortCardsAC = (value: string) => ({type: 'cards/SORT-CARDS', value} as const)
 export const searchAnswerCardsAC = (value: string) => ({type: 'cards/SEARCH-ANSWER-CARDS', value} as const)
 export const searchQuestionCardsAC = (value: string) => ({type: 'cards/SEARCH-QUESTION-CARDS', value} as const)
+export const setCardsGradeAC = (card_id: string, grade: number) =>({type: 'cards/SET-CARDS-GRADE', card_id, grade} as const)
 
 
 export const updateCardAc = (id: string, question: string) => ({
@@ -113,6 +117,20 @@ export const updateQuestionTC = (packId: string, cardId: string, question: strin
     })
 }
 
+export const setCardsGradeTC = (cardId: string, grade: number): ThunkType => (dispatch) => {
+    dispatch(setAppStatusAC('loading'))
+    cardsApi.updateCardGrade(cardId, grade)
+        .then(res => {
+            dispatch(setCardsGradeAC(res.data.card_id, res.data.grade))
+            dispatch(setAppStatusAC('succeeded'))
+        })
+        .catch(() => {
+            dispatch(setAppStatusAC('failed'))
+        })
+}
+
+
+
 //types
 export type InitialStateType = typeof initialState
 type ThunkType = ThunkAction<any, RootStateType, {}, ActionsType>
@@ -126,6 +144,7 @@ type ActionsType =
     | ReturnType<typeof sortCardsAC>
     | ReturnType<typeof searchAnswerCardsAC>
     | ReturnType<typeof searchQuestionCardsAC>
+    | ReturnType<typeof setCardsGradeAC>
 
 
 

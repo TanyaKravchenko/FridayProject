@@ -14,6 +14,9 @@ export const cardsApi = {
     },
     updateCard(updatedCardData: UpdatedCardDataType) {
         return instance.put<UpdatedCardDataType, AxiosResponse<OneCardType>>('/cards/card', {card: updatedCardData})
+    },
+    updateCardGrade(card_id: string, grade: number){
+        return instance.put<UpdateCardGradeType>('cards/grade',{card_id, grade})
     }
 }
 
@@ -24,7 +27,14 @@ export type UpdatedCardDataType = {
     comments?: string
 }
 
-
+type UpdateCardGradeType = {
+    _id: ''
+    cardsPack_id: ''
+    card_id: ''
+    user_id: ''
+    grade: number
+    shots: number
+}
 export type OneCardType = {
     _id: string,
     cardsPack_id: string,
