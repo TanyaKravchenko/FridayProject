@@ -24,7 +24,8 @@ export const cardsApi = {
 export type UpdatedCardDataType = {
     _id: string,
     question?: string,
-    comments?: string
+    comments?: string,
+    answer?: string
 }
 
 type UpdateCardGradeType = {
