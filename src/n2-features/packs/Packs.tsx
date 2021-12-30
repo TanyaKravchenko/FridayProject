@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import s from './Packs.module.scss';
 import {addPackTC, getPacksTC, setMyPacksAC, setValueSearchAC} from '../../n1-main/m2-bll/reducers/packs-reducer';
@@ -19,7 +19,6 @@ export const Packs = () => {
     const myPacks = useSelector<RootStateType, boolean>(state => state.packs.myPacks)
 
     const [showEditModal, setShowEditModal] = useState<boolean>(false);
-    const [newPackName, setNewPackName] = useState<string>('newName')
 
     useEffect(() => {
         dispatch(getPacksTC({}))
@@ -27,6 +26,7 @@ export const Packs = () => {
     }, [dispatch, packName, sortPacks, myPacks])
 
     const addNewPackHandler = (name: string) => {
+        debugger
         let cardsPack: CreateCardsPackType = {
             name
         }
@@ -60,7 +60,6 @@ export const Packs = () => {
                         <button
                             className={s.addBtn}
                             onClick={() => setShowEditModal(true)}
-                            value={newPackName}
                         >
                             Add new pack
                         </button>
