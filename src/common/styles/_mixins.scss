@@ -25,6 +25,15 @@
   }
 }
 
+@mixin labelStyle() {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 20px;
+  opacity: 0.5;
+  color: $darkTextColor;
+}
+
 @mixin BtnStyle($width, $height, $bg, $color) {
   background-color: $bg;
   color: $color;

@@ -2,13 +2,13 @@
 @import '../../../common/styles/variables';
 
 .table {
-  margin: 1.5rem 0;
+  margin: 10px 0;
   filter: drop-shadow(0px 4px 14px rgba(45, 46, 70, 0.15));
 
   .tableHeader {
     height: 3rem;
     display: grid;
-    grid-template-columns: 15% 10% 25% 25% 25%;
+    grid-template-columns: 15% 9% 25% 25% 20%;
     grid-template-rows: 1fr;
     column-gap: 10px;
     background-color: #c8c5d9;
@@ -33,9 +33,9 @@
   }
 
   .packRow {
-    height: 48px;
+    min-height: 48px;
     display: grid;
-    grid-template-columns: 15% 10% 25% 25% 25%;
+    grid-template-columns: 15% 9% 25% 25% 20%;
     grid-template-rows: 1fr;
     column-gap: 10px;
 
@@ -59,7 +59,6 @@
     .packDeleteBtn {
       width: 48px;
       height: 24px;
-      margin-right: 5px;
       font-weight: 500;
       font-size: 0.8rem;
       line-height: 24px;
@@ -76,7 +75,7 @@
     .packEditLearnBtn {
       width: 43px;
       height: 24px;
-      margin-right: 5px;
+      margin: 3px;
       font-weight: 500;
       font-size: 0.8rem;
       line-height: 24px;

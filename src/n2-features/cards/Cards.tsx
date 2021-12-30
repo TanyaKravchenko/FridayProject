@@ -44,6 +44,7 @@ export const Cards = () => {
     useEffect(() => {
         dispatch(getCardsTC(cardsPack_id))
     }, [dispatch, sortCards, cardAnswer, cardQuestion])
+
     // HANDLERS
     const DeleteCard = (packID: string, cardID: string) => {
         dispatch(deleteCardTC(packID, cardID))
@@ -65,7 +66,6 @@ export const Cards = () => {
         }
         dispatch(addCardTC(card))
     }
-
 
     //update card question
     const toSetQuestion = (packId: string, cardId: string, question: string) => {
@@ -124,6 +124,8 @@ export const Cards = () => {
                                     userId={userId}
                                     deleteCard={DeleteCard}
                                     toSetQuestion={toSetQuestion}
+                                    answer={card.answer}
+                                    question={card.question}
                                 />
                             )
                         })
