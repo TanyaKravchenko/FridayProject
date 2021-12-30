@@ -32,7 +32,6 @@ export const Card = (props: CardPropsType) => {
     }
 
     const handleOnCardEditButton = (cardId: string, packName: string) => {
-        dispatch(getCardsTC(cardId))
         dispatch(updateCardAc(cardId, props.question))
     }
 
