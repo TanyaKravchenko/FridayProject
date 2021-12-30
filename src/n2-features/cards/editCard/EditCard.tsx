@@ -1,22 +1,19 @@
-import React, {ChangeEvent, useState} from "react";
-import s from "../../cards/editCard/EditCard.module.scss";
+import React, {ChangeEvent, useState} from 'react';
+import s from '../../cards/editCard/EditCard.module.scss';
 
 type EditCardPropsType = {
     cardId: string
     closeEditModal: () => void
     updateCard: (cardId: string, question: string, answer: string) => void
-    answer?: string
-    question?: string
+    answer: string
+    question: string
 }
 
 export const EditCard: React.FC<EditCardPropsType> = (props) => {
     console.log(props.cardId)
 
-    const question = props.question ? props.question : ""
-    const answer = props.answer ? props.answer : ""
-
-    const [newQuestion, setNewQuestion] = useState<string>(question)
-    const [newAnswer, setNewAnswer] = useState<string>(answer)
+    const [newQuestion, setNewQuestion] = useState<string>(props.question)
+    const [newAnswer, setNewAnswer] = useState<string>(props.answer)
 
     const questionHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setNewQuestion(e.currentTarget.value)
@@ -50,7 +47,6 @@ export const EditCard: React.FC<EditCardPropsType> = (props) => {
                 <button className={s.cancelBtn} onClick={closeEditMode}>Cancel</button>
                 <button className={s.saveBtn} onClick={updateCard}>Save</button>
             </div>
-
         </div>
     );
 }

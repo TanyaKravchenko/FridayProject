@@ -1,55 +1,43 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {useState} from 'react';
 import s from '../Cards.module.scss';
 import {OneCardType} from '../../../n1-main/m3-dal/cards-api';
 import Modal from '../../modal/Modal';
 import {EditCard} from '../editCard/EditCard';
 import BackModal from '../../modal/BackModal';
 import {
-    getCardsTC, setCardsAc, setPackIdAc,
+    getCardsTC,
     updateCardAc,
-    updateCardTC, updateQuestionTC,
+    updateCardTC,
 } from '../../../n1-main/m2-bll/reducers/cards-reducer';
-import {useDispatch, useSelector} from 'react-redux';
-import {RootStateType} from '../../../n1-main/m2-bll/store';
+import {useDispatch} from 'react-redux';
 
 type CardPropsType = {
     card: OneCardType,
     userId: string,
     deleteCard: (packID: string, cardID: string) => void,
     toSetQuestion: (packId: string, cardId: string, question: string) => void
-    answer?: string
-    question?: string
+    answer: string
+    question: string
 }
 
 export const Card = (props: CardPropsType) => {
     //hooks
-    const [question, setQuestion] = useState(props.card.question)
-    const [editMode, setEditMode] = useState(false)
     const [showDelModal, setShowDelModal] = useState<boolean>(false);
     const [showEditModal, setShowEditModal] = useState<boolean>(false);
-    const cards = useSelector<RootStateType, OneCardType[]>(state => state.cards.cards)
     const dispatch = useDispatch()
     //handlers
 
-    const onClickOpenEditMode = () => {
-        setEditMode(true)
-        setQuestion(props.card.question)
-    }
-
     const handleOnCardDeleteButton = (cardId: string) => {
         dispatch(getCardsTC(cardId))
-        dispatch(updateCardAc(cardId, question))
+        dispatch(updateCardAc(cardId, props.question))
     }
 
-    const handleOnCardEditButton = (cardId: string, packName: string) =>{
-        debugger
+    const handleOnCardEditButton = (cardId: string, packName: string) => {
         dispatch(getCardsTC(cardId))
-        dispatch(updateCardAc(cardId, question))
+        dispatch(updateCardAc(cardId, props.question))
     }
-
 
     const updateCardCallback = (id: string, question: string, answer: string) => {
-        debugger
         dispatch(updateCardTC(id, question, answer))
         dispatch(getCardsTC(id))
     }
@@ -58,26 +46,12 @@ export const Card = (props: CardPropsType) => {
         updateCardCallback && updateCardCallback(id, question, answer)
     }
 
-
     const handleDeleteCard = (packId: string, cardId: string) => {
         props.deleteCard(packId, cardId)
     }
-
-    const onClickUpdateQuestion = () => {
-        setEditMode(false)
-        props.toSetQuestion(props.card.cardsPack_id, props.card._id, question)
-
-    }
-    const onBlurCloseEditMode = () => {
-        setEditMode(false)
-        props.toSetQuestion(props.card.cardsPack_id, props.card._id, question)
-    }
-    const onChangeSetQuestion = (e: ChangeEvent<HTMLInputElement>) => {
-        setQuestion(e.currentTarget.value)
-    }
     return (
         <div className={s.cardsRow}>
-            <div className={s.cardsRowItem}>{question}</div>
+            <div className={s.cardsRowItem}>{props.question}</div>
             <div className={s.cardsRowItem}>
                 {props.card.answer}
             </div>
@@ -101,7 +75,6 @@ export const Card = (props: CardPropsType) => {
                     <button
                         className={s.editBtn}
                         onClick={() => {
-                            debugger
                             handleOnCardEditButton(props.card.cardsPack_id, props.card._id);
                             setShowEditModal(true);
                         }
