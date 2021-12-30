@@ -38,7 +38,6 @@ export const PacksTable: React.FC = () => {
 
     //handlers
     const handleOnLearnButton = (id: string) => {
-        dispatch(getCardsTC(id))
         dispatch(setPackIdAc(id))
     }
 
