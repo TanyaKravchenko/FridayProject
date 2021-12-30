@@ -6,8 +6,7 @@ import {EditCard} from '../editCard/EditCard';
 import BackModal from '../../modal/BackModal';
 import {
     getCardsTC,
-    updateCardAc,
-    updateCardTC,
+    updateCardAc, updateCardTC
 } from '../../../n1-main/m2-bll/reducers/cards-reducer';
 import {useDispatch} from 'react-redux';
 

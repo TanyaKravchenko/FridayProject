@@ -117,6 +117,18 @@ export const updateQuestionTC = (packId: string, cardId: string, question: strin
     })
 }
 
+export const updateCardTC = (cardId: string, question: string, answer: string): ThunkType => (dispatch) => {
+    dispatch(setAppStatusAC('loading'))
+    cardsApi.updateCard({_id: cardId, question: question, answer: answer}).then(
+        (res) => {
+            dispatch(getCardsTC(cardId));
+            dispatch(setAppStatusAC('succeeded'));
+        }
+    ).catch(() => {
+        dispatch(setAppStatusAC('failed'))
+    })
+}
+
 export const setCardsGradeTC = (cardId: string, grade: number): ThunkType => (dispatch) => {
     dispatch(setAppStatusAC('loading'))
     cardsApi.updateCardGrade(cardId, grade)
