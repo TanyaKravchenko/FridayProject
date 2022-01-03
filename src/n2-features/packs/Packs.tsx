@@ -13,12 +13,11 @@ import {CreateCardsPackType} from '../../n1-main/m3-dal/packs-api';
 export const Packs = () => {
 
     //hooks
-    const dispatch = useDispatch()
     const packName = useSelector<RootStateType, string | undefined>(state => state.packs.packName)
     const sortPacks = useSelector<RootStateType, string | undefined>(state => state.packs.sortPacks)
     const myPacks = useSelector<RootStateType, boolean>(state => state.packs.myPacks)
-
     const [showEditModal, setShowEditModal] = useState<boolean>(false);
+    const dispatch = useDispatch()
 
     useEffect(() => {
         dispatch(getPacksTC({}))
@@ -26,7 +25,6 @@ export const Packs = () => {
     }, [dispatch, packName, sortPacks, myPacks])
 
     const addNewPackHandler = (name: string) => {
-        debugger
         let cardsPack: CreateCardsPackType = {
             name
         }
@@ -69,7 +67,7 @@ export const Packs = () => {
                 </div>
                 {showEditModal && <Modal childrenHeight={233}
                                          childrenWidth={400}
-                                         onSaveClick={(value) => {
+                                         onSaveClick={(value) => {debugger
                                              addNewPackHandler(value);
                                              setShowEditModal(false);
                                          }}

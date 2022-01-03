@@ -5,7 +5,7 @@ type EditPackPropsType = {
     packId: string
     closeEditModal: () => void
     updatePack: (id: string, name: string) => void
-    packName?: string
+    packName: string
 }
 
 export const EditPack: React.FC<EditPackPropsType> = props => {
@@ -13,7 +13,7 @@ export const EditPack: React.FC<EditPackPropsType> = props => {
     const {packName= "packName"} = props
 
     const [newName, setNewName] = useState<string>(packName)
-
+debugger
     const changePackNameHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setNewName(e.currentTarget.value)
     }

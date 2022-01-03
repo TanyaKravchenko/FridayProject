@@ -24,8 +24,8 @@ export const Card = (props: CardPropsType) => {
     const [showDelModal, setShowDelModal] = useState<boolean>(false);
     const [showEditModal, setShowEditModal] = useState<boolean>(false);
     const dispatch = useDispatch()
-    //handlers
 
+    //handlers
     const handleOnCardDeleteButton = (cardId: string) => {
         dispatch(getCardsTC(cardId))
         dispatch(updateCardAc(cardId, props.question))
@@ -62,7 +62,7 @@ export const Card = (props: CardPropsType) => {
             <div className={s.cardsRowItem}>
                 {props.userId === props.card.user_id &&
                 <>
-                    <button className={s.deleteBtn}
+                    <button className={s.cardDeleteBtn}
                             onClick={() => {
                                 handleOnCardDeleteButton(props.card._id);
                                 setShowDelModal(true);
@@ -71,12 +71,11 @@ export const Card = (props: CardPropsType) => {
                         delete
                     </button>
                     <button
-                        className={s.editBtn}
+                        className={s.cardEditBtn}
                         onClick={() => {
                             handleOnCardEditButton(props.card.cardsPack_id, props.card._id);
                             setShowEditModal(true);
-                        }
-                        }
+                        }}
                     >
                         edit
                     </button>
@@ -85,22 +84,26 @@ export const Card = (props: CardPropsType) => {
             </div>
             <div className={s.modalItem}>
                 {
-                    showDelModal && <Modal childrenHeight={220}
-                                           childrenWidth={400}
-                                           onDeleteClick={() => {
-                                               handleDeleteCard(props.card.cardsPack_id, props.card._id);
-                                               setShowDelModal(false);
-                                           }}
-                                           onModalClose={() => setShowDelModal(false)}
-                                           type={'info'}
-                                           header={'Delete pack'}
-                                           buttonTitle={'Delete'}
-                                           packName={'Pack name'}/>
+                    showDelModal &&
+                    <Modal childrenHeight={220}
+                           childrenWidth={400}
+                           onDeleteClick={() => {
+                               handleDeleteCard(props.card.cardsPack_id, props.card._id);
+                               setShowDelModal(false);
+                           }}
+                           onModalClose={() => setShowDelModal(false)}
+                           type={'info'}
+                           header={'Delete pack'}
+                           buttonTitle={'Delete'}
+                           packName={'Pack name'}
+                    />
                 }
                 {
                     showEditModal &&
-                    <BackModal onModalClose={() => setShowEditModal(false)} childrenWidth={413}
-                               childrenHeight={444}>
+                    <BackModal onModalClose={() => setShowEditModal(false)}
+                               childrenWidth={413}
+                               childrenHeight={444}
+                    >
                         <EditCard
                             cardId={props.card._id}
                             updateCard={updateCard}

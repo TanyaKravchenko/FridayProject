@@ -66,9 +66,8 @@
       color: white;
       border: 0;
 
-      &:disabled {
-        opacity: 50%;
-        background-color: #a0a0a0;
+      &:hover {
+        opacity: 0.5;
       }
     }
 
@@ -86,7 +85,7 @@
       border: none;
 
       &:hover {
-        opacity: 70%;
+        opacity: 0.5;
       }
     }
   }

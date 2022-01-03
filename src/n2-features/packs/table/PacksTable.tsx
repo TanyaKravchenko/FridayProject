@@ -38,6 +38,7 @@ export const PacksTable: React.FC = () => {
 
     //handlers
     const handleOnLearnButton = (id: string) => {
+        dispatch(getCardsTC(packId))
         dispatch(setPackIdAc(id))
     }
 
@@ -159,8 +160,10 @@ export const PacksTable: React.FC = () => {
             }
             {
                 showEditModal &&
-                <BackModal onModalClose={() => setShowEditModal(false)} childrenWidth={413}
-                           childrenHeight={540}>
+                <BackModal onModalClose={() => setShowEditModal(false)}
+                           childrenWidth={413}
+                           childrenHeight={540}
+                >
                     <EditPack packId={packId}
                               closeEditModal={() => setShowEditModal(false)}
                               packName={name}
@@ -169,8 +172,10 @@ export const PacksTable: React.FC = () => {
                 </BackModal>
             }
             {showLearnModal &&
-            <BackModal onModalClose={() => setShowLearnModal(false)} childrenWidth={413}
-                       childrenHeight={575}>
+            <BackModal onModalClose={() => setShowLearnModal(false)}
+                       childrenWidth={413}
+                       childrenHeight={575}
+            >
                 <LearnPage
                     cardsPack_id={packId}
                     onModalClose={() => setShowLearnModal(false)}
