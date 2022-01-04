@@ -67,7 +67,7 @@ export const Packs = () => {
                 </div>
                 {showEditModal && <Modal childrenHeight={233}
                                          childrenWidth={400}
-                                         onSaveClick={(value) => {debugger
+                                         onSaveClick={(value) => {
                                              addNewPackHandler(value);
                                              setShowEditModal(false);
                                          }}

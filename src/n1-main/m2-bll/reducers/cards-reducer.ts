@@ -80,6 +80,7 @@ export const getCardsTC = (packId: string) => async (dispatch: Dispatch, getStat
         dispatch(setAppStatusAC('failed'))
     }
 }
+
 export const addCardTC = (newCard: addCardType): ThunkType => (dispatch) => {
     dispatch(setAppStatusAC('loading'))
     cardsApi.addCard(newCard).then(
@@ -140,8 +141,6 @@ export const setCardsGradeTC = (cardId: string, grade: number): ThunkType => (di
             dispatch(setAppStatusAC('failed'))
         })
 }
-
-
 
 //types
 export type InitialStateType = typeof initialState
