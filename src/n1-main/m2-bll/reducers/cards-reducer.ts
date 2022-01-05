@@ -42,8 +42,8 @@ export const cardsReducer = (state: InitialStateType = initialState, action: Act
             return {...state, cardAnswer: action.value, cardQuestion: ''}
         case 'cards/SEARCH-QUESTION-CARDS':
             return {...state, cardQuestion: action.value, cardAnswer: ''}
-        case "cards/SET-CARDS-GRADE":
-            return {...state, cards: state.cards.map(c => c._id === action.card_id ? {...c , grade: action.grade } : c)}
+        case 'cards/SET-CARDS-GRADE':
+            return {...state, cards: state.cards.map(c => c._id === action.card_id ? {...c, grade: action.grade} : c)}
         default:
             return state
     }
@@ -56,9 +56,11 @@ export const deleteCardAc = (cardId: string) => ({type: 'cards/DELETE-CARD', car
 export const sortCardsAC = (value: string) => ({type: 'cards/SORT-CARDS', value} as const)
 export const searchAnswerCardsAC = (value: string) => ({type: 'cards/SEARCH-ANSWER-CARDS', value} as const)
 export const searchQuestionCardsAC = (value: string) => ({type: 'cards/SEARCH-QUESTION-CARDS', value} as const)
-export const setCardsGradeAC = (card_id: string, grade: number) =>({type: 'cards/SET-CARDS-GRADE', card_id, grade} as const)
-
-
+export const setCardsGradeAC = (card_id: string, grade: number) => ({
+    type: 'cards/SET-CARDS-GRADE',
+    card_id,
+    grade
+} as const)
 export const updateCardAc = (id: string, question: string) => ({
     type: 'cards/UPDATE-CARD',
     id, question
