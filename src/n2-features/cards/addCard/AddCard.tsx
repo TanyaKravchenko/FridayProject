@@ -46,7 +46,6 @@ export const AddCard = (props:AddCardType)=> {
                 <button className={s.cancelBtn} onClick={closeEditMode}>Cancel</button>
                 <button className={s.saveBtn} onClick={updateCard}>Save</button>
             </div>
-
         </div>
     )
 }
