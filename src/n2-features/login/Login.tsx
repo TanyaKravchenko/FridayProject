@@ -36,7 +36,7 @@ export const Login: React.FC<LoginPropsType> = React.memo((props) => {
                     <Input
                         type={'password'}
                         className={s.inputPassword}
-                        {...props.formik.getFieldProps('password')}
+                        {... props.formik.getFieldProps('password')}
                     />
                     {props.formik.touched.password && props.formik.errors.password ? (
                         <div style={{color: 'red'}}>{props.formik.errors.password}</div>

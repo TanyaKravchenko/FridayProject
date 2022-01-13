@@ -45,10 +45,23 @@ const setErrorAc = (errorValue: string) => ({type: 'PROFILE/SET-ERROR', errorVal
 // export const updateUserDataAc = (updatedData: ProfileType) => ({type: 'PROFILE/UPDATE-USER-NAME', updatedData} as const)
 
 //thunks
-export const updateUser = (name: string | null, avatar?: string) => async (dispatch: Dispatch<ActionsType>) => {
+export const updateUserName = (name: string | null) => async (dispatch: Dispatch<ActionsType>) => {
     dispatch(setAppStatusAC('loading'))
     try {
-        await authApi.updateUser(name, avatar)
+        await authApi.updateUser(name)
+        dispatch(setAppStatusAC('succeeded'))
+    } catch (e) {
+        const error = e.response
+            ? e.response.data.error
+            : (e.message)
+        dispatch(setAppErrorAC(error))
+        dispatch(setAppStatusAC('failed'))
+    }
+}
+export const updateUserPhoto = (fileData:string) => async (dispatch: Dispatch<ActionsType>) => {
+    dispatch(setAppStatusAC('loading'))
+    try {
+        await authApi.updatePhoto(fileData)
         dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
         const error = e.response

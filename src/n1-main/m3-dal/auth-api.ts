@@ -25,9 +25,13 @@ export const authApi = {
     setNewPassword(data: SetNewPasswordDataType) {
         return instance.post<ForgotDataType, AxiosResponse<SetNewPasswordDataType>>('auth/set-new-password', data)
     },
-    updateUser(name: string | null, avatar: string = 'https://image.shutterstock.com/image-photo/indy-musician-guitarist-pug-dogfunny-260nw-688080844.jpg') {
-        return instance.put<{ name: string, avatar: string }, AxiosResponse<ProfileType>>('auth/me', {name, avatar})
+    updateUser(name: string | null) {
+        return instance.put<{ name: string, }, AxiosResponse<ProfileType>>('auth/me', {name})
     },
+    updatePhoto(fileData:string){
+        debugger
+        instance.post('/file', fileData);
+    }
 }
 
 //types
