@@ -33,7 +33,7 @@ export const writeFile = (fileName: string, value: string) => {
     link.href = "data:text/plain;content-disposition=attachment;filename=file," + value;
     link.download = fileName;
     link.style.display = "none";
-    document.body.appendChild(link);
+    document.body.appendChild(link); //добавить тег в body
     link.click();
-    document.body.removeChild(link);
+    document.body.removeChild(link); //после клика удаляем тег
 };

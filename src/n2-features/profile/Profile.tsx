@@ -4,23 +4,24 @@ import Button from '../super components/Button/Button';
 import {EditableSpan} from '../../common/editableSpan/EditableSpan';
 import {ProfileType} from '../../n1-main/m3-dal/auth-api';
 import {DoubleSliderContainer} from '../doubleSlider/DoubleSliderContainer';
-import {UpdatePhoto} from "./updatePhoto/UpdatePhoto";
+import {UpdateProfile} from "./updateProfile/UpdateProfile";
 
 type ProfilePropsType = {
-    user: ProfileType | null
-    updateUserName: (value: string) => void
+    user: ProfileType
+    updateUserName: (value: string, avatar:string) => void
     onClickLogOut: () => void
 }
 
 const Profile: React.FC<ProfilePropsType> = React.memo((props) => {
     //hooks
     const [openModal, setOpenModal] = useState(false)
-
+    const [name, setName] = useState(props.user.name)
+    const [avatar, setAvatar] = useState(props.user.avatar)
     //handlers
-    const toOpenModal = ()=>{
+    const toOpenModal = () => {
         setOpenModal(true)
     }
-    const toCloseModal = ()=>{
+    const toCloseModal = () => {
         setOpenModal(false)
     }
     return (
@@ -28,20 +29,23 @@ const Profile: React.FC<ProfilePropsType> = React.memo((props) => {
             <div className={s.profileInfo}>
                 <span className={s.verify}>{props.user && props.user.verified}</span>
                 <h2 className={s.title}>Profile</h2>
-                <img src={props.user ? props.user.avatar : ''} alt="user-avatar"/>
+                <img src={props.user ? avatar : ''} alt="user-avatar"/>
                 <br/>
-                <button onClick={toOpenModal}>update Photo</button>
+                <h2>{name}</h2>
+                <Button  onClick={toOpenModal}>Edit Profile</Button>
+                {/*<button onClick={toOpenModal}>edit Profile</button>*/}
                 {openModal &&
-                    <UpdatePhoto
-                        width={400}
-                        height={400}
+                    <UpdateProfile
+                        width={500}
+                        height={500}
                         closeModal={toCloseModal}
+                        updateUserName={props.updateUserName}
+                        name={name}
+                        setName={setName}
+                        avatar={avatar}
+                        setAvatar={setAvatar}
                     />
                 }
-
-
-                <EditableSpan title={props.user && props.user.name} className={s.userName}
-                              updateUserName={props.updateUserName}/>
                 <Button onClick={props.onClickLogOut}>Log Out</Button>
             </div>
             <div className={s.cardsFilter}>
